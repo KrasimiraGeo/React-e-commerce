@@ -1,0 +1,40 @@
+.navbar {
+
+    left: 0px;
+    height: 40px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.navbar ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-decoration: none;
+    text-align: right;
+}
+
+.navbar ul li  {
+    /* float: left; */
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.navbar ul li a {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    font-size: small;
+    /* display: block; */
+    color: white;
+    /* text-align: justify; */
+    padding: 30px;
+    text-decoration: none;
+    margin: 5px;
+
+}
+
+.navbar li a:hover {
+    font-weight: bold;
+}
