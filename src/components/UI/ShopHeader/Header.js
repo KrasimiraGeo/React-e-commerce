@@ -10,7 +10,7 @@ export const Header = () => {
         <Fragment>
            <div className={classes['bg-img']}>
             <div className={classes.container}>
-                <div class={classes.topnav}>
+                <div className={classes.topnav}>
                     <a href="/">Home</a>
                     <a href="/news">News</a>
                     <a href="/contact">Contact</a>

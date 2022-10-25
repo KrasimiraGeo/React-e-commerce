@@ -4,9 +4,9 @@ import { Route } from 'react-router-dom'
 
 import { LandingPage } from './pages/LandingPage'
 import { ShopPage } from './pages//Shop/ShopPage'
-import { Upload } from './pages/Admin/Upload';
 import { Fragment } from 'react';
 import { Download } from './pages/Admin/Download';
+import { AdminPage } from './pages/Admin/AdminPage';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <ShopPage />
       </Route>
       <Route path='/admin-upload'>
-        <Upload />
+        <AdminPage />
       </Route>
 
     </Fragment>
