@@ -5,8 +5,9 @@ import { Route } from 'react-router-dom'
 import { LandingPage } from './pages/LandingPage'
 import { ShopPage } from './pages//Shop/ShopPage'
 import { Fragment } from 'react';
-import { Download } from './pages/Admin/Download';
+import { Download } from './pages/Admin/operations/Download';
 import { AdminPage } from './pages/Admin/AdminPage';
+import { LoginForm } from './components/LoginForm/LoginForm';
 
 function App() {
   return (
@@ -14,16 +15,12 @@ function App() {
       <Route path='/' exact>
         <LandingPage />
       </Route>
-      <Route path='/download'>
-        <Download />
-      </Route>
       <Route path='/shop'>
         <ShopPage />
       </Route>
-      <Route path='/admin-upload'>
-        <AdminPage />
+      <Route path='/account'>
+        <LoginForm />
       </Route>
-
     </Fragment>
   );
 }

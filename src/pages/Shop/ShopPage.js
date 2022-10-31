@@ -1,16 +1,16 @@
-import { Card } from "../../components/UI/Card/Card"
-import { Header } from "../../components/UI/ShopHeader/Header"
-import { AvailableItems } from "./AvailableItems"
-
+import { Header } from "../../components/ShopHeader/Header"
+import {FetchAllProducts} from '../Admin/operations/FetchAllProducts'
+import { LoginForm } from "../../components/LoginForm/LoginForm"
+import { Fragment } from "react"
 // import { Item } from "../components/UI/Item"
 export const ShopPage = () => {
 
     return (
-        <section>
-            <Header />
-            
-            <AvailableItems/>
-        </section>
+        <Fragment>
+            <LoginForm/>
+            <Header />    
+            <FetchAllProducts/>
+        </Fragment>
 
     )
 }

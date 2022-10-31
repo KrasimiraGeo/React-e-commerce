@@ -1,8 +1,8 @@
 import { Fragment } from "react"
 
-import {Header} from '../../components/UI/ShopHeader/Header'
-import { FetchAllProducts } from "./FetchAllProducts"
-import { Upload } from "./Upload"
+import {Header} from '../../components/ShopHeader/Header'
+import { FetchAllProducts } from "../Admin/operations/FetchAllProducts"
+import { Upload } from "../Admin/operations/Upload"
 
 
 // TODO: 

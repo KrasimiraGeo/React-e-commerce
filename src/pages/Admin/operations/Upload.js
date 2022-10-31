@@ -1,5 +1,5 @@
 import { useState, Fragment } from 'react'
-import { storage } from '../../FirebaseConfig/config'
+import { storage } from '../../../FirebaseConfig/config'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage' // makes a reference for the file
 import classes from './Upload.module.css'
 
@@ -81,9 +81,9 @@ export const Upload = () => {
 
     const toggleUploadForm = (event) => {
         setFormIsVisible(!formIsVisible)
-        if (formIsVisible){
-         event.target.textContent = 'Show upload form'
-        }else{
+        if (formIsVisible) {
+            event.target.textContent = 'Show upload form'
+        } else {
             event.target.textContent = 'Hide upload form'
         }
     }
@@ -92,7 +92,7 @@ export const Upload = () => {
         <Fragment>
             <div >
                 <div className={classes.centered}>
-                <button className ={classes['button-form']} onClick={toggleUploadForm}>Show upload form</button>
+                    <button className={classes['button-form']} onClick={toggleUploadForm}>Show upload form</button>
                 </div>
                 {formIsVisible &&
                     <form id='form'>
@@ -134,7 +134,9 @@ export const Upload = () => {
                             value={description}
                             onChange={descriptionHandler}
                             required />
-                        <button onClick={uploadImage}>Upload to Firebase</button>
+                        <div className={classes.centered}>
+                            <button className={classes['button-upload']} onClick={uploadImage}>Upload to Firebase</button>
+                        </div>
                     </form>
                 }
             </div>

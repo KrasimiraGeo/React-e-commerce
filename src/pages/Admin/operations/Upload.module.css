@@ -21,7 +21,7 @@
     height: 100%;
   } */
 
- 
+
 
 /* CSS */
 /* .button-64 {
@@ -73,22 +73,23 @@
   }
 } */
 
-  
-.centered{
+
+.centered {
   text-align: center;
-  margin-top: 2%;
+  margin-top: 3%;
 }
 
 /* CSS */
-.button-form{
-  background-color: #333;
+.button-form {
+  /* background-color: #333; */
+  background-color: #e5ebf1;
   border: 0 solid #7b7f86;
   border-radius: 1.5rem;
   box-sizing: border-box;
-  color: white;
+  color: black;
   cursor: pointer;
   display: inline-block;
-  font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: "Basier circle", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1.1rem;
   font-weight: 600;
   line-height: 1;
@@ -105,60 +106,74 @@
 .button-form:hover {
   background-color: #1e293b;
   color: #fff;
+  transform: translateY(-2px);
 }
 
 @media (min-width: 768px) {
-  .button-form{
+  .button-form {
     font-size: 1.125rem;
     padding: 1rem 2rem;
   }
 }
 
-form { 
-  max-width:420px; 
-  margin:50px auto; 
+form {
+  max-width: 420px;
+  margin: 50px auto;
+  margin-top: 3%;
 }
 
 
 .feedback-input {
-  color:black;
+  color: black;
   font-family: Helvetica, Arial, sans-serif;
-  font-weight:500;
+  font-weight: 500;
   font-size: 18px;
   border-radius: 5px;
   line-height: 22px;
   background-color: transparent;
-  border:2px solid #CC6666;
+  border: 2px solid #CC6666;
   transition: all 0.3s;
   padding: 13px;
   margin-bottom: 15px;
-  width:100%;
+  width: 100%;
   box-sizing: border-box;
-  outline:0;
+  outline: 0;
 }
 
 
-.feedback-input:focus { border:2px solid #CC4949; }
+.feedback-input:focus {
+  border: 2px solid #CC4949;
+}
 
 textarea {
   height: 150px;
   line-height: 150%;
-  resize:vertical;
-}
-.button{
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-  width: 100%;
-  background:#CC6666;
-  border-radius:5px;
-  border:0;
-  cursor:pointer;
-  color:white;
-  font-size:24px;
-  padding-top:10px;
-  padding-bottom:10px;
-  transition: all 0.3s;
-  margin-top:-4px;
-  font-weight:700;
+  resize: vertical;
 }
 
-button:hover { background:#CC4949; }
+.button-upload {
+  background: #1e293b;
+  border: 0 solid #7b7f86;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Basier circle", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 1rem 1.6rem;
+  text-align: center;
+  text-decoration: none #0d172a solid;
+  transition: all .1s cubic-bezier(.4, 0, .2, 1);
+  box-shadow: 0px 2px 4px rgba(31, 32, 34, 0.25);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 10px;
+}
+
+.button-upload :hover {  
+    transform: translateY(-2px);
+}
