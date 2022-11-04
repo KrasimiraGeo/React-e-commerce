@@ -43,5 +43,22 @@
 
 .topnav a:hover {
   font-weight: bold;
-  text-decoration: underline;
+}
+
+.img {
+  padding: 14px 16px;
+  cursor: pointer;
+}
+
+.cart{
+  padding: 14px 16px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+.counter{
+    padding: 5px;
+    margin-right: 15px;
+    float: right;
+    color: white;
 }

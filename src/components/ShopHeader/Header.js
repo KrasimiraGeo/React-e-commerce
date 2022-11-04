@@ -1,12 +1,9 @@
 import classes from './Header.module.css'
-import cartIcon from '../../assets/cart-24.png'
 
 import { Fragment } from 'react'
-import {LoginForm} from '../LoginForm/LoginForm'
-
-export const Header = () => {
-
-   
+import { HeaderAccountButton } from './HeaderAccountButton'
+import { HeaderCartButton } from './HeaderCartButton'
+export const Header = (props) => {
 
     return (
         <Fragment>
@@ -17,12 +14,11 @@ export const Header = () => {
                         <a href="/shop">Shop</a>
                         <a href="/contact">Contact</a>
                         <div className={classes["topnav-right"]}>
-                            <a href="/account">Account</a>
-                            <a href="/cart"><img src={cartIcon} alt='cart icon'></img></a>
+                            <HeaderCartButton onClick={props.onShowCart}/>
+                            <HeaderAccountButton onClick={props.onShowLogin} />
                         </div>
                     </div>
                 </div>
-
                 <div className={classes['container-text']}>
                     <div className={classes.centered}>Some text here</div>
                 </div>

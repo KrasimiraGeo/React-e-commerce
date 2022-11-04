@@ -105,6 +105,7 @@ form.form1 {
 	background:  #1e293b;
 	border: 0;
 	margin-top: 5%;
+	margin-bottom: 5%;
 	padding-left: 40px;
 	padding-right: 40px;
 	padding-bottom: 10px;
@@ -136,6 +137,14 @@ form.form1 {
 
 .button-register:hover {
 	transform: translateY(-2px);
+}
+
+.button-exit{
+	float: right;
+    margin-top: 3%;
+	background-color: none;
+	border-color: transparent;
+	cursor: pointer;
 }
 
 

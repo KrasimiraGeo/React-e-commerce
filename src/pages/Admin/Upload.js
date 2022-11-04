@@ -1,5 +1,5 @@
 import { useState, Fragment } from 'react'
-import { storage } from '../../../FirebaseConfig/config'
+import { storage } from '../../FirebaseConfig/config'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage' // makes a reference for the file
 import classes from './Upload.module.css'
 
@@ -7,7 +7,6 @@ export const Upload = () => {
     const dbUrl = 'https://art-shop-37d63-default-rtdb.europe-west1.firebasedatabase.app/.json'
 
     const [imageUpload, setImageUpload] = useState(null)
-    const [imageUrl, setImageUrl] = useState()
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [quantity, setQuantity] = useState('')
@@ -15,7 +14,6 @@ export const Upload = () => {
     const [formIsVisible, setFormIsVisible] = useState(false)
 
     const currentImageInfo = {
-        imageUrl,
         name,
         price,
         quantity,
@@ -44,6 +42,7 @@ export const Upload = () => {
 
     const uploadImage = (event) => {
         event.preventDefault()
+
         if (imageUpload === null) {
             alert("Please choose a file first!")
         }
@@ -54,7 +53,8 @@ export const Upload = () => {
             alert('Image uploaded')
             return getDownloadURL(result.ref)
         }).then((downloadUrl) => {
-            setImageUrl(downloadUrl)
+            // setImageUrl(downloadUrl)
+            currentImageInfo.imageUrl = downloadUrl
             putData()
             clearInputHandler()
         })
@@ -71,7 +71,6 @@ export const Upload = () => {
     }
 
     const clearInputHandler = () => {
-
         document.getElementsByName('file')[0].value = ''
         setName("")
         setPrice("")

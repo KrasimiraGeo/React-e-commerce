@@ -3,22 +3,16 @@ import { Modal } from '../Modal/Modal'
 
 import classes from './LoginForm.module.css'
 
-export const LoginForm = () => {
+export const LoginForm = (props) => {
 
-    const [isSignIn, setIsSignIn] = useState()
-
-
-    console.log(isSignIn);
+    const [isSignIn, setIsSignIn] = useState(true)
 
     const signInHandler = event => {
         setIsSignIn(true)
-        console.log('Sign in');
     }
 
     const signUpHandler = event => {
         setIsSignIn(false)
-        console.log('Sign up');
-
     }
 
     let actionStyles = {
@@ -34,16 +28,14 @@ export const LoginForm = () => {
         actionStyles.signUp = classes["active"]
     }
 
-
-
     return (
-        <Modal>
+        <Modal onClose={props.onClose}>
+            <button className={classes["button-exit"]} onClick={props.onClose}>X</button>
             <div className={classes.centered}>
                 <h2 className={actionStyles.signIn} onClick={signInHandler}>Sign In</h2>
                 <h2 className={actionStyles.signUp} onClick={signUpHandler}>Sign Up</h2>
             </div>
             <div className={classes.centered}>
-
                 <form className={classes.form1}>
                     {!isSignIn && <input className={classes.pass} type="email" placeholder="Email" />}
                     <input className={classes.un} type="text" placeholder="Username" />
