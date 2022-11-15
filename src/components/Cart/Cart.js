@@ -1,29 +1,48 @@
+import { useContext } from "react"
 import { Modal } from "../Modal/Modal"
 import classes from './Cart.module.css'
-
+import { CartContext } from "../store/cart-context"
+import { CartItem } from "./CartItem"
 
 export const Cart = (props) => {
 
-    const cartItems = <ul className={classes["cart-items"]}>{[
-        {
-            id: 'c1',
-            name: 'Orange sky',
-            amount: 1,
-            price: 156
-        }
-    ].map((item) => <li>{item.name}</li>)}</ul>
+    const cartCtx = useContext(CartContext)
+    console.log(cartCtx.items);
+
+    const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
+    const hasItems = cartCtx.items.length > 0
+
+    const cartItemRemoveHandler = (id) =>{
+        cartCtx.removeItem(id)
+    }
+
+    const cartItemAddHandler =(item)=>{
+        cartCtx.addItem({...item, amount: 1})
+    }
+
+    const cartItems = <ul className={classes["cart-items"]}>
+        {cartCtx.items.map((item) =>
+            <CartItem 
+            key={item.id} 
+            name={item.name} 
+            amount={item.amount} 
+            price={item.price}
+            onRemove={cartItemRemoveHandler.bind(null, item.id)} // make sure the id is passed to the handler
+            onAdd = {cartItemAddHandler.bind(null, item)} // make sure the whole item is passed to the handler
+            />
+        )}
+    </ul>
 
     return (
         <Modal onClose={props.onClose} >
-            <div>this is the cart section</div>
             <div>{cartItems}</div>
             <div className={classes.total}>
                 <span>Total amount</span>
-                <span>124</span>
+                <span>{totalAmount}</span>
             </div>
             <div className={classes.actions}>
                 <button className={classes["button--alt"]} onClick={props.onClose}>Close</button>
-                <button className={classes.button}>Order</button>
+                {hasItems && <button className={classes.button}>Order</button>}
             </div>
         </Modal>
     )

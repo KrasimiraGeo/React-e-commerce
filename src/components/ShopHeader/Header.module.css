@@ -26,6 +26,7 @@
 .topnav {
   background-color: #333;
   overflow: hidden;
+  border:none;
 }
 
 .topnav a {
@@ -39,11 +40,14 @@
 
 .topnav-right {
   float: right;
+  background-color: transparent;
+  border:none;
 }
 
 .topnav a:hover {
   font-weight: bold;
 }
+
 
 .img {
   padding: 14px 16px;
@@ -61,4 +65,26 @@
     margin-right: 15px;
     float: right;
     color: white;
+}
+
+.bump {
+  animation: bump 300ms ease-out;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

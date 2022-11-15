@@ -9,10 +9,9 @@
   }
    
   .modal {
-    position: fixed;
-    top: 15vh;
-    left: 5%;
-    width: 100%;
+    position: absolute;
+    top: 10vh;
+    max-width: 40rem;
     background-color: white;
     padding: 1rem;
     border-radius: 14px;
@@ -24,7 +23,7 @@
   .content {
     max-height: 75vh;
     overflow: auto;
-    padding: 0 1rem;
+    padding: 1 1rem;
   }
    
   @media (min-width: 768px) {

@@ -1,12 +1,10 @@
-import React from 'react'
+import React from "react";
 
-export const CartContext= React.createContext({
-    items:[],
+export const CartContext = React.createContext({
+    // the methods will not be used from here practically; they will help with autocompletion
+    items:[], // managing the cart items
     totalAmount: 0, 
-    addItem: (item)=>{
+    addItem: () => {},
+    removeItem: () => {}
 
-    },
-    removeItem: (id) => {
-
-    }
 })

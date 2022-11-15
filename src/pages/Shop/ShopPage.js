@@ -3,8 +3,8 @@ import { FetchAllProducts } from '../Admin/FetchAllProducts'
 import { LoginForm } from "../../components/LoginForm/LoginForm"
 import { Cart } from "../../components/Cart/Cart"
 
-import { CartProvider } from '../../components/store/CartProvider'
-import { useState } from "react"
+import {  useState } from "react"
+import { CartProvider } from "../../components/store/CartProvider"
 
 export const ShopPage = () => {
 
