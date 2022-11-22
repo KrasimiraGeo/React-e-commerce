@@ -1,11 +1,18 @@
 import icon from '../../assets/user-24.png'
 import classes from './Header.module.css'
+import { Link, useRouteMatch } from 'react-router-dom'
 
 export const HeaderAccountButton = (props) => {
+    let { path, url } = useRouteMatch()
+    console.log(path);
 
     return (
         <div className={classes["topnav-right"]}>
-       <img className={classes.img} onClick ={props.onClick} src={icon} alt='account icon'></img>
-       </div>
+                <Link to={`${url}/account`}>
+                    <img className={classes.img} onClick={props.onClick} src={icon} alt='account icon'></img>
+                </Link>
+        </div>
+
+
     )
 }

@@ -6,14 +6,13 @@
 .active {
 	color: black;
 	margin-left: 5%;
-	margin-right: 5%;
+	
 }
 
 .nonactive {
 	margin-left: 5%;
 	color: rgba(83, 81, 81, 0.6);
-	margin-right: 5%;
-
+	
 }
 
 h2 {
@@ -141,10 +140,11 @@ form.form1 {
 
 .button-exit{
 	float: right;
-    margin-top: 3%;
-	background-color: none;
+    /* margin-top: 3%; */
+	background-color: #f7f6f6;
 	border-color: transparent;
 	cursor: pointer;
+	margin-right: 2%;
 }
 
 

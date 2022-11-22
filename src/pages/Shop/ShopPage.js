@@ -30,7 +30,7 @@ export const ShopPage = () => {
 
     return (
         <CartProvider>
-            {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler} />}
+            {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler}/>}
             <Header onShowLogin={showLoginModalHandler} onShowCart={showCartModalHandler}/>
             {cartModalIsVisible && <Cart onClose={hideCartModalHandler}/>}
             <FetchAllProducts />

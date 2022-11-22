@@ -9,9 +9,12 @@ const defaultCartState = {
 const cartReducer = (state, action) => { // action is dispatched by us; state is the last state sbapshot, returning a new state snapshot
 
     if (action.type === 'ADD') {
+        console.log(state);
         const updatedTotalAmount = state.totalAmount + (action.item.price * action.item.amount)
         const existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id) // returns the index of an item if it already in the state
         const existingCartItem = state.items[existingCartItemIndex]
+
+        console.log(existingCartItem);
 
         let updatedItems
         if (existingCartItem) {
@@ -57,12 +60,16 @@ const cartReducer = (state, action) => { // action is dispatched by us; state is
 export const CartProvider = (props) => {
     //managing the cart context data and provide it to all components that want access to it
 
+
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState)
 
+    console.log(cartState);
     const addItemToCartHandler = (item) => {
+        console.log(item);
         dispatchCartAction({
             type: 'ADD',
-            item: item // forwarding the item to the reducer
+            item: item,
+             // forwarding the item to the reducer
         })
     }
 
@@ -76,6 +83,7 @@ export const CartProvider = (props) => {
     const cartContext = {
         items: cartState.items,
         totalAmount: cartState.totalAmount,
+        url: cartState.items.url,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler
     }

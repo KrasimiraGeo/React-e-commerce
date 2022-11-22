@@ -3,8 +3,11 @@ import classes from './Header.module.css'
 
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../store/cart-context'
+import { useRouteMatch, Link } from 'react-router-dom'
 
 export const HeaderCartButton = (props) => {
+
+    let { path, url } = useRouteMatch()
 
     const [btnHiglight, setBtnHighlight] = useState(false)
     const cartCtx = useContext(CartContext)  // the header cart button will be re-evaluated when the context changes
@@ -22,7 +25,7 @@ export const HeaderCartButton = (props) => {
             return
         }
         setBtnHighlight(true)
-        const timer = setTimeout(()=>{
+        const timer = setTimeout(() => {
             setBtnHighlight(false) // remove the added animation style
         }, 300)
 
@@ -34,8 +37,10 @@ export const HeaderCartButton = (props) => {
     return (
         <div className={classes["topnav-right"]}>
             <button className={animationClass}>
-            <img className={classes.cart} onClick={props.onClick} src={icon} alt='cart icon'></img>
-            <span className={classes.counter}>{numberOfCartItems}</span>
+                <Link to={`${url}/cart`}>
+                    <img className={classes.cart} onClick={props.onClick} src={icon} alt='cart icon'></img>
+                    <span className={classes.counter}>{numberOfCartItems}</span>
+                </Link>
             </button>
         </div>
     )

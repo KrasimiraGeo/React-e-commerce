@@ -1,10 +1,14 @@
 import { useContext } from "react"
+import { Link, useRouteMatch } from "react-router-dom"
+
 import { Modal } from "../Modal/Modal"
 import classes from './Cart.module.css'
 import { CartContext } from "../store/cart-context"
 import { CartItem } from "./CartItem"
 
 export const Cart = (props) => {
+
+    let{path, url} =useRouteMatch()
 
     const cartCtx = useContext(CartContext)
     console.log(cartCtx.items);
@@ -27,6 +31,7 @@ export const Cart = (props) => {
             name={item.name} 
             amount={item.amount} 
             price={item.price}
+            url={item.url}
             onRemove={cartItemRemoveHandler.bind(null, item.id)} // make sure the id is passed to the handler
             onAdd = {cartItemAddHandler.bind(null, item)} // make sure the whole item is passed to the handler
             />
@@ -35,13 +40,16 @@ export const Cart = (props) => {
 
     return (
         <Modal onClose={props.onClose} >
+            <Link to={`${url}`}>
+            <button className={classes["button-exit"]} onClick={props.onClose}>X</button>
+            </Link>
             <div>{cartItems}</div>
             <div className={classes.total}>
                 <span>Total amount</span>
                 <span>{totalAmount}</span>
             </div>
             <div className={classes.actions}>
-                <button className={classes["button--alt"]} onClick={props.onClose}>Close</button>
+            
                 {hasItems && <button className={classes.button}>Order</button>}
             </div>
         </Modal>

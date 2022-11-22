@@ -18,6 +18,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 30;
     animation: slide-down 300ms ease-out forwards;
+    margin: auto;
   }
    
   .content {
@@ -26,7 +27,7 @@
     padding: 1 1rem;
   }
    
-  @media (min-width: 768px) {
+  @media (min-width: 600px) {
     .modal {
       width: 40rem;
       left: calc(50% - 20rem);
