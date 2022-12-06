@@ -2,7 +2,7 @@ import icon from '../../assets/cart-24.png'
 import classes from './Header.module.css'
 
 import { useContext, useEffect, useState } from 'react'
-import { CartContext } from '../store/cart-context'
+import { CartContext } from '../../store/cart-context'
 import { useRouteMatch, Link } from 'react-router-dom'
 
 export const HeaderCartButton = (props) => {

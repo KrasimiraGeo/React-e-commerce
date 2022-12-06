@@ -3,8 +3,9 @@ import classes from './Header.module.css'
 import { Link, useRouteMatch } from 'react-router-dom'
 
 export const HeaderAccountButton = (props) => {
+    console.log(props);
     let { path, url } = useRouteMatch()
-    console.log(path);
+   
 
     return (
         <div className={classes["topnav-right"]}>

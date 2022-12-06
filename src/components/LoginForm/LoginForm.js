@@ -1,18 +1,16 @@
 import { useState, useRef, useContext, Fragment } from 'react'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 import { Modal } from '../Modal/Modal'
-import { AuthContext } from '../store/auth-context'
+import { AuthContext } from '../../store/auth-context'
+
+import jwt_decode from "jwt-decode"
 
 import classes from './LoginForm.module.css'
 
 export const LoginForm = (props) => {
 
     let { path, url } = useRouteMatch()
-    const [isModalVisible, setIsModalVisible] = useState(true)
-    const strictPath = '/shop'
-
-    let history= useHistory()
-    
+    let history = useHistory()
 
     const registerUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyADTl1--oNKuDKpVAw7sDYjM8geUkJ9vVg'
     const loginUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyADTl1--oNKuDKpVAw7sDYjM8geUkJ9vVg'
@@ -24,6 +22,11 @@ export const LoginForm = (props) => {
     const usernameInputRef = useRef()
 
     const authCtx = useContext(AuthContext)
+    console.log(authCtx.isLoggedIn);
+
+    const logoutHandler = () => {
+        authCtx.logout()
+    }
 
     const logInOptionHandler = () => {
         setIsLogIn(true)
@@ -51,6 +54,7 @@ export const LoginForm = (props) => {
             }
         ).then(res => {
             if (res.ok) {
+                console.log(res);
                 return res.json()
             } else {
                 return res.json().then(data => {
@@ -60,14 +64,14 @@ export const LoginForm = (props) => {
                 })
             }
         }).then(data => {
+            console.log(data);
             authCtx.login(data.idToken)
             history.replace('/shop')
-            setIsModalVisible(false) // successful request; setting the token for the user
         }).catch(err => {
             alert(err.message)
         })
     }
-
+    
     const registerHandler = (event) => {
         event.preventDefault()
         const enteredEmail = emailInputRef.current.value
@@ -88,7 +92,7 @@ export const LoginForm = (props) => {
             }
         ).then(res => {
             if (res.ok) {
-                //...
+                return res.json()
             } else {
                 return res.json().then(data => {
                     //can add identifiers for different messages to show custom ones
@@ -99,8 +103,14 @@ export const LoginForm = (props) => {
                     alert(error)
                 })
             }
-        })
+        }).then(data => {
 
+            authCtx.login(data.idToken)
+            history.replace('/shop')
+
+        }).catch(err => {
+            alert(err.message)
+        })
     }
 
     let actionStyles = {
@@ -118,27 +128,30 @@ export const LoginForm = (props) => {
 
     return (
         <Fragment>
-        {isModalVisible && <Modal onClose={props.onClose}>
-            <Link to={`${url}`}>
-                <button className={classes["button-exit"]} onClick={props.onClose}>X</button>
-            </Link>
-            <div className={classes.centered}>
-                <h2 className={actionStyles.logIn} onClick={logInOptionHandler}>Log in</h2>
-                <h2 className={actionStyles.register} onClick={registerOptionHandler}>Register</h2>
-            </div>
-            <div className={classes.centered}>
-                <form className={classes.form1}>
-                    {!isLogIn && <input className={classes.pass} type="text" placeholder="Username" ref={usernameInputRef} required />}
-                    <input className={classes.un} type="email" placeholder="Email" ref={emailInputRef} required />
-                    <input className={classes.pass} type="password" placeholder="Password" ref={passwordInputRef} required />
-                    <div className={classes.centered}>
-                        {!isLogIn && <button className={classes['button-submit']} onClick={registerHandler}>Register</button>}
-                        {isLogIn && <button className={classes['button-submit']} onClick={logInHandler}>Log in</button>}
-                    </div>
-                </form>
-            </div>
-        </Modal>}
+            <Modal onClose={props.onClose}>
+                <Link to={`${url}`}>
+                    <button className={classes["button-exit"]} onClick={props.onClose}>X</button>
+                </Link>
+                {!authCtx.isLoggedIn && <div className={classes.centered}>
+                    <h2 className={actionStyles.logIn} onClick={logInOptionHandler}>Log in</h2>
+                    <h2 className={actionStyles.register} onClick={registerOptionHandler}>Register</h2>
+                </div>}
+                {authCtx.isLoggedIn && <div>
+                    <h1>You have successfully logged in!</h1>
+                    <button onClick={logoutHandler}>Logout</button>
+                </div>}
+                <div className={classes.centered}>
+                    <form className={classes.form1}>
+                        {!isLogIn && !authCtx.isLoggedIn && <input className={classes.pass} type="text" placeholder="Username" ref={usernameInputRef} required />}
+                        {!authCtx.isLoggedIn && <input className={classes.un} type="email" placeholder="Email" ref={emailInputRef} required />}
+                        {!authCtx.isLoggedIn && <input className={classes.pass} type="password" placeholder="Password" ref={passwordInputRef} required />}
+                        <div className={classes.centered}>
+                            {!isLogIn && !authCtx.isLoggedIn && <button className={classes['button-submit']} onClick={registerHandler}>Register</button>}
+                            {isLogIn && !authCtx.isLoggedIn && <button className={classes['button-submit']} onClick={logInHandler}>Log in</button>}
+                        </div>
+                    </form>
+                </div>
+            </Modal>
         </Fragment>
     )
 }
-

@@ -3,13 +3,19 @@ import { storage } from '../../FirebaseConfig/config'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage' // makes a reference for the file
 import classes from './Upload.module.css'
 
+import { AuthContext } from '../../store/auth-context'
+import { useContext } from 'react'
+import { FetchAllProducts } from './FetchAllProducts'
+
 export const Upload = () => {
+
+    const authCtx = useContext(AuthContext)
     const dbUrl = 'https://art-shop-37d63-default-rtdb.europe-west1.firebasedatabase.app/.json'
 
     const [imageUpload, setImageUpload] = useState(null)
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
-    const [quantity, setQuantity] = useState('')
+    const [quantity, setQuantity] = useState(1)
     const [description, setDescription] = useState('')
     const [formIsVisible, setFormIsVisible] = useState(false)
 
@@ -49,26 +55,28 @@ export const Upload = () => {
 
         const imageRef = ref(storage, `images/${imageUpload.name}`)
 
-        uploadBytes(imageRef, imageUpload).then((result) => {
-            alert('Image uploaded')
-            return getDownloadURL(result.ref)
-        }).then((downloadUrl) => {
-            // setImageUrl(downloadUrl)
-            currentImageInfo.imageUrl = downloadUrl
-            putData()
-            clearInputHandler()
-        })
+        if (authCtx.isAdmin) {
+            uploadBytes(imageRef, imageUpload).then((result) => {
+                alert('Image uploaded')
+                return getDownloadURL(result.ref)
+            }).then((downloadUrl) => {
+                // setImageUrl(downloadUrl)
+                currentImageInfo.imageUrl = downloadUrl
+
+                fetch(dbUrl, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        'Authorization': 'Basic p9Yxi8AGWeXtaHBNsqnLVYMVYqr1'
+                    },
+                    body: JSON.stringify(currentImageInfo)
+                })
+                clearInputHandler()
+                
+            })
+        }
     }
 
-    const putData = async () => {
-        await fetch(dbUrl, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(currentImageInfo)
-        })
-    }
 
     const clearInputHandler = () => {
         document.getElementsByName('file')[0].value = ''
@@ -80,6 +88,7 @@ export const Upload = () => {
 
     const toggleUploadForm = (event) => {
         setFormIsVisible(!formIsVisible)
+        console.log(formIsVisible);
         if (formIsVisible) {
             event.target.textContent = 'Show upload form'
         } else {

@@ -3,7 +3,7 @@ import classes from './Header.module.css'
 import { Fragment, useContext } from 'react'
 import { HeaderAccountButton } from './HeaderAccountButton'
 import { HeaderCartButton } from './HeaderCartButton'
-import { AuthContext } from '../store/auth-context'
+import { AuthContext } from '../../store/auth-context'
 
 export const Header = (props) => {
 

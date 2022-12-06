@@ -2,14 +2,18 @@ import { Header } from "../../components/ShopHeader/Header"
 import { FetchAllProducts } from '../Admin/FetchAllProducts'
 import { LoginForm } from "../../components/LoginForm/LoginForm"
 import { Cart } from "../../components/Cart/Cart"
+import { AuthContext } from '../../store/auth-context'
+import { Upload } from "../Admin/Upload"
 
-import {  useState } from "react"
-import { CartProvider } from "../../components/store/CartProvider"
+import {  useState, useContext } from "react"
+import { CartProvider } from "../../store/CartProvider"
 
 export const ShopPage = () => {
 
     const [loginModalIsVisible, setLoginModalIsVisible] = useState(false)
     const [cartModalIsVisible, setCartModalIsVisible] = useState(false)
+
+    const ctx = useContext(AuthContext)
 
     const showLoginModalHandler = () => {
         setLoginModalIsVisible(true)
@@ -33,10 +37,9 @@ export const ShopPage = () => {
             {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler}/>}
             <Header onShowLogin={showLoginModalHandler} onShowCart={showCartModalHandler}/>
             {cartModalIsVisible && <Cart onClose={hideCartModalHandler}/>}
-            <FetchAllProducts />
+            {ctx.isAdmin && <Upload/>}
+            <FetchAllProducts/>
         </CartProvider>
-
     )
 }
 
-// showmodal should be called when account button is clicked; the button is in header; we should expect the function call inside the header comp - pass a pointer to the function down to the component
