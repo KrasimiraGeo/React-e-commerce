@@ -3,6 +3,7 @@ import classes from './Header.module.css'
 import { Fragment, useContext } from 'react'
 import { HeaderAccountButton } from './HeaderAccountButton'
 import { HeaderCartButton } from './HeaderCartButton'
+import { HeaderHomeButton } from './HeaderHomeButton'
 import { AuthContext } from '../../store/auth-context'
 
 export const Header = (props) => {
@@ -16,9 +17,10 @@ export const Header = (props) => {
                 <div className={classes.container}>
                     <div className={classes.topnav}>
                         <div className={classes['topnav-left']}>
-                        <a href="/">Home</a>
-                        {!isLoggedIn && <a href="/shop">Shop</a>}
-                        <a href="/contact">Contact</a>
+                            <HeaderHomeButton/>
+                        {/* <a href="/">Home</a> */}
+                        {/* {!isLoggedIn && <a href="/shop">Shop</a>} */}
+                        {/* <a href="/contact">Contact</a> */}
                         </div>
                         <div className={classes["topnav-right"]}>
                             <HeaderCartButton onClick={props.onShowCart}/>

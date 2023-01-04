@@ -22,10 +22,13 @@ export const LoginForm = (props) => {
     const usernameInputRef = useRef()
 
     const authCtx = useContext(AuthContext)
-    console.log(authCtx.isLoggedIn);
+    // console.log(authCtx.isLoggedIn);
 
+    const storageUser = localStorage.getItem('user')
+    console.log(storageUser);
     const logoutHandler = () => {
         authCtx.logout()
+        window.localStorage.removeItem('user')
     }
 
     const logInOptionHandler = () => {
@@ -65,7 +68,9 @@ export const LoginForm = (props) => {
             }
         }).then(data => {
             console.log(data);
-            authCtx.login(data.idToken)
+            authCtx.login(data)
+            window.localStorage.setItem('user', `${data.displayName}`)
+            window.localStorage.setItem('token', `${data.idToken}`)
             history.replace('/shop')
         }).catch(err => {
             alert(err.message)
@@ -95,17 +100,14 @@ export const LoginForm = (props) => {
                 return res.json()
             } else {
                 return res.json().then(data => {
-                    //can add identifiers for different messages to show custom ones
                     let error = 'Authentication failed'
-                    // if (data && data.error && data.error.message) {
-                    //     error = data.error.message
-                    // }
                     alert(error)
                 })
             }
         }).then(data => {
-
             authCtx.login(data.idToken)
+            window.localStorage.setItem('user', `${data.displayName}`)
+            window.localStorage.setItem('token', `${data.idToken}`)
             history.replace('/shop')
 
         }).catch(err => {

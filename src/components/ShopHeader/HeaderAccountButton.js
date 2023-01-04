@@ -1,4 +1,4 @@
-import icon from '../../assets/user-24.png'
+import icon from '../../assets/user-20.png'
 import classes from './Header.module.css'
 import { Link, useRouteMatch } from 'react-router-dom'
 

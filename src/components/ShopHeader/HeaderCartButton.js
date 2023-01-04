@@ -1,4 +1,4 @@
-import icon from '../../assets/cart-24.png'
+import icon from '../../assets/shopping-bag-20.png'
 import classes from './Header.module.css'
 
 import { useContext, useEffect, useState } from 'react'

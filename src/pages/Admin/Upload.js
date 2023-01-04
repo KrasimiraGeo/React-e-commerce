@@ -5,18 +5,20 @@ import classes from './Upload.module.css'
 
 import { AuthContext } from '../../store/auth-context'
 import { useContext } from 'react'
-import { FetchAllProducts } from './FetchAllProducts'
 
-export const Upload = () => {
+export const Upload = (props) => {
 
+    console.log(props);
     const authCtx = useContext(AuthContext)
     const dbUrl = 'https://art-shop-37d63-default-rtdb.europe-west1.firebasedatabase.app/.json'
 
+    // refactor the input states to refs
     const [imageUpload, setImageUpload] = useState(null)
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [quantity, setQuantity] = useState(1)
     const [description, setDescription] = useState('')
+   
     const [formIsVisible, setFormIsVisible] = useState(false)
 
     const currentImageInfo = {
@@ -25,7 +27,7 @@ export const Upload = () => {
         quantity,
         description,
     }
-
+    
     const handleChange = (event) => {
         setImageUpload(event.target.files[0])
     }
@@ -53,30 +55,29 @@ export const Upload = () => {
             alert("Please choose a file first!")
         }
 
+        // add check for the other fields as well - they must be full
+
         const imageRef = ref(storage, `images/${imageUpload.name}`)
 
         if (authCtx.isAdmin) {
             uploadBytes(imageRef, imageUpload).then((result) => {
                 alert('Image uploaded')
+                console.log(result.ref);
                 return getDownloadURL(result.ref)
             }).then((downloadUrl) => {
-                // setImageUrl(downloadUrl)
                 currentImageInfo.imageUrl = downloadUrl
-
                 fetch(dbUrl, {
                     method: 'POST',
                     headers: {
-                        'content-type': 'application/json',
-                        'Authorization': 'Basic p9Yxi8AGWeXtaHBNsqnLVYMVYqr1'
+                        'content-type': 'application/json'
                     },
                     body: JSON.stringify(currentImageInfo)
                 })
                 clearInputHandler()
-                
             })
         }
+        props.onActionChange(true)
     }
-
 
     const clearInputHandler = () => {
         document.getElementsByName('file')[0].value = ''
@@ -88,7 +89,6 @@ export const Upload = () => {
 
     const toggleUploadForm = (event) => {
         setFormIsVisible(!formIsVisible)
-        console.log(formIsVisible);
         if (formIsVisible) {
             event.target.textContent = 'Show upload form'
         } else {
@@ -97,7 +97,9 @@ export const Upload = () => {
     }
 
     return (
+        
         <Fragment>
+            {/* <GalleryProvider> */}
             <div >
                 <div className={classes.centered}>
                     <button className={classes['button-form']} onClick={toggleUploadForm}>Show upload form</button>
@@ -147,7 +149,10 @@ export const Upload = () => {
                         </div>
                     </form>
                 }
+                {/* <FetchAllProducts/>  renders all products again without checking the keys*/}
             </div>
+            
         </Fragment>
+        
     )
 }

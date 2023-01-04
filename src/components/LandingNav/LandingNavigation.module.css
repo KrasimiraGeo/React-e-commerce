@@ -1,9 +1,15 @@
 .navbar {
-
-    left: 0px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    margin-top: 10px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    /* left: 0px;
     height: 40px;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto; */
 }
 
 .navbar ul {
@@ -18,18 +24,22 @@
     /* float: left; */
     margin: 0;
     padding: 0;
-    display: inline-block;
+    display: inline;
 }
 
 .navbar ul li a {
-    position: relative;
-    display: inline-block;
+    position: inherit;
+    display: inline;
     text-align: center;
     font-size: small;
     /* display: block; */
     color: white;
     /* text-align: justify; */
     padding: 30px;
+    /* margin-top: 5px;
+    margin-left: 0px;
+    margin-right: 2px;
+    margin-bottom: 5px; */
     text-decoration: none;
     margin: 5px;
 

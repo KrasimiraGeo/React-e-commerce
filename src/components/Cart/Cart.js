@@ -10,9 +10,6 @@ export const Cart = (props) => {
     console.log(props);
     let { path, url } = useRouteMatch()
 
-    // const [isModalVisible, setIsModalVisible] = useState(true)
-    // let history = useHistory()
-
     const cartCtx = useContext(CartContext)
 
     const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
@@ -22,6 +19,7 @@ export const Cart = (props) => {
         cartCtx.removeItem(id)
     }
 
+    // added quantity should NOT be more than the product quantity 
     const cartItemAddHandler = (item) => {
         cartCtx.addItem({ ...item, amount: 1 })
     }

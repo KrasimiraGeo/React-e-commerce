@@ -5,10 +5,20 @@ import { Cart } from "../../components/Cart/Cart"
 import { AuthContext } from '../../store/auth-context'
 import { Upload } from "../Admin/Upload"
 
-import {  useState, useContext } from "react"
+import { useState, useContext } from "react"
 import { CartProvider } from "../../store/CartProvider"
 
-export const ShopPage = () => {
+export const ShopPage = (props) => {
+
+    const [change, setChange] = useState(false)
+
+    const reRenderHandler = (changeDetected) => {
+        console.log(change);  //false
+        setChange(changeDetected)
+        console.log(change); // false
+    }
+
+    console.log(change); // true
 
     const [loginModalIsVisible, setLoginModalIsVisible] = useState(false)
     const [cartModalIsVisible, setCartModalIsVisible] = useState(false)
@@ -33,12 +43,13 @@ export const ShopPage = () => {
     }
 
     return (
+
         <CartProvider>
-            {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler}/>}
-            <Header onShowLogin={showLoginModalHandler} onShowCart={showCartModalHandler}/>
-            {cartModalIsVisible && <Cart onClose={hideCartModalHandler}/>}
-            {ctx.isAdmin && <Upload/>}
-            <FetchAllProducts/>
+            {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler} />}
+            <Header onShowLogin={showLoginModalHandler} onShowCart={showCartModalHandler} />
+            {cartModalIsVisible && <Cart onClose={hideCartModalHandler} />}
+            {ctx.isAdmin && <Upload onActionChange={reRenderHandler} />}
+            <FetchAllProducts onDetectedChange={change} />
         </CartProvider>
     )
 }

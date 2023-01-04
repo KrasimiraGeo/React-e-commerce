@@ -9,12 +9,12 @@ const defaultCartState = {
 const cartReducer = (state, action) => { // action is dispatched by us; state is the last state sbapshot, returning a new state snapshot
 
     if (action.type === 'ADD') {
-        console.log(state);
+        // console.log(state);
         const updatedTotalAmount = state.totalAmount + (action.item.price * action.item.amount)
         const existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id) // returns the index of an item if it already in the state
         const existingCartItem = state.items[existingCartItemIndex]
 
-        console.log(existingCartItem);
+        // console.log(existingCartItem);
 
         let updatedItems
         if (existingCartItem) {
@@ -63,9 +63,9 @@ export const CartProvider = (props) => {
 
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState)
 
-    console.log(cartState);
+    // console.log(cartState);
     const addItemToCartHandler = (item) => {
-        console.log(item);
+        // console.log(item);
         dispatchCartAction({
             type: 'ADD',
             item: item,
