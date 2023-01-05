@@ -99,7 +99,7 @@ export const Upload = (props) => {
     return (
         
         <Fragment>
-            {/* <GalleryProvider> */}
+            
             <div >
                 <div className={classes.centered}>
                     <button className={classes['button-form']} onClick={toggleUploadForm}>Show upload form</button>
@@ -149,7 +149,6 @@ export const Upload = (props) => {
                         </div>
                     </form>
                 }
-                {/* <FetchAllProducts/>  renders all products again without checking the keys*/}
             </div>
             
         </Fragment>

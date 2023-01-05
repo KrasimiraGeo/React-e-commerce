@@ -15,9 +15,7 @@ export const FetchAllProducts = (props) => {
        setChange(changeDetected)
         console.log(change); // false
     }
-
-   
-        // useEffect(() => {
+    
             const fetchProducts = async () => {
                 const response = await fetch(dbUrl)
                 if (!response.ok) {
@@ -41,7 +39,7 @@ export const FetchAllProducts = (props) => {
             fetchProducts().catch((error) => {
                 console.log(error);
             })
-        // }, [])
+    
 
        useEffect(()=> {
         fetchProducts()

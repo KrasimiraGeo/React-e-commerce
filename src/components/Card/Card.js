@@ -20,12 +20,6 @@ export const Card = (props) => {
 
     const [isEdit, setIsEdit] = useState(false)
 
-    // const editedProduct = {
-    //     id:product.key,
-    //     url: product.imageUrl,
-
-    // }
-
     const addItemHandler = (event) => {
         event.preventDefault()
         cartCtx.addItem({
@@ -40,51 +34,18 @@ export const Card = (props) => {
     const enableEditHandler = (event) => {
         event.preventDefault()
         setIsEdit(true)
-
-        // editProduct(product)
-
-
         //setIsEdit to false on submitChanges
     }
-
-
-
 
     const deleteItemHandler = (event) => {
         event.preventDefault()
         if (authCtx.isAdmin) {
             deleteProduct(product)
         }
-
-    }
-
-    const descriptionChangeHander = (event) => {
-        // event.preventDefault()
-        const enteredDescription = descriptionEditRef.current.value
-        // editedProduct.newDescription = enteredDescription
-
-        // console.log(enteredDescription);
-    }
-
-    const nameChangeHander = (event) => {
-        const enteredName = nameEditRef.current.value
-        // editedProduct.newName=enteredName
-    }
-
-    const priceChangeHandler = (event) => {
-        const enteredPrice = priceEditRef.current.value
-        // editedProduct.newPrice=enteredPrice
-
-    }
-
-    const quantityChangeHandler = (event) => {
-        const enteredQuantity = quantityEditRef.current.value
-        // editedProduct.newQuantity=enteredQuantity
     }
 
     const submitEditHandler = (event) => {
         event.preventDefault()
-        
 
         const editedName = nameEditRef.current.value
         const editedDescription = descriptionEditRef.current.value
@@ -101,35 +62,59 @@ export const Card = (props) => {
         }
 
         editProduct(editedProduct)
-        
+
+
         console.log(editedProduct);
 
         setIsEdit(false)
     }
 
+    const discardEditHandler = () => {
+        setIsEdit(false)
+    }
 
+
+    //defaultValue={product.name}
     return (
         <Fragment>
             <article key={product.key} className={classes.card}>
                 <img src={product.imageUrl} alt="product"></img>
-                <div className={classes.content}>
-                    {isEdit === false && <p>{product.description}</p>}
-                    {isEdit === false && <p>{product.price}</p>}
-                    {isEdit === true && <input onChange={nameChangeHander} ref={nameEditRef} defaultValue={product.name}></input>}
-                    {isEdit === true && <input onChange={descriptionChangeHander} ref={descriptionEditRef} defaultValue={product.description}></input>}
-                    {isEdit === true && <input onChange={priceChangeHandler} ref={priceEditRef} defaultValue={product.price}></input>}
-                    {isEdit === true && <input onChange={quantityChangeHandler} ref={quantityEditRef} defaultValue={product.quantity}></input>}
+                {isEdit=== false && <div className={classes.content}>
+                    <p>{product.name}</p>
+                    <p>{product.description}</p>
+                    <p>{product.price}</p>
                 </div>
+                }
+                {isEdit && <div className={classes.content}>
+                    <input ref={nameEditRef} placeholder={product.name} defaultValue={product.name}></input>
+                    <input ref={descriptionEditRef} placeholder={product.description} defaultValue={product.description}></input>
+                    <input ref={priceEditRef} placeholder={product.price} defaultValue={product.price}></input>
+                    <input ref={quantityEditRef} placeholder={product.quantity} defaultValue={product.quantity}></input>
+                </div>}
                 <div className={classes.centered}>
                     {!authCtx.isAdmin && <button className={classes['button-edit']} onClick={addItemHandler}>Add to bag</button>}
                     {authCtx.isAdmin && isEdit === false && <button className={classes['button-edit']} onClick={enableEditHandler}>Edit</button>}
-                    {authCtx.isAdmin && isEdit === true && <button className={classes['button-edit']} onClick={submitEditHandler}>Submit Changes</button>}
-                    {authCtx.isAdmin && <button className={classes['button-edit']} onClick={deleteItemHandler}>Delete</button>}
+                    {authCtx.isAdmin && isEdit === true && <button className={classes['button-edit']} onClick={submitEditHandler}>Submit</button>}
+                    {authCtx.isAdmin && isEdit === true && <button className={classes['button-edit']} onClick={discardEditHandler}>Discard</button>}
+                    {authCtx.isAdmin && isEdit === false && <button className={classes['button-edit']} onClick={deleteItemHandler}>Delete</button>}
                 </div>
             </article>
         </Fragment>
     )
 };
 
+// {isEdit === false && <p>{product.name}</p>}
+// {isEdit === false && <p>{product.description}</p>}
+// {isEdit === false && <p>{product.price}</p>}
 
+// {isEdit === true && <input ref={nameEditRef} placeholder={product.name} defaultValue={product.name}></input>}
+// {isEdit === true && <input ref={descriptionEditRef} placeholder={product.description} defaultValue={product.description}></input>}
+// {isEdit === true && <input ref={priceEditRef} placeholder={product.price} defaultValue={product.price}></input>}
+// {isEdit === true && <input ref={quantityEditRef} placeholder={product.quantity} defaultValue={product.quantity}></input>}
 
+//defaultValue={product.name}
+
+//onChange={nameChangeHander}
+//onChange={descriptionChangeHander}
+//onChange={priceChangeHandler}
+//onChange={quantityChangeHandler}

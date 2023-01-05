@@ -3,8 +3,6 @@ import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 import { Modal } from '../Modal/Modal'
 import { AuthContext } from '../../store/auth-context'
 
-import jwt_decode from "jwt-decode"
-
 import classes from './LoginForm.module.css'
 
 export const LoginForm = (props) => {
