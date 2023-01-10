@@ -99,7 +99,6 @@ export const Upload = (props) => {
     return (
         
         <Fragment>
-            
             <div >
                 <div className={classes.centered}>
                     <button className={classes['button-form']} onClick={toggleUploadForm}>Show upload form</button>
@@ -112,7 +111,7 @@ export const Upload = (props) => {
                             className={classes["feedback-input"]}
                             placeholder="Select an Image"
                             onChange={handleChange}
-                            required />
+                            required></input>
                         <input
                             name="name"
                             type="text"

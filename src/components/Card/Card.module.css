@@ -22,12 +22,14 @@
 }
 
 .button-edit{
-  /* background-color: #333; */
-  background-color:  #e5ebf1;
-  border: 0 solid #7b7f86;
+
+  background-color: #fbfbfd;
+  /* background-color: #dfdfe7; */
+  
+  border: 1px #dfdfe7;
   border-radius: 10px;
   box-sizing: border-box;
-  color: black;
+  /* color: black; */
   cursor: pointer;
   display: inline-block;
   font-size: 13.3px;
@@ -43,8 +45,9 @@
   /* padding: 1rem 1.6rem; */
   text-align: center;
   text-decoration: none #0d172a solid;
-  box-shadow: 0px 2px 4px rgba(31, 32, 34, 0.25);
-  /* margin: 10px; */
+  /* box-shadow: 0px 2px 4px rgba(31, 32, 34, 0.25); */
+  box-shadow: 0px 2px 4px rgba(55, 56, 58, 0.25);
+  margin-left: 1rem;
 }
 
 .button-edit:hover {

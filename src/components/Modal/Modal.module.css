@@ -9,7 +9,7 @@
   }
    
   .modal {
-    position: absolute;
+    position: fixed;
     top: 10vh;
     max-width: 40rem;
     background-color: white;

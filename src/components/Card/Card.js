@@ -1,14 +1,18 @@
 import classes from './Card.module.css';
 import { useContext, useRef, useState } from 'react';
+import { Fragment } from 'react';
+
 import { CartContext } from '../../store/cart-context';
 import { AuthContext } from '../../store/auth-context';
-import { Fragment } from 'react';
+
+import {Modal} from '../Modal/Modal'
 
 import { deleteProduct } from '../../pages/Admin/deleteProduct';
 import { editProduct } from '../../pages/Admin/editProduct';
 
 export const Card = (props) => {
 
+    // console.log(props.onActionChange);
     const product = props.item
     const authCtx = useContext(AuthContext)
     const cartCtx = useContext(CartContext)
@@ -19,6 +23,7 @@ export const Card = (props) => {
     const quantityEditRef = useRef()
 
     const [isEdit, setIsEdit] = useState(false)
+    const [isDelete, setIsDelete] = useState(false)
 
     const addItemHandler = (event) => {
         event.preventDefault()
@@ -34,14 +39,34 @@ export const Card = (props) => {
     const enableEditHandler = (event) => {
         event.preventDefault()
         setIsEdit(true)
+        console.log('edit enabled');
+      
         //setIsEdit to false on submitChanges
     }
 
-    const deleteItemHandler = (event) => {
+    const enableDeleteHandler = (event) => {
         event.preventDefault()
-        if (authCtx.isAdmin) {
-            deleteProduct(product)
-        }
+        setIsDelete(true)
+
+        console.log('delete enabled');
+
+        // if (authCtx.isAdmin) {
+        //     deleteProduct(product)
+        // }
+    }
+
+    // console.log(props);
+
+    const confirmDeleteHandler = () => {
+        deleteProduct(product)
+        console.log('deleted');
+        setIsDelete(false)
+        props.onActionChange(true)
+    }
+
+    const declineDeleteHandler = () => {
+        console.log('declined');
+        setIsDelete(false)
     }
 
     const submitEditHandler = (event) => {
@@ -61,11 +86,15 @@ export const Card = (props) => {
             quantity: editedQuantity
         }
 
-        editProduct(editedProduct)
+        console.log(editProduct);
 
-
-        console.log(editedProduct);
-
+        editProduct(editedProduct).then((result)=>{
+            if(result.ok){
+                props.onActionChange(true)
+            }
+        console.log(result);
+        })
+        
         setIsEdit(false)
     }
 
@@ -77,6 +106,11 @@ export const Card = (props) => {
     //defaultValue={product.name}
     return (
         <Fragment>
+            {isDelete===true && <Modal>
+                <p>Are you sure you want to delete this item?</p>
+                <button onClick={confirmDeleteHandler}>Yes</button>
+                <button onClick={declineDeleteHandler}>No</button>
+                </Modal>}
             <article key={product.key} className={classes.card}>
                 <img src={product.imageUrl} alt="product"></img>
                 {isEdit=== false && <div className={classes.content}>
@@ -96,7 +130,7 @@ export const Card = (props) => {
                     {authCtx.isAdmin && isEdit === false && <button className={classes['button-edit']} onClick={enableEditHandler}>Edit</button>}
                     {authCtx.isAdmin && isEdit === true && <button className={classes['button-edit']} onClick={submitEditHandler}>Submit</button>}
                     {authCtx.isAdmin && isEdit === true && <button className={classes['button-edit']} onClick={discardEditHandler}>Discard</button>}
-                    {authCtx.isAdmin && isEdit === false && <button className={classes['button-edit']} onClick={deleteItemHandler}>Delete</button>}
+                    {authCtx.isAdmin && isEdit === false && <button className={classes['button-edit']} onClick={enableDeleteHandler}>Delete</button>}
                 </div>
             </article>
         </Fragment>

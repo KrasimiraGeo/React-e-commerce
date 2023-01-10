@@ -7,58 +7,43 @@
    
   .total {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     font-weight: bold;
     font-size: 1.5rem;
-    margin: 4rem 0;        
+    margin: 2rem 0;        
   }
    
   .actions {
-    text-align: right;
+    text-align: center;
   }
-   
+  
+  
   .actions button {
     font: inherit;
     cursor: pointer;
     background-color: transparent;
     border: 1px solid rgba(83, 81, 81, 0.6);
     padding: 0.5rem 2rem;
-    border-radius: 25px;
     margin-left: 1rem;
+    background-color:  #1e293b;
+    color: white;
+    border-radius: 10px;
   }
    
   .actions button:hover,
   .actions button:active {
     transform: translateY(-2px);
-    /* background-color: rgba(83, 81, 81, 0.6) ; */
     border-color:  rgba(83, 81, 81, 0.6);
     color: white;
   }
 
-  /* .actions .button--alt:hover,
-  .actions .button--alt:active {
-    transform: translateY(-2px);
-    border-color:  rgba(83, 81, 81, 0.6);
-    background-color:  #1e293b;
-    color: white;
-  } */
-   
-  /* .actions .button--alt {
-    color:#1e293b;
-    background-color:  white;
-
-  } */
-   
-  .actions .button {
-    background-color:  #1e293b;
-    color: white;
-  }
+ 
   
 
   .button-exit{
     float: right;
-      margin-top: 3%;
+    margin-top: 3%;
     background-color: none;
     border-color: transparent;
     cursor: pointer;

@@ -5,8 +5,9 @@ import { Cart } from "../../components/Cart/Cart"
 import { AuthContext } from '../../store/auth-context'
 import { Upload } from "../Admin/Upload"
 
-import { useState, useContext } from "react"
+import { useState, useContext} from "react"
 import { CartProvider } from "../../store/CartProvider"
+
 
 export const ShopPage = (props) => {
 
@@ -43,7 +44,6 @@ export const ShopPage = (props) => {
     }
 
     return (
-
         <CartProvider>
             {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler} />}
             <Header onShowLogin={showLoginModalHandler} onShowCart={showCartModalHandler} />

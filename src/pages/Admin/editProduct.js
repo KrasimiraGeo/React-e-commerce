@@ -8,8 +8,6 @@
 export const editProduct = async (product) => {
 
     const productKey = product.id
-    console.log(product);
-
     const dbUrl=`https://art-shop-37d63-default-rtdb.europe-west1.firebasedatabase.app/${productKey}.json`
 
     const editedProduct = {
@@ -19,6 +17,8 @@ export const editProduct = async (product) => {
         price: product.price,
         quantity: product.quantity
     }
+
+    console.log(editedProduct);
 
     const responseFromDB = await fetch(dbUrl, {
         method: 'PATCH',
@@ -30,6 +30,9 @@ export const editProduct = async (product) => {
 
     if(responseFromDB.ok){
         console.log('Product details were successfully edited')
+       
     }
+    
+    return responseFromDB
 
 }
