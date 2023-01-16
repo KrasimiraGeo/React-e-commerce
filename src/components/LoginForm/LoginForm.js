@@ -129,9 +129,9 @@ export const LoginForm = (props) => {
     return (
         <Fragment>
             <Modal onClose={props.onClose}>
-                <Link to={`${url}`}>
+                {/* <Link to={`${url}`}>
                     <button className={classes["button-exit"]} onClick={props.onClose}>X</button>
-                </Link>
+                </Link> */}
                 {!authCtx.isLoggedIn && <div className={classes.centered}>
                     <h2 className={actionStyles.logIn} onClick={logInOptionHandler}>Log in</h2>
                     <h2 className={actionStyles.register} onClick={registerOptionHandler}>Register</h2>

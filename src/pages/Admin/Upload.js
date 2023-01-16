@@ -16,7 +16,7 @@ export const Upload = (props) => {
     const [imageUpload, setImageUpload] = useState(null)
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
-    const [quantity, setQuantity] = useState(1)
+    const [quantity, setQuantity] = useState('')
     const [description, setDescription] = useState('')
    
     const [formIsVisible, setFormIsVisible] = useState(false)
@@ -37,14 +37,20 @@ export const Upload = (props) => {
     }
 
     const quantityHandler = (event) => {
+
+        // TODO: add a check for a valid quantity
         setQuantity(Number(event.target.value))
     }
 
     const priceHandler = (event) => {
+
+        // TODO: add a check for a valid price
         setPrice(Number(event.target.value))
     }
 
     const descriptionHandler = (event) => {
+
+        
         setDescription(event.target.value)
     }
 
@@ -72,11 +78,17 @@ export const Upload = (props) => {
                         'content-type': 'application/json'
                     },
                     body: JSON.stringify(currentImageInfo)
+                }).then((result)=>{
+                    if(result.ok){
+                        props.onActionChange(true)
+                    }
+                    console.log(result);
                 })
                 clearInputHandler()
             })
         }
-        props.onActionChange(true)
+
+      
     }
 
     const clearInputHandler = () => {
@@ -99,7 +111,8 @@ export const Upload = (props) => {
     return (
         
         <Fragment>
-            <div >
+           
+            <div>
                 <div className={classes.centered}>
                     <button className={classes['button-form']} onClick={toggleUploadForm}>Show upload form</button>
                 </div>
@@ -110,6 +123,7 @@ export const Upload = (props) => {
                             type="file"
                             className={classes["feedback-input"]}
                             placeholder="Select an Image"
+                            title='Select an image'
                             onChange={handleChange}
                             required></input>
                         <input
@@ -149,6 +163,7 @@ export const Upload = (props) => {
                     </form>
                 }
             </div>
+        
             
         </Fragment>
         

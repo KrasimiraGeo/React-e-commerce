@@ -11,12 +11,12 @@ import { CartProvider } from "../../store/CartProvider"
 
 export const ShopPage = (props) => {
 
-    const [change, setChange] = useState(false)
+    const [change, setChange] = useState()
 
     const reRenderHandler = (changeDetected) => {
-        console.log(change);  //false
+        console.log(change);  
         setChange(changeDetected)
-        console.log(change); // false
+        console.log(change); 
     }
 
     console.log(change); // true
@@ -48,8 +48,8 @@ export const ShopPage = (props) => {
             {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler} />}
             <Header onShowLogin={showLoginModalHandler} onShowCart={showCartModalHandler} />
             {cartModalIsVisible && <Cart onClose={hideCartModalHandler} />}
-            {ctx.isAdmin && <Upload onActionChange={reRenderHandler} />}
-            <FetchAllProducts onDetectedChange={change} />
+            {/* {ctx.isAdmin && <Upload onActionChange={reRenderHandler} />} */}
+            <FetchAllProducts onDetectedChange={reRenderHandler} />
         </CartProvider>
     )
 }

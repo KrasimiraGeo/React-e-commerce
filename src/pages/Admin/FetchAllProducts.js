@@ -1,35 +1,78 @@
 import classes from './FetchAllProducts.module.css'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState, useContext } from 'react'
 import { Card } from '../../components/Card/Card'
 import { fetchProducts } from './fetch'
+import { AuthContext } from '../../store/auth-context'
+import { Upload } from './Upload'
+import { PhoneAuthProvider } from 'firebase/auth'
 
 export const FetchAllProducts = (props) => {
+    
+    const ctx = useContext(AuthContext)
 
     // const dbUrl = 'https://art-shop-37d63-default-rtdb.europe-west1.firebasedatabase.app/.json'
     const [itemsInfo, setItemsInfo] = useState([])
-    const loadedProducts =[]
+    const loadedProducts = []
 
-    const [change, setChange] = useState(false)
+    console.log(props.onDetectedChange);
+    console.log(props);
+    const [change, setChange] = useState()
+
+    console.log(change);
 
     const reRenderHandler = (changeDetected) => {
-        console.log(change);  //false
+        console.log(change); 
         setChange(changeDetected)
-        console.log(change); // false
+        console.log(change); 
    }
 
     console.log(change);
+
+    // if(props.onDetectedChange === true){
+    //     setChange(true)
+    // }
     
     if(change === true){
-        
+        console.log('detected change');
+
         fetchProducts().then((result)=>{
             console.log(result);
             setItemsInfo(result)
         })
         setChange(false)
+
             console.log(itemsInfo);
     }
 
-     // const [change, setChange] = useState(false)
+    // if (change === true) {
+    //     console.log('change detected and fetching');
+    //     fetchProducts().then((result) => {
+    //         console.log(result);
+    //         setItemsInfo(result)
+    //     })
+
+    //     setChange(undefined)
+    // }
+
+    // const reRenderHandler = (changeDetected) => {
+    //     console.log(changeDetected);
+        
+    //     if (changeDetected === true) {
+    //         console.log('change detected and fetching');
+    //         fetchProducts().then((result) => {
+    //             console.log(result);
+    //             setItemsInfo(result)
+    //         })
+    
+    //         // setChange(undefined)
+    //     }
+    //     setChange(changeDetected)
+    //     console.log(change); // false
+    // }
+
+
+    console.log(change);
+    // const [change, setChange] = useState(false)
 
     // let changeDetected = props.onDetectedChange
     // console.log(changeDetected)
@@ -58,16 +101,16 @@ export const FetchAllProducts = (props) => {
     // if(changeDetected === true){
     //     setChange(true)
     // }
-    
-      // fetchProducts().catch((error) => {  // actually causes an infinite loop
-        //     console.log(error);
-        // })
+
+    // fetchProducts().catch((error) => {  // actually causes an infinite loop
+    //     console.log(error);
+    // })
 
     // initial render works fine - no infinite loop
     // when the function call is removed the automatic render does not work 
 
     useEffect(() => {
-        fetchProducts().then((result)=>{
+        fetchProducts().then((result) => {
             setItemsInfo(result)
         })
 
@@ -76,13 +119,14 @@ export const FetchAllProducts = (props) => {
         // setChange(false)
     }, [])
 
-   
+
 
     return (
         <Fragment>
             {/* <div>
                 <button onClick={fetchProducts}>Reload</button>
             </div> */}
+            {ctx.isAdmin  && <Upload onActionChange={reRenderHandler} />}
             <div className={classes.cards}>
                 {itemsInfo.map((product) => {
                     return (

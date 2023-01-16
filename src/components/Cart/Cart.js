@@ -38,22 +38,22 @@ export const Cart = (props) => {
         )}
     </ul>
 
-console.log(cartItems.length);
-    const emptyCart = cartItems.length === undefined ? 'true' : 'false'
-    console.log(emptyCart);
+console.log(cartItems.props.children.length);
+    const fullCart = cartItems.props.children.length === 0 || cartItems.props.children.length === undefined ? false : true
+    console.log(fullCart);
 
     return (
         <Fragment>
              <Modal onClose={props.onClose} >
-                <Link to={`${url}`}>
+                {/* <Link to={`${url}`}>
                     <button className={classes["button-exit"]} onClick={props.onClose}>X</button>
-                </Link>
+                </Link> */}
                 <div>{cartItems}</div>
-                {!emptyCart && <div className={classes.total}>
+                {fullCart===true && <div className={classes.total}>
                     <span>Total amount</span>
                     <span>{totalAmount}</span>
                 </div>}
-                {emptyCart && <p>You have not added any products to your cart yet</p>}
+                {fullCart===false && <p>You have not added any products to your cart yet</p>}
                 <div className={classes.actions}>
                     {hasItems && <button className={classes.button}>Order</button>}
                 </div>

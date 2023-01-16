@@ -10,8 +10,7 @@ export const CartItem = (props) => {
       <div>
           <img  className={classes.product} src={props.url} alt='product'></img>
       <div className={classes['product-info']}>
-
-      <h2>{props.name}</h2>
+      {/* <h2>{props.name}</h2> */}
         <div className={classes.summary}>
           <span className={classes.price}>{price}</span>
         </div>

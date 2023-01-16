@@ -8,8 +8,8 @@ import { AuthContext } from '../../store/auth-context'
 
 export const Header = (props) => {
 
-    const authCtx = useContext(AuthContext)
-    const isLoggedIn = authCtx.isLoggedIn
+    // const authCtx = useContext(AuthContext)
+    // const isLoggedIn = authCtx.isLoggedIn
 
     return (
         <Fragment>
@@ -18,9 +18,6 @@ export const Header = (props) => {
                     <div className={classes.topnav}>
                         <div className={classes['topnav-left']}>
                             <HeaderHomeButton/>
-                        {/* <a href="/">Home</a> */}
-                        {/* {!isLoggedIn && <a href="/shop">Shop</a>} */}
-                        {/* <a href="/contact">Contact</a> */}
                         </div>
                         <div className={classes["topnav-right"]}>
                             <HeaderCartButton onClick={props.onShowCart}/>
@@ -31,7 +28,6 @@ export const Header = (props) => {
                 <div className={classes['container-text']}>
                     <div className={classes.centered}>Some text here</div>
                 </div>
-
             </div>
         </Fragment>
     )

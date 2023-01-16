@@ -24,6 +24,7 @@ export const Card = (props) => {
 
     const [isEdit, setIsEdit] = useState(false)
     const [isDelete, setIsDelete] = useState(false)
+    const [isLargeImage, setIsLargeImage] = useState(false)
 
     const addItemHandler = (event) => {
         event.preventDefault()
@@ -39,29 +40,28 @@ export const Card = (props) => {
     const enableEditHandler = (event) => {
         event.preventDefault()
         setIsEdit(true)
-        console.log('edit enabled');
-      
-        //setIsEdit to false on submitChanges
+        console.log('edit enabled'); 
     }
 
     const enableDeleteHandler = (event) => {
         event.preventDefault()
         setIsDelete(true)
-
         console.log('delete enabled');
-
-        // if (authCtx.isAdmin) {
-        //     deleteProduct(product)
-        // }
     }
 
     // console.log(props);
 
     const confirmDeleteHandler = () => {
-        deleteProduct(product)
+        deleteProduct(product).then((result) => {
+            console.log(result);
+            if(result.ok){
+                props.onActionChange(true)
+            }
+        })
+
         console.log('deleted');
         setIsDelete(false)
-        props.onActionChange(true)
+        // props.onActionChange(true)
     }
 
     const declineDeleteHandler = () => {
@@ -102,6 +102,18 @@ export const Card = (props) => {
         setIsEdit(false)
     }
 
+    // TODO MAYBE: 
+    // modal with enlarged image?
+    
+    // const enlargeImageHandler = () => {
+    //    console.log('hover');
+    // }
+
+    // const closeModalHandler = () => {
+    //     console.log('click on modal');
+    //     setIsLargeImage(false)
+    // }
+
 
     //defaultValue={product.name}
     return (
@@ -112,13 +124,18 @@ export const Card = (props) => {
                 <button onClick={declineDeleteHandler}>No</button>
                 </Modal>}
             <article key={product.key} className={classes.card}>
-                <img src={product.imageUrl} alt="product"></img>
+                <img src={product.imageUrl} alt="product" ></img>
                 {isEdit=== false && <div className={classes.content}>
-                    <p>{product.name}</p>
-                    <p>{product.description}</p>
-                    <p>{product.price}</p>
+                    <p className={classes.title}>{product.name}</p>
+                   <p className={classes.description}>{product.description}</p>
+                   <p className={classes.price}>${product.price}</p>
                 </div>
                 }
+                {/* {isLargeImage && <Modal onHover={closeModalHandler}>
+                    <div className={classes.imageModal}>
+                    <img className = {classes.large} src={product.imageUrl} alt="product"></img>
+                    </div>
+                    </Modal>} */}
                 {isEdit && <div className={classes.content}>
                     <input ref={nameEditRef} placeholder={product.name} defaultValue={product.name}></input>
                     <input ref={descriptionEditRef} placeholder={product.description} defaultValue={product.description}></input>

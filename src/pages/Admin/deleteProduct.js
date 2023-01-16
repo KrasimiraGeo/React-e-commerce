@@ -21,13 +21,15 @@ export const deleteProduct = async (product) => {
     })
 
 
-    if(responseFromDB.ok && responseFromCloud.ok){
-        console.log('Product was successfully deleted');
-    } else if(responseFromDB.ok){
-        console.log('Product details were deleted only from database');
-    }else if(responseFromCloud.ok){
-        console.log('Product image was deleted only from cloud storage');
-    }
+    return responseFromCloud, responseFromDB
+    
+    // if(responseFromDB.ok && responseFromCloud.ok){
+    //     console.log('Product was successfully deleted');
+    // } else if(responseFromDB.ok){
+    //     console.log('Product details were deleted only from database');
+    // }else if(responseFromCloud.ok){
+    //     console.log('Product image was deleted only from cloud storage');
+    // }
 
 
 }

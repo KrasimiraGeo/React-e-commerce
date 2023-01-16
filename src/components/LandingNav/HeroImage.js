@@ -9,6 +9,7 @@ export const HeroImage = () => {
             <img src={image} alt='Sky'></img>
             <h1 className={classes.centered}>SKY</h1>
         </div>
+        <div className={classes.background}></div>
         </main>
 
     )

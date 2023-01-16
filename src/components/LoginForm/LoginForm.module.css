@@ -1,16 +1,19 @@
 .centered {
 	text-align: center;
 	margin-top: 3%;
+	display:flex;
+	justify-content: center;
+	justify-items: center;
 }
 
 .active {
 	color: black;
-	margin-left: 5%;
+	margin:15px;
 	
 }
 
 .nonactive {
-	margin-left: 5%;
+	margin:15px;
 	color: rgba(83, 81, 81, 0.6);
 	
 }
@@ -64,7 +67,7 @@ h2 {
 }
 
 form.form1 {
-	padding-top: 3%;
+	padding-top: 1%;
 }
 
 .pass {

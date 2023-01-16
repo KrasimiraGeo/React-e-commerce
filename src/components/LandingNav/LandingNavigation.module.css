@@ -28,23 +28,23 @@
 }
 
 .navbar ul li a {
-    position: inherit;
-    display: inline;
-    text-align: center;
+    /* border: 1px solid white; */
+    border-radius: 5px;
+    /* position: relative; */
+    display: flex;
+    /* text-align: center; */
     font-size: small;
-    /* display: block; */
     color: white;
-    /* text-align: justify; */
-    padding: 30px;
-    /* margin-top: 5px;
-    margin-left: 0px;
-    margin-right: 2px;
-    margin-bottom: 5px; */
+    padding: 15px 30px;
     text-decoration: none;
-    margin: 5px;
-
+    margin: -5px;
+    box-sizing: border-box;
+    justify-content: center;
 }
 
 .navbar li a:hover {
-    font-weight: bold;
+    /* box-shadow: 1px 2px  white; */
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px 1px rgb(253, 245, 245)
+    /* font-weight: bold; */
 }
