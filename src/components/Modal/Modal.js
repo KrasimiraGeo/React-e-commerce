@@ -5,7 +5,7 @@ import classes from './Modal.module.css';
 
 const Backdrop = (props) => {
   let {path, url} = useRouteMatch()
-
+  
   return <Link to={`${url}`}>
   <div className={classes.backdrop} onClick={props.onClose} />
   </Link>

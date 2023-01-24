@@ -1,6 +1,6 @@
 .card {
   display: grid;
-  grid-template-rows: max-content 130px 1fr;
+  grid-template-rows: max-content 150px 1fr;
   overflow: inherit;
   margin-bottom: 5%;
   border-radius: 10px 10px;
@@ -11,6 +11,7 @@
   width: 100%;
   height: 100%;
   max-width: 400px;
+  max-height: 265px;
   border-radius: 10px 10px;
   box-shadow: 0px 4px 6px #766e6e;
 }
@@ -27,7 +28,47 @@
 .content{
 display: grid;
 max-width: 400px;
+margin-top: 3%;
 /* background-color: #1e293b; */
+}
+
+.content-edit{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  margin-top: 2rem;
+}
+
+.content-out {
+display: flex;
+}
+
+.content-row{
+  display: grid;
+  justify-items: center;
+}
+
+.content-row input{
+max-width: 40%;
+}
+
+.content-row label{
+  max-width: 40%;
+  }
+
+.content-edit label{
+  font-size: 10px
+}
+
+.content-edit input {
+  width: 90%;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 3px;
 }
 
 .title{
@@ -56,56 +97,66 @@ margin-bottom: 5px;
   margin-top: 16px;
 }
 
-.zoom {
-  padding: 50px;
-  background-color: rgb(0, 0, 0);
-  transition: transform .2s; /* Animation */
-  width: 200px;
-  height: 200px;
-  margin: 0 auto;
-} 
-
-.zoom:hover {
-  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-}
-
-.button-edit{
-
-  /* background-color: #fbfbfd; */
+.button-action{
   background-color: #1e293b;
-  
   border: 1px #dfdfe7;
   border-radius: 10px;
   box-sizing: border-box;
-  /* color: black; */
   cursor: pointer;
   display: inline-block;
   font-size: 13.3px;
   font-family: Arial, Helvetica, sans-serif;
-  /* font-size: 1.1rem;
-  font-weight: 600; */
   font-size:smaller ;
   line-height: 1;
   padding-left: 40px;
 	padding-right: 40px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-  /* padding: 1rem 1.6rem; */
   text-align: center;
   color: white;
-  /* text-decoration: none #0d172a solid; */
-  /* box-shadow: 0px 2px 4px rgba(31, 32, 34, 0.25); */
   box-shadow: 0px 2px 4px rgba(55, 56, 58, 0.25);
   margin: 16px;
   width: 50%;
-  /* width: 76%; */
 }
 
-.button-edit:hover {
-  background-color: #1e293b;
-  color: #fff;
+.button-action:hover {
+  /* background-color: #1e293b;
+  color: #fff; */
   transform: translateY(-2px);
 }
+
+.button-edit {
+  background-color: #fdfdfd;
+  border: 0.5px solid #1e293b;
+  border-radius: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13.3px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:smaller ;
+  line-height: 1;
+  padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+  text-align: center;
+  color: black;
+  box-shadow: 0px 2px 4px rgba(55, 56, 58, 0.25);
+  margin: 16px;
+  width: 50%;
+}
+
+.button-edit:hover{
+  transform: translateY(-2px);
+}
+
+.button-action:active{
+  box-shadow: 0 5px rgb(223, 219, 219);
+  transform: translateY(1px);
+}
+
+
 
 @media (min-width: 768px) {
   .button-edit{

@@ -1,14 +1,27 @@
-import { Fragment, useContext, useHistory } from "react"
-import { Link, useRouteMatch } from "react-router-dom"
+import { Fragment, useContext, useState } from "react"
+import { Link, useLocation, useRouteMatch } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { Modal } from "../Modal/Modal"
 import classes from './Cart.module.css'
 import { CartContext } from "../../store/cart-context"
 import { CartItem } from "./CartItem"
+import { OrderForm } from "./OrderForm"
+import { EmptyCart } from "./EmptyCart"
+import { SmallCartIcon } from "./SmallIcons"
 
 export const Cart = (props) => {
 
+    let location = useLocation()
+    const history = useHistory()
+
+
+    
+    console.log(location);
     console.log(props);
-    let { path, url } = useRouteMatch()
+
+    const {path, url} = useRouteMatch()
+
+    const [order, setOrder] = useState(false)
 
     const cartCtx = useContext(CartContext)
 
@@ -21,6 +34,7 @@ export const Cart = (props) => {
 
     // added quantity should NOT be more than the product quantity 
     const cartItemAddHandler = (item) => {
+
         cartCtx.addItem({ ...item, amount: 1 })
     }
 
@@ -38,26 +52,44 @@ export const Cart = (props) => {
         )}
     </ul>
 
-console.log(cartItems.props.children.length);
+    console.log(cartItems.props.children.length);
     const fullCart = cartItems.props.children.length === 0 || cartItems.props.children.length === undefined ? false : true
     console.log(fullCart);
 
+    const orderHandler = (event) => {
+        event.preventDefault()
+        setOrder(true)
+    }
+
+    const getBackHandler = () => {
+        console.log(history);
+        setOrder(false)
+    }
+
     return (
         <Fragment>
-             <Modal onClose={props.onClose} >
-                {/* <Link to={`${url}`}>
-                    <button className={classes["button-exit"]} onClick={props.onClose}>X</button>
-                </Link> */}
+            {order === false && <Modal onClose={props.onClose} >
+                {fullCart === true && <SmallCartIcon />}
                 <div>{cartItems}</div>
-                {fullCart===true && <div className={classes.total}>
+
+                {fullCart === true && <div className={classes.total}>
                     <span>Total amount</span>
                     <span>{totalAmount}</span>
                 </div>}
-                {fullCart===false && <p>You have not added any products to your cart yet</p>}
+                
+                {fullCart === false && <EmptyCart />}
                 <div className={classes.actions}>
-                    {hasItems && <button className={classes.button}>Order</button>}
+                    {hasItems && <button className={classes.button} onClick={orderHandler}><Link to={`${location.pathname}/order`}>
+                    Order
+                    </Link></button>}
                 </div>
-            </Modal>
+            </Modal>}
+            {order === true &&
+                <Modal onClose={props.onClose}>
+                    <OrderForm onBack={getBackHandler}/>
+                </Modal>
+            }
+
         </Fragment>
 
     )

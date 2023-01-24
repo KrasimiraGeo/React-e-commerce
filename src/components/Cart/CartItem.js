@@ -1,4 +1,5 @@
 import classes from './CartItem.module.css';
+import closeIcon from '../../assets/close-20.png'
 
 export const CartItem = (props) => {
   console.log(props.price);
@@ -7,6 +8,9 @@ export const CartItem = (props) => {
 
   return (
     <li className={classes['cart-item']}>
+      {/* <div className={classes.wrapper}>
+      <img src={closeIcon}></img>
+      </div> */}
       <div>
           <img  className={classes.product} src={props.url} alt='product'></img>
       <div className={classes['product-info']}>

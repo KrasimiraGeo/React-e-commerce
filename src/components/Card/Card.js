@@ -5,15 +5,18 @@ import { Fragment } from 'react';
 import { CartContext } from '../../store/cart-context';
 import { AuthContext } from '../../store/auth-context';
 
-import {Modal} from '../Modal/Modal'
+import { Modal } from '../Modal/Modal'
 
 import { deleteProduct } from '../../pages/Admin/deleteProduct';
 import { editProduct } from '../../pages/Admin/editProduct';
+
+import swal from 'sweetalert';
 
 export const Card = (props) => {
 
     // console.log(props.onActionChange);
     const product = props.item
+    console.log(product);
     const authCtx = useContext(AuthContext)
     const cartCtx = useContext(CartContext)
 
@@ -26,13 +29,16 @@ export const Card = (props) => {
     const [isDelete, setIsDelete] = useState(false)
     const [isLargeImage, setIsLargeImage] = useState(false)
 
+    const [deleteConfirmation, setDeleteConfirmation] = useState()
+
     const addItemHandler = (event) => {
         event.preventDefault()
         cartCtx.addItem({
             id: product.key,
             name: product.name,
             url: product.imageUrl,
-            price: product.price,
+            price: Number(product.price),
+            quantity: Number(product.quantity),
             amount: 1
         })
     }
@@ -40,21 +46,51 @@ export const Card = (props) => {
     const enableEditHandler = (event) => {
         event.preventDefault()
         setIsEdit(true)
-        console.log('edit enabled'); 
+        console.log('edit enabled');
     }
 
     const enableDeleteHandler = (event) => {
         event.preventDefault()
+
+        swal('You sure you want to delete this product?', {
+            buttons: {
+                confirm: 'Yes',
+                decline: 'No'
+            }
+        }).then((value) => {
+        
+            switch (value) {
+                case 'decline':
+                    console.log('decline');
+                    setDeleteConfirmation(false)
+                    break;
+
+                case true:
+                    console.log('yes');
+                    setDeleteConfirmation(true)
+                    break;
+
+            }
+
+           
+        })
         setIsDelete(true)
+
         console.log('delete enabled');
+
+       
     }
+
+    console.log(deleteConfirmation)
+
+    
 
     // console.log(props);
 
     const confirmDeleteHandler = () => {
         deleteProduct(product).then((result) => {
             console.log(result);
-            if(result.ok){
+            if (result.ok) {
                 props.onActionChange(true)
             }
         })
@@ -88,13 +124,13 @@ export const Card = (props) => {
 
         console.log(editProduct);
 
-        editProduct(editedProduct).then((result)=>{
-            if(result.ok){
+        editProduct(editedProduct).then((result) => {
+            if (result.ok) {
                 props.onActionChange(true)
             }
-        console.log(result);
+            console.log(result);
         })
-        
+
         setIsEdit(false)
     }
 
@@ -102,70 +138,42 @@ export const Card = (props) => {
         setIsEdit(false)
     }
 
-    // TODO MAYBE: 
-    // modal with enlarged image?
-    
-    // const enlargeImageHandler = () => {
-    //    console.log('hover');
-    // }
 
-    // const closeModalHandler = () => {
-    //     console.log('click on modal');
-    //     setIsLargeImage(false)
-    // }
-
-
-    //defaultValue={product.name}
     return (
         <Fragment>
-            {isDelete===true && <Modal>
-                <p>Are you sure you want to delete this item?</p>
-                <button onClick={confirmDeleteHandler}>Yes</button>
-                <button onClick={declineDeleteHandler}>No</button>
-                </Modal>}
             <article key={product.key} className={classes.card}>
                 <img src={product.imageUrl} alt="product" ></img>
-                {isEdit=== false && <div className={classes.content}>
+                {isEdit === false && <div className={classes.content}>
                     <p className={classes.title}>{product.name}</p>
-                   <p className={classes.description}>{product.description}</p>
-                   <p className={classes.price}>${product.price}</p>
+                    <p className={classes.description}>{product.description}</p>
+                    <p className={classes.price}>${product.price}</p>
                 </div>
                 }
-                {/* {isLargeImage && <Modal onHover={closeModalHandler}>
-                    <div className={classes.imageModal}>
-                    <img className = {classes.large} src={product.imageUrl} alt="product"></img>
-                    </div>
-                    </Modal>} */}
-                {isEdit && <div className={classes.content}>
+                {isEdit && <div className={classes['content-edit']}>
+                    <label>Title</label>
                     <input ref={nameEditRef} placeholder={product.name} defaultValue={product.name}></input>
+                    <label>Description</label>
                     <input ref={descriptionEditRef} placeholder={product.description} defaultValue={product.description}></input>
-                    <input ref={priceEditRef} placeholder={product.price} defaultValue={product.price}></input>
-                    <input ref={quantityEditRef} placeholder={product.quantity} defaultValue={product.quantity}></input>
+                    <div className={classes['content-out']}>
+                        <div className={classes['content-row']}>
+                        <label>Price</label>
+                        <input ref={priceEditRef} placeholder={product.price} defaultValue={product.price}></input>
+                    </div>
+                    <div className={classes['content-row']}>
+                        <label>Quantity</label>
+                        <input ref={quantityEditRef} placeholder={product.quantity} defaultValue={product.quantity}></input>
+                    </div>
+                    </div>
                 </div>}
+
                 <div className={classes.centered}>
-                    {!authCtx.isAdmin && <button className={classes['button-edit']} onClick={addItemHandler}>Add to bag</button>}
+                    {!authCtx.isAdmin && <button className={classes['button-action']} onClick={addItemHandler}>Add to bag</button>}
                     {authCtx.isAdmin && isEdit === false && <button className={classes['button-edit']} onClick={enableEditHandler}>Edit</button>}
                     {authCtx.isAdmin && isEdit === true && <button className={classes['button-edit']} onClick={submitEditHandler}>Submit</button>}
-                    {authCtx.isAdmin && isEdit === true && <button className={classes['button-edit']} onClick={discardEditHandler}>Discard</button>}
-                    {authCtx.isAdmin && isEdit === false && <button className={classes['button-edit']} onClick={enableDeleteHandler}>Delete</button>}
+                    {authCtx.isAdmin && isEdit === true && <button className={classes['button-action']} onClick={discardEditHandler}>Discard</button>}
+                    {authCtx.isAdmin && isEdit === false && <button className={classes['button-action']} onClick={enableDeleteHandler}>Delete</button>}
                 </div>
             </article>
         </Fragment>
     )
 };
-
-// {isEdit === false && <p>{product.name}</p>}
-// {isEdit === false && <p>{product.description}</p>}
-// {isEdit === false && <p>{product.price}</p>}
-
-// {isEdit === true && <input ref={nameEditRef} placeholder={product.name} defaultValue={product.name}></input>}
-// {isEdit === true && <input ref={descriptionEditRef} placeholder={product.description} defaultValue={product.description}></input>}
-// {isEdit === true && <input ref={priceEditRef} placeholder={product.price} defaultValue={product.price}></input>}
-// {isEdit === true && <input ref={quantityEditRef} placeholder={product.quantity} defaultValue={product.quantity}></input>}
-
-//defaultValue={product.name}
-
-//onChange={nameChangeHander}
-//onChange={descriptionChangeHander}
-//onChange={priceChangeHandler}
-//onChange={quantityChangeHandler}

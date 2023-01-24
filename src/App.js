@@ -11,6 +11,7 @@ import { Upload } from './pages/Admin/Upload'
 import { LoginForm } from './components/LoginForm/LoginForm';
 import { Cart } from './components/Cart/Cart';
 import { AuthContext } from '../src/store/auth-context'
+import { OrderForm } from './components/Cart/OrderForm';
 
 
 function App() {
@@ -30,8 +31,11 @@ function App() {
         {authCtx.isLoggedIn && <Route path='account'>
           <LoginForm />
         </Route>}
-        <Route path='cart'>
+        <Route path='shop/cart' exact>
           <Cart />
+        </Route>
+        <Route path='shop/cart/order'>
+          <OrderForm/>
         </Route>
         {authCtx.isAdmin && <Route path='/upload'>
           <Upload />

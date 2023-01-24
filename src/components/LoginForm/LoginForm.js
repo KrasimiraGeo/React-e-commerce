@@ -1,13 +1,14 @@
 import { useState, useRef, useContext, Fragment } from 'react'
-import { Link, useHistory, useRouteMatch } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { Modal } from '../Modal/Modal'
 import { AuthContext } from '../../store/auth-context'
+import swal from 'sweetalert'
+
+import { Account } from './Account'
 
 import classes from './LoginForm.module.css'
 
 export const LoginForm = (props) => {
-
-    let { path, url } = useRouteMatch()
     let history = useHistory()
 
     const registerUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyADTl1--oNKuDKpVAw7sDYjM8geUkJ9vVg'
@@ -20,13 +21,13 @@ export const LoginForm = (props) => {
     const usernameInputRef = useRef()
 
     const authCtx = useContext(AuthContext)
-    // console.log(authCtx.isLoggedIn);
-
+    
     const storageUser = localStorage.getItem('user')
     console.log(storageUser);
+
     const logoutHandler = () => {
         authCtx.logout()
-        window.localStorage.removeItem('user')
+        // window.localStorage.clear()
     }
 
     const logInOptionHandler = () => {
@@ -39,6 +40,7 @@ export const LoginForm = (props) => {
 
     const logInHandler = (event) => {
         event.preventDefault()
+
         const enteredEmail = emailInputRef.current.value
         const enteredPassword = passwordInputRef.current.value
         fetch(loginUrl,
@@ -67,12 +69,11 @@ export const LoginForm = (props) => {
         }).then(data => {
             console.log(data);
             authCtx.login(data)
-            window.localStorage.setItem('user', `${data.displayName}`)
-            window.localStorage.setItem('token', `${data.idToken}`)
             history.replace('/shop')
         }).catch(err => {
             alert(err.message)
         })
+
     }
     
     const registerHandler = (event) => {
@@ -105,7 +106,7 @@ export const LoginForm = (props) => {
         }).then(data => {
             authCtx.login(data.idToken)
             window.localStorage.setItem('user', `${data.displayName}`)
-            window.localStorage.setItem('token', `${data.idToken}`)
+            // window.localStorage.setItem('token', `${data.idToken}`)
             history.replace('/shop')
 
         }).catch(err => {
@@ -129,15 +130,12 @@ export const LoginForm = (props) => {
     return (
         <Fragment>
             <Modal onClose={props.onClose}>
-                {/* <Link to={`${url}`}>
-                    <button className={classes["button-exit"]} onClick={props.onClose}>X</button>
-                </Link> */}
                 {!authCtx.isLoggedIn && <div className={classes.centered}>
                     <h2 className={actionStyles.logIn} onClick={logInOptionHandler}>Log in</h2>
                     <h2 className={actionStyles.register} onClick={registerOptionHandler}>Register</h2>
                 </div>}
                 {authCtx.isLoggedIn && <div>
-                    <h1>You have successfully logged in!</h1>
+                    <Account/>
                     <button onClick={logoutHandler}>Logout</button>
                 </div>}
                 <div className={classes.centered}>

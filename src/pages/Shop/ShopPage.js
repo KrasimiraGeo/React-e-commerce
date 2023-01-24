@@ -1,12 +1,11 @@
 import { Header } from "../../components/ShopHeader/Header"
-import { FetchAllProducts } from '../Admin/FetchAllProducts'
+import { Gallery } from '../Admin/Gallery'
 import { LoginForm } from "../../components/LoginForm/LoginForm"
 import { Cart } from "../../components/Cart/Cart"
-import { AuthContext } from '../../store/auth-context'
-import { Upload } from "../Admin/Upload"
 
-import { useState, useContext} from "react"
+import { useState} from "react"
 import { CartProvider } from "../../store/CartProvider"
+import { OrderForm } from "../../components/Cart/OrderForm"
 
 
 export const ShopPage = (props) => {
@@ -23,8 +22,9 @@ export const ShopPage = (props) => {
 
     const [loginModalIsVisible, setLoginModalIsVisible] = useState(false)
     const [cartModalIsVisible, setCartModalIsVisible] = useState(false)
+    const [orderModalIsVisible, setOrderModalIsVisible] = useState(false)
 
-    const ctx = useContext(AuthContext)
+    // const ctx = useContext(AuthContext)
 
     const showLoginModalHandler = () => {
         setLoginModalIsVisible(true)
@@ -40,16 +40,23 @@ export const ShopPage = (props) => {
 
     const hideCartModalHandler = () => {
         setCartModalIsVisible(false)
+    }
 
+    const showOrderModalHandler = () => {
+        setOrderModalIsVisible(true)
+    }
+
+    const hideOrderModalHandler = () => {
+        setOrderModalIsVisible(false)
     }
 
     return (
         <CartProvider>
             {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler} />}
             <Header onShowLogin={showLoginModalHandler} onShowCart={showCartModalHandler} />
-            {cartModalIsVisible && <Cart onClose={hideCartModalHandler} />}
-            {/* {ctx.isAdmin && <Upload onActionChange={reRenderHandler} />} */}
-            <FetchAllProducts onDetectedChange={reRenderHandler} />
+            {cartModalIsVisible && <Cart onClose={hideCartModalHandler} onShowOrderForm={showOrderModalHandler}/>}
+            {/* {orderModalIsVisible && <OrderForm onClose={hideOrderModalHandler}/>} */}
+            <Gallery onDetectedChange={reRenderHandler} />
         </CartProvider>
     )
 }

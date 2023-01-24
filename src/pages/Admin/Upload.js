@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useRef } from 'react'
 import { storage } from '../../FirebaseConfig/config'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage' // makes a reference for the file
 import classes from './Upload.module.css'
@@ -12,7 +12,6 @@ export const Upload = (props) => {
     const authCtx = useContext(AuthContext)
     const dbUrl = 'https://art-shop-37d63-default-rtdb.europe-west1.firebasedatabase.app/.json'
 
-    // refactor the input states to refs
     const [imageUpload, setImageUpload] = useState(null)
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -111,7 +110,6 @@ export const Upload = (props) => {
     return (
         
         <Fragment>
-           
             <div>
                 <div className={classes.centered}>
                     <button className={classes['button-form']} onClick={toggleUploadForm}>Show upload form</button>
@@ -164,7 +162,6 @@ export const Upload = (props) => {
                 }
             </div>
         
-            
         </Fragment>
         
     )
