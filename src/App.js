@@ -6,12 +6,12 @@ import { useContext } from 'react';
 import { Fragment } from 'react';
 
 import { LandingPage } from './pages/LandingPage'
-import { ShopPage } from './pages//Shop/ShopPage'
+import { ShopPage } from './pages/Shop/ShopPage'
 import { Upload } from './pages/Admin/Upload'
 import { LoginForm } from './components/LoginForm/LoginForm';
 import { Cart } from './components/Cart/Cart';
 import { AuthContext } from '../src/store/auth-context'
-import { OrderForm } from './components/Cart/OrderForm';
+import { OrderForm } from './components/OrderForm/OrderForm';
 
 
 function App() {

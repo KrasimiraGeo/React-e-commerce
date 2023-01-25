@@ -1,10 +1,9 @@
 import classes from './Gallery.module.css'
 import { Fragment, useEffect, useState, useContext } from 'react'
 import { Card } from '../../components/Card/Card'
-import { fetchProducts } from './fetch'
+import { fetchProducts } from '../Admin/fetch'
 import { AuthContext } from '../../store/auth-context'
-import { Upload } from './Upload'
-import { PhoneAuthProvider } from 'firebase/auth'
+import { Upload } from '../Admin/Upload'
 
 export const Gallery = (props) => {
     const ctx = useContext(AuthContext)

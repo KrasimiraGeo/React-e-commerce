@@ -1,5 +1,5 @@
 import { useState, useRef, useContext, Fragment } from 'react'
-import { useHistory, useRouteMatch } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Modal } from '../Modal/Modal'
 import { AuthContext } from '../../store/auth-context'
 import swal from 'sweetalert'
@@ -7,6 +7,7 @@ import swal from 'sweetalert'
 import { Account } from './Account'
 
 import classes from './LoginForm.module.css'
+import { SmallUserIcon } from '../UI/SmallIcons'
 
 export const LoginForm = (props) => {
     let history = useHistory()
@@ -25,10 +26,6 @@ export const LoginForm = (props) => {
     const storageUser = localStorage.getItem('user')
     console.log(storageUser);
 
-    const logoutHandler = () => {
-        authCtx.logout()
-        // window.localStorage.clear()
-    }
 
     const logInOptionHandler = () => {
         setIsLogIn(true)
@@ -130,14 +127,12 @@ export const LoginForm = (props) => {
     return (
         <Fragment>
             <Modal onClose={props.onClose}>
+                {!authCtx.isLoggedIn && <SmallUserIcon/>}
                 {!authCtx.isLoggedIn && <div className={classes.centered}>
                     <h2 className={actionStyles.logIn} onClick={logInOptionHandler}>Log in</h2>
                     <h2 className={actionStyles.register} onClick={registerOptionHandler}>Register</h2>
                 </div>}
-                {authCtx.isLoggedIn && <div>
-                    <Account/>
-                    <button onClick={logoutHandler}>Logout</button>
-                </div>}
+                {authCtx.isLoggedIn && <Account/>}
                 <div className={classes.centered}>
                     <form className={classes.form1}>
                         {!isLogIn && !authCtx.isLoggedIn && <input className={classes.pass} type="text" placeholder="Username" ref={usernameInputRef} required />}

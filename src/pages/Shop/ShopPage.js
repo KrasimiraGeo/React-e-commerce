@@ -1,11 +1,11 @@
 import { Header } from "../../components/ShopHeader/Header"
-import { Gallery } from '../Admin/Gallery'
+import { Gallery } from '../Shop/Gallery'
 import { LoginForm } from "../../components/LoginForm/LoginForm"
 import { Cart } from "../../components/Cart/Cart"
 
 import { useState} from "react"
 import { CartProvider } from "../../store/CartProvider"
-import { OrderForm } from "../../components/Cart/OrderForm"
+import { OrderForm } from "../../components/OrderForm/OrderForm"
 
 
 export const ShopPage = (props) => {

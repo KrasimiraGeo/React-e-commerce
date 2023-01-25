@@ -1,19 +1,20 @@
 import { Fragment, useContext, useRef, useState } from "react"
 
 import { AuthContext } from "../../store/auth-context"
-import icon from '../../assets/check.png'
+// import icon from '../../assets/check.png'
 import { CartContext } from "../../store/cart-context"
 import { editProduct } from "../../pages/Admin/editProduct"
 
 import { Link } from "react-router-dom"
-import { Cart } from "./Cart"
+import { Cart } from "../Cart/Cart"
 import back from '../../assets/back-40.png'
 import classes from './OrderForm.module.css'
-import { SmallInfoIcon } from "./SmallIcons"
+import { SmallInfoIcon } from "../UI/SmallIcons"
 import { useLocation } from "react-router-dom"
 
 import { Modal } from "../Modal/Modal"
 import { useHistory } from "react-router-dom"
+import { ShippingIcon } from "../UI/ShippingIcon"
 
 // clear cart after order submission
 // update the product quantity after successfull submission
@@ -29,7 +30,7 @@ export const OrderForm = (props) => {
 
     console.log(history);
 
-    const [getBack, setGetBack] = useState()
+    const [orderSubmitted, setOrderSubmitted] = useState(false)
 
     console.log(cartCtx);
 
@@ -87,26 +88,20 @@ export const OrderForm = (props) => {
 
         if(enteredName && enteredEmail && enteredAddress && enteredCity){
             setFormIsValid(true)
+            setOrderSubmitted(true)
             cartCtx.clearCart()
         }
 
 
-    }
-
-    const backHandler = () => {
-        setGetBack(true)
-    }
-
-    
+    }    
     
     return(
         <Fragment>
-            <Link to={'/shop/cart'}>
+            {orderSubmitted===false && <Link to={'/shop/cart'}>
             <button className={classes.back} onClick={props.onBack} >
                 <img src={back}></img>
             </button>
-            </Link>
-           
+            </Link>}
             {formIsValid===false && <SmallInfoIcon/>}
             {formIsValid===false && <div className={classes.message}>
              <p>Enter your shipping details</p>
@@ -116,15 +111,7 @@ export const OrderForm = (props) => {
              <input placeholder="Email" ref ={emailInputRef} required ></input>
              <button onClick={submitOrderHandler} >Submit order</button>
         </div>}
-
-        {formIsValid && 
-        <div>
-            <p>Your order was successfully submitted!</p>
-            <img src={icon}></img>
-            </div>}
-
-{/* {getBack===true <Cart>} */}
-        {/* {getBack===true && <Modal onClose={props.onClose}><Cart/></Modal>} */}
+        {formIsValid && <ShippingIcon/>}
         </Fragment>
        
     )

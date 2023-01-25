@@ -5,9 +5,9 @@ import { Modal } from "../Modal/Modal"
 import classes from './Cart.module.css'
 import { CartContext } from "../../store/cart-context"
 import { CartItem } from "./CartItem"
-import { OrderForm } from "./OrderForm"
+import { OrderForm } from "../OrderForm/OrderForm"
 import { EmptyCart } from "./EmptyCart"
-import { SmallCartIcon } from "./SmallIcons"
+import { SmallCartIcon } from "../UI/SmallIcons"
 
 export const Cart = (props) => {
 

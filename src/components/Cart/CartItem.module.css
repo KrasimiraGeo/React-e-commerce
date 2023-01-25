@@ -32,7 +32,8 @@
   .price {
     font-weight: bold;
     color: #363636;
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
+    font-size: 20px;
   }
   
   .amount {
@@ -57,8 +58,12 @@
   .actions {
     display: flex;
     flex-direction: row;
-    margin-top: 2%;
+    /* margin-top: 2%; */
+    justify-content: center;
+    border: 1px solid #1e293b;
   }
+
+
   
   @media (min-width: 768px) {
     .actions {
@@ -70,8 +75,9 @@
     font: inherit;
     font-weight: bold;
     font-size: 1.25rem;
-    color:  #1e293b;
-    border: 1px solid #1e293b;
+    border: none;
+    border-color: none;
+    /* color:  #1e293b; */
     width: 2rem;
     text-align: center;
     border-radius: 6px;

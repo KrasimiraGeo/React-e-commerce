@@ -6,7 +6,6 @@ export const LandingNavigation =() => {
         <nav className={classes.navbar}>
             <ul>
                 <li><a href='/shop'>SHOP</a></li>
-                {/* <li><a href='about'>ABOUT</a></li> */}
             </ul>
         </nav>
         
