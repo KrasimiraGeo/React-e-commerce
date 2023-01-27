@@ -14,9 +14,8 @@ import swal from 'sweetalert';
 
 export const Card = (props) => {
 
-    // console.log(props.onActionChange);
     const product = props.item
-    console.log(product);
+
     const authCtx = useContext(AuthContext)
     const cartCtx = useContext(CartContext)
 
@@ -28,8 +27,7 @@ export const Card = (props) => {
     const [isEdit, setIsEdit] = useState(false)
     const [isDelete, setIsDelete] = useState(false)
     const [isLargeImage, setIsLargeImage] = useState(false)
-
-    const [deleteConfirmation, setDeleteConfirmation] = useState()
+    const [formHasError, setFormHasError] = useState(false)
 
     const addItemHandler = (event) => {
         event.preventDefault()
@@ -58,34 +56,26 @@ export const Card = (props) => {
                 decline: 'No'
             }
         }).then((value) => {
-        
+
             switch (value) {
                 case 'decline':
-                    console.log('decline');
-                    setDeleteConfirmation(false)
+                    declineDeleteHandler()
                     break;
 
                 case true:
-                    console.log('yes');
-                    setDeleteConfirmation(true)
+                    confirmDeleteHandler()
                     break;
 
             }
 
-           
+
         })
         setIsDelete(true)
 
         console.log('delete enabled');
-
-       
     }
 
-    console.log(deleteConfirmation)
-
     
-
-    // console.log(props);
 
     const confirmDeleteHandler = () => {
         deleteProduct(product).then((result) => {
@@ -112,7 +102,7 @@ export const Card = (props) => {
         const editedDescription = descriptionEditRef.current.value
         const editedPrice = priceEditRef.current.value
         const editedQuantity = quantityEditRef.current.value
-
+        
         const editedProduct = {
             id: product.key,
             url: product.imageUrl,
@@ -124,14 +114,21 @@ export const Card = (props) => {
 
         console.log(editProduct);
 
-        editProduct(editedProduct).then((result) => {
-            if (result.ok) {
-                props.onActionChange(true)
-            }
-            console.log(result);
-        })
+        if (editedName !== '' && editedDescription !== '' && editedPrice !== '' && editedQuantity !== '') {
+            setFormHasError(false)
+            editProduct(editedProduct).then((result) => {
+                if (result.ok) {
+                    props.onActionChange(true)
+                }
+                console.log(result);
+            })
+            setIsEdit(false)
+           
+        }else{
+            setFormHasError(true)
+        }
 
-        setIsEdit(false)
+        
     }
 
     const discardEditHandler = () => {
@@ -156,15 +153,16 @@ export const Card = (props) => {
                     <input ref={descriptionEditRef} placeholder={product.description} defaultValue={product.description}></input>
                     <div className={classes['content-out']}>
                         <div className={classes['content-row']}>
-                        <label>Price</label>
-                        <input ref={priceEditRef} placeholder={product.price} defaultValue={product.price}></input>
-                    </div>
-                    <div className={classes['content-row']}>
-                        <label>Quantity</label>
-                        <input ref={quantityEditRef} placeholder={product.quantity} defaultValue={product.quantity}></input>
-                    </div>
+                            <label>Price</label>
+                            <input ref={priceEditRef} placeholder={product.price} defaultValue={product.price}></input>
+                        </div>
+                        <div className={classes['content-row']}>
+                            <label>Quantity</label>
+                            <input ref={quantityEditRef} placeholder={product.quantity} defaultValue={product.quantity}></input>
+                        </div>
                     </div>
                 </div>}
+                {formHasError && <p className={classes.warning}>* Input fields should not be empty!</p>}
 
                 <div className={classes.centered}>
                     {!authCtx.isAdmin && <button className={classes['button-action']} onClick={addItemHandler}>Add to bag</button>}

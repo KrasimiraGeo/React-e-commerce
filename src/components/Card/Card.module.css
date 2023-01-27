@@ -156,16 +156,11 @@ margin-bottom: 5px;
   transform: translateY(1px);
 }
 
-
-
-@media (min-width: 768px) {
-  .button-edit{
-    font-size: 13.3px;
-    margin-bottom: 5%;
-    /* padding: 1rem 2rem; */
-    padding-left: 40px;
-	padding-right: 40px;
-	padding-bottom: 10px;
-	padding-top: 10px;
-  }
+.warning{
+  font-size: 10px;
+  color: red;
+  margin-bottom: -25px;
+  margin-top: 10px;
+  text-align: center;
 }
+

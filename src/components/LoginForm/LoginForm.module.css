@@ -13,11 +13,13 @@
 	
 }
 
+
 .nonactive {
 	margin:15px;
 	color: rgba(83, 81, 81, 0.6);
 	width: 100px;
 }
+
 
 h2 {
 	font-size: 25px;
@@ -58,7 +60,6 @@ h2 {
 	letter-spacing: 1px;
 	background: rgba(136, 126, 126, 0.04);
 	padding: 10px 20px;
-	border: none;
 	border-radius: 10px;
 	outline: none;
 	box-sizing: border-box;
@@ -68,11 +69,35 @@ h2 {
 	font-family: 'Ubuntu', sans-serif;
 }
 
+.invalid{
+	width: 300px;
+	color: rgb(38, 50, 56);
+	font-weight: 700;
+	font-size: 14px;
+	letter-spacing: 1px;
+	background: rgba(136, 126, 126, 0.04);
+	padding: 10px 20px;
+	border-radius: 10px;
+	outline: none;
+	box-sizing: border-box;
+	text-align: center;
+	margin-bottom: 2%;
+	font-family: 'Ubuntu', sans-serif;
+	border:1px solid red;
+}
+
+.warning{
+	font-size: 10px;
+	color: red;
+	margin:0px;
+	
+}
+
 form.form1 {
 	padding-top: 1%;
 }
 
-.pass {
+/* .pass {
 	width:300px;
 	color: rgb(38, 50, 56);
 	font-weight: 700;
@@ -88,7 +113,7 @@ form.form1 {
 	margin-bottom: 3%;
 	text-align: center;
 	font-family: 'Ubuntu', sans-serif;
-}
+} */
 
 
 .un:focus,

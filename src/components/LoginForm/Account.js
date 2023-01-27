@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { AuthContext } from "../../store/auth-context"
 import { AccountIcon } from "../UI/AccountIcon"
+import { SmallLogoutIcon } from "../UI/SmallIcons"
 
 import classes from './Account.module.css'
 
@@ -42,9 +43,12 @@ export const Account = () => {
                 </div>}
 
 
-            <div className={classes.wrapper}>
-                <button className={classes.logout} onClick={logoutHandler}>Logout</button>
-            </div>
+{/* <SmallLogoutIcon onClick={logoutHandler}/> */}
+           
+                <button className={classes.logout} onClick={logoutHandler}>
+                    <SmallLogoutIcon/>
+                </button>
+          
 
 
         </div>

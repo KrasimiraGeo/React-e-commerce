@@ -21,19 +21,14 @@ import { ShippingIcon } from "../UI/ShippingIcon"
 
 export const OrderForm = (props) => {
 
-    console.log(props);
+    // console.log(props);
     const authCtx = useContext(AuthContext)
-    console.log(authCtx);
+    // console.log(authCtx);
     const cartCtx = useContext(CartContext)
 
     let history = useHistory()
 
-    console.log(history);
-
     const [orderSubmitted, setOrderSubmitted] = useState(false)
-
-    console.log(cartCtx);
-
     const [formIsValid, setFormIsValid] =  useState(false)
     
     const userName = authCtx.userName
@@ -41,60 +36,95 @@ export const OrderForm = (props) => {
     console.log(window.localStorage);
     const userEmail = authCtx.email
 
-    const cityInputRef = useRef()
-    const addressInputRef = useRef()
-    const emailInputRef = useRef()
     const nameInputRef = useRef()
+    const [nameInputTouched, setNameInputTouched] = useState(false)
+    const [nameIsValid, setNameIsValid] = useState()
 
-    console.log(authCtx);
-    console.log(userEmail); //undefined if there is no logged in useer
+    const cityInputRef = useRef()
+    const [cityInputTouched, setCityInputTouched] = useState(false)
+    const [cityIsValid, setCityIsValid] = useState()
 
-   
+    const addressInputRef = useRef()
+    const [addressInputTouched, setAddressInputTouched] = useState(false)
+    const [addressIsValid, setAddressIsValid] = useState()
+
+    const emailInputRef = useRef()
+    const [emailInputTouched, setEmailInputTouched] = useState(false)
+    const [emailIsValid, setEmailIsValid] = useState()
+
+
     const submitOrderHandler = (event) => {
         event.preventDefault()
-        const cartItems = cartCtx.items
-        const cartItemsId = []
-
-        // cartItems.forEach(element => {
-        //     cartItemsId.push(element.id)
-        // });
-
-        // const quantityUpdatedProducts= []
-        console.log(cartItemsId);
-
+    
         if(!formIsValid){
             console.log('please fill in all fields');
         }
 
-        console.log(cartCtx);
         const enteredName = nameInputRef.current.value
         const enteredEmail = userEmail ? `${userEmail}` : emailInputRef.current.value
         const enteredCity = cityInputRef.current.value
         const enteredAddress = addressInputRef.current.value
-
-        //TODO: update quantity of product  - editProduct; new object of the product but quantity is updated
-        // cartItems.forEach(product => {
-        //     console.log(product);
-        //     let newQuantity = product.quantity - 1
-
-        //     quantityUpdatedProducts.push(...product, newQuantity)
-
-            
-
-        //     // editProduct(product)
-        // })
-
-        // console.log(quantityUpdatedProducts);
 
         if(enteredName && enteredEmail && enteredAddress && enteredCity){
             setFormIsValid(true)
             setOrderSubmitted(true)
             cartCtx.clearCart()
         }
-
-
+        
     }    
+
+    const nameBlurHanlder = () => {
+        setNameInputTouched(true)
+        if(nameInputRef.current.value !== ''){
+            setNameIsValid(true)
+            console.log('touched and valid');
+        }else{
+            setNameIsValid(false)
+            console.log('touched and invalid');
+        }
+    }
+
+    const cityBlurHandler = () => {
+        setCityInputTouched(true)
+        if(cityInputRef.current.value !== ''){
+            setCityIsValid(true)
+        }else{
+            setCityIsValid(false)
+        }
+    }
+
+    const addressBlurHandler = ()=>{
+        setAddressInputTouched(true)
+        if(addressInputRef.current.value !==''){
+            setAddressIsValid(true)
+        }else{
+            setAddressIsValid(false)
+        }
+    }
+
+    const emailBlurHandler = ()=>{
+        setEmailInputTouched(true)
+        if(emailInputRef.current.value !==''){
+            setEmailIsValid(true)
+        }else{
+            setEmailIsValid(false)
+        }
+    }
+
+    const nameHasError = nameIsValid===false && nameInputTouched===true
+    const nameInputClasses = nameHasError===true ? `${classes.check}` : `${classes.field}`
+
+    const cityHasError = cityIsValid===false && cityInputTouched===true
+    const cityInputClasses = cityHasError===true ? `${classes.check}` : `${classes.field}`
     
+    const addressHasError = addressIsValid===false && addressInputTouched===true
+    const addressInputClasses = addressHasError===true ? `${classes.check}` : `${classes.field}`
+
+    const emailHasError = emailIsValid===false && emailInputTouched===true
+    const emailInputClasses = emailHasError===true ? `${classes.check}` : `${classes.field}`
+
+
+
     return(
         <Fragment>
             {orderSubmitted===false && <Link to={'/shop/cart'}>
@@ -105,10 +135,10 @@ export const OrderForm = (props) => {
             {formIsValid===false && <SmallInfoIcon/>}
             {formIsValid===false && <div className={classes.message}>
              <p>Enter your shipping details</p>
-             {!userName && <input placeholder="Name" ref = {nameInputRef} required></input>}
-             <input placeholder="City" ref ={cityInputRef} required ></input>
-             <input placeholder="Address" ref ={addressInputRef} required ></input>
-             <input placeholder="Email" ref ={emailInputRef} required ></input>
+             {!userName &&  <input placeholder="Name" className={nameInputClasses} ref = {nameInputRef} onBlur={nameBlurHanlder.bind(nameInputRef)} ></input>}
+             <input placeholder="City" className = {cityInputClasses} ref ={cityInputRef} onBlur={cityBlurHandler.bind(cityInputRef)} ></input>
+             <input placeholder="Address" className={addressInputClasses} ref ={addressInputRef} onBlur={addressBlurHandler.bind(addressInputRef)}  ></input>
+             <input placeholder="Email"className={emailInputClasses} ref ={emailInputRef} onBlur={emailBlurHandler.bind(emailInputRef)} ></input>
              <button onClick={submitOrderHandler} >Submit order</button>
         </div>}
         {formIsValid && <ShippingIcon/>}
