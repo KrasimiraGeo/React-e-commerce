@@ -14,11 +14,6 @@ export const Cart = (props) => {
     let location = useLocation()
     const history = useHistory()
 
-
-    
-    console.log(location);
-    console.log(props);
-
     const {path, url} = useRouteMatch()
 
     const [order, setOrder] = useState(false)
@@ -31,8 +26,6 @@ export const Cart = (props) => {
     const cartItemRemoveHandler = (id) => {
         cartCtx.removeItem(id)
     }
-
-    // added quantity should NOT be more than the product quantity 
     const cartItemAddHandler = (item) => {
 
         cartCtx.addItem({ ...item, amount: 1 })
@@ -46,16 +39,14 @@ export const Cart = (props) => {
                 amount={item.amount}
                 price={item.price}
                 url={item.url}
-                onRemove={cartItemRemoveHandler.bind(null, item.id)} // make sure the id is passed to the handler
-                onAdd={cartItemAddHandler.bind(null, item)} // make sure the whole item is passed to the handler
+                onRemove={cartItemRemoveHandler.bind(null, item.id)} 
+                onAdd={cartItemAddHandler.bind(null, item)} 
             />
         )}
     </ul>
 
-    console.log(cartItems.props.children.length);
     const fullCart = cartItems.props.children.length === 0 || cartItems.props.children.length === undefined ? false : true
-    console.log(fullCart);
-
+   
     const orderHandler = (event) => {
         event.preventDefault()
         setOrder(true)

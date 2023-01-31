@@ -5,6 +5,8 @@ import classes from './Modal.module.css';
 
 const Backdrop = (props) => {
   let {path, url} = useRouteMatch()
+
+  console.log('backdrop click');
   
   return <Link to={`${url}`}>
   <div className={classes.backdrop} onClick={props.onClose} />
@@ -12,6 +14,7 @@ const Backdrop = (props) => {
 };
 
 const ModalOverlay = (props) => { //props is the data that will be displayed
+
   return (
     <div className={classes.modal}>
       <div className={classes.content}>{props.children}</div>

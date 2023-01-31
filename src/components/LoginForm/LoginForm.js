@@ -19,67 +19,70 @@ export const LoginForm = (props) => {
 
     const [isLogIn, setIsLogIn] = useState(true)
 
-    const [emailInput, setEmailInput] = useState('')
-    const [emailIsValid, setEmailIsValid] = useState()
+      const emailInputRef = useRef()
+      const [emailIsValid, setEmailIsValid] = useState()
     const [emailInputTouched, setEmailInputTouched] = useState(false)
 
-    const [passInput, setPassInput] = useState('')
+    const passwordInputRef = useRef()
     const [passIsValid, setPassIsValid] = useState()
     const [passInputTouched, setPassInputTouched] = useState(false)
 
-    const [nameInput, setNameInput] = useState('')
-    const [nameIsValid, setNameIsValid] = useState()
+    const usernameInputRef = useRef()
+     const [nameIsValid, setNameIsValid] = useState()
     const [nameInputTouched, setNameInputTouched] = useState(false)
 
-
-    const nameInputHandler = (event) => {
-        setNameInput(event.target.value)
-        if (event.target.value.trim() !== '') {
-            setNameIsValid(true)
-        } else {
-            setNameIsValid(false)
-        }
-    }
+    // const [emailInput, setEmailInput] = useState('')
+    // const [passInput, setPassInput] = useState('')
+    // const [nameInput, setNameInput] = useState('')
+   
+    // const nameInputHandler = (event) => {
+    //     setNameInput(event.target.value)
+    //     if (event.target.value.trim() !== '') {
+    //         setNameIsValid(true)
+    //     } else {
+    //         setNameIsValid(false)
+    //     }
+    // }
 
     const nameInputBlurHanlder = () => {
         setNameInputTouched(true)
-        if (nameInput.trim() !== '') {
+        if (usernameInputRef.current.value.trim() !== '') {
             setNameIsValid(true)
         } else {
             setNameIsValid(false)
         }
     }
 
-    const passInputHandler = (event) => {
-        setPassInput(event.target.value)
-        if (event.target.value.trim() !== '') {
-            setPassIsValid(true)
-        } else {
-            setPassIsValid(false)
-        }
-    }
+    // const passInputHandler = (event) => {
+    //     setPassInput(event.target.value)
+    //     if (event.target.value.trim() !== '') {
+    //         setPassIsValid(true)
+    //     } else {
+    //         setPassIsValid(false)
+    //     }
+    // }
 
     const passInputBlurHandler = () => {
         setPassInputTouched(true)
-        if (passInput.trim() !== '') {
+        if (passwordInputRef.current.value.trim() !== '') {
             setPassIsValid(true)
         } else {
             setPassIsValid(false)
         }
     }
 
-    const emailInputHandler = (event) => {
-        setEmailInput(event.target.value)
-        if (event.target.value.trim() !== '') {
-            setEmailIsValid(true)
-        } else {
-            setEmailIsValid(false)
-        }
-    }
+    // const emailInputHandler = (event) => {
+    //     setEmailInput(event.target.value)
+    //     if (event.target.value.trim() !== '') {
+    //         setEmailIsValid(true)
+    //     } else {
+    //         setEmailIsValid(false)
+    //     }
+    // }
 
     const emailInputBlurHandler = () => {
         setEmailInputTouched(true)
-        if (emailInput.trim() !== '') {
+        if (emailInputRef.current.value.trim() !== '') {
             setEmailIsValid(true)
         } else {
             setEmailIsValid(false)
@@ -96,13 +99,13 @@ export const LoginForm = (props) => {
 
     const logInHandler = (event) => {
         event.preventDefault()
-        if (emailInput !== '' && passInput !== '') {
+        if (emailInputRef.current.value !== '' && passwordInputRef.current.value !== '') {
             fetch(loginUrl,
                 {
                     method: "POST",
                     body: JSON.stringify({
-                        email: emailInput,
-                        password: passInput,
+                        email: emailInputRef.current.value,
+                        password: passwordInputRef.current.value,
                         returnSecureToken: true
                     }),
                     headers: {
@@ -133,14 +136,14 @@ export const LoginForm = (props) => {
     const registerHandler = (event) => {
         event.preventDefault()
 
-        if (passInput !== '' && emailInput !== '' && nameInput !== '') {
+        if (passwordInputRef.current.value !== '' && emailInputRef.current.value !== '' && usernameInputRef.current.value !== '') {
             fetch(registerUrl,
                 {
                     method: "POST",
                     body: JSON.stringify({
-                        displayName: nameInput,
-                        email: emailInput,
-                        password: passInput,
+                        displayName: usernameInputRef.current.value,
+                        email: emailInputRef.current.value,
+                        password: passwordInputRef.current.value,
                         returnSecureToken: true
                     }),
                     headers: {
@@ -180,15 +183,13 @@ export const LoginForm = (props) => {
     }
 
     const nameHasError = !nameIsValid && nameInputTouched
-    const nameInputClasses = nameHasError ? `${classes.invalid}` : `${classes.un}`
+    const nameInputClasses = nameHasError===true ? `${classes.check}` : `${classes.field}`
 
     const passHasError = !passIsValid && passInputTouched
-    const passInputClasses = passHasError ? `${classes.invalid}` : `${classes.un}`
+    const passInputClasses = passHasError===true ? `${classes.check}` : `${classes.field}`
 
     const emailHasError = !emailIsValid && emailInputTouched
-    const emailInputClasses = emailHasError ? `${classes.invalid}` : `${classes.un}`
-
-    const formHasError = nameHasError || passHasError || emailHasError
+    const emailInputClasses = emailHasError===true ? `${classes.check}` : `${classes.field}`
 
     return (
         <Fragment>
@@ -202,12 +203,11 @@ export const LoginForm = (props) => {
                 <div className={classes.centered}>
                     <form className={classes.form1}>
                         {!isLogIn && !authCtx.isLoggedIn &&
-                            <input className={nameInputClasses} type="text" placeholder="Username" onChange={nameInputHandler} onBlur={nameInputBlurHanlder.bind(nameInput)} value={nameInput} />}
+                            <input className={nameInputClasses} type="text" placeholder="Username" ref={usernameInputRef} onBlur={nameInputBlurHanlder.bind(usernameInputRef)} />}
                         {!authCtx.isLoggedIn &&
-                            <input className={emailInputClasses} type="email" placeholder="Email" onChange={emailInputHandler} onBlur={emailInputBlurHandler.bind(emailInput)} value={emailInput} />}
+                            <input className={emailInputClasses} type="email" placeholder="Email" ref={emailInputRef} onBlur={emailInputBlurHandler.bind(emailInputRef)} />}
                         {!authCtx.isLoggedIn &&
-                            <input className={passInputClasses} type="password" placeholder="Password" onChange={passInputHandler} onBlur={passInputBlurHandler.bind(passInput)} value={passInput} />}
-                        {formHasError && <p className={classes.warning}>Please fill in the empty fields!</p>}
+                            <input className={passInputClasses} type="password" placeholder="Password" ref={passwordInputRef} onBlur={passInputBlurHandler.bind(passwordInputRef)} />}
                         <div className={classes.centered}>
                             {!isLogIn && !authCtx.isLoggedIn &&
                                 <button className={classes['button-submit']} onClick={registerHandler}>Register</button>}

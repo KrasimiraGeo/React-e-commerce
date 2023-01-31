@@ -25,6 +25,7 @@ export const Account = () => {
             </div>
 
 
+
             {!authCtx.isAdmin && <div className={classes.wrapper}>
                 <div className={classes.message}>
                     <p>Thank you for choosing SKY murals! </p>

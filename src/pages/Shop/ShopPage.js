@@ -6,6 +6,7 @@ import { Cart } from "../../components/Cart/Cart"
 import { useState} from "react"
 import { CartProvider } from "../../store/CartProvider"
 import { OrderForm } from "../../components/OrderForm/OrderForm"
+import { Card } from "../../components/Card/Card"
 
 
 export const ShopPage = (props) => {
@@ -49,6 +50,7 @@ export const ShopPage = (props) => {
     const hideOrderModalHandler = () => {
         setOrderModalIsVisible(false)
     }
+
 
     return (
         <CartProvider>

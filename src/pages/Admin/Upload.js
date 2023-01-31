@@ -1,76 +1,131 @@
-import { useState, Fragment, useRef } from 'react'
-import { storage } from '../../FirebaseConfig/config'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage' // makes a reference for the file
 import classes from './Upload.module.css'
-
+import swal from 'sweetalert'
+import { useState, Fragment, useRef, useContext} from 'react'
+import { storage } from '../../FirebaseConfig/config'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { AuthContext } from '../../store/auth-context'
-import { useContext } from 'react'
 
 export const Upload = (props) => {
-
-    console.log(props);
     const authCtx = useContext(AuthContext)
     const dbUrl = 'https://art-shop-37d63-default-rtdb.europe-west1.firebasedatabase.app/.json'
 
     const [imageUpload, setImageUpload] = useState(null)
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState('')
-    const [quantity, setQuantity] = useState('')
-    const [description, setDescription] = useState('')
-   
+    const [imageFieldTouched, setImageFieldTouched] = useState(false)
+    const [imageIsPresent, setImageIsPresent] = useState()
+
+    const nameInputRef = useRef()
+    const [nameInputTouched, setNameInputTouched] = useState(false)
+    const [nameIsValid, setNameIsValid] = useState()
+
+    const priceInputRef = useRef()
+    const [priceInputTouched, setPriceInputTouched] = useState(false)
+    const [priceIsValid, setPriceIsValid] = useState()
+
+    const quantityInputRef = useRef()
+    const [quantityInputTouched, setQuantityInputTouched] = useState(false)
+    const [quantityIsValid, setQuantityIsValid] = useState()
+
+    const descriptionInputRef=useRef()
+    const [descriptionInputTouched, setDescriptionInputTouched] = useState(false)
+    const [descriptionIsValid, setDescriptionIsValid] = useState()
+    
     const [formIsVisible, setFormIsVisible] = useState(false)
 
-    const currentImageInfo = {
-        name,
-        price,
-        quantity,
-        description,
-    }
+   
     
     const handleChange = (event) => {
-        setImageUpload(event.target.files[0])
+        setImageFieldTouched(true)
+
+        if(event.target.files[0]){
+            setImageIsPresent(true)
+            setImageUpload(event.target.files[0])
+        }else{
+            setImageIsPresent(false)
+        }
     }
 
-    const nameHandler = (event) => {
-        setName(event.target.value)
+
+
+    const nameBlurHandler = () => {
+        setNameInputTouched(true)
+        if(nameInputRef.current.value !== ''){
+            setNameIsValid(true)
+        }else{
+            setNameIsValid(false)
+        }
     }
 
-    const quantityHandler = (event) => {
-
-        // TODO: add a check for a valid quantity
-        setQuantity(Number(event.target.value))
+    const quantityBlurHandler = () => {
+        setQuantityInputTouched(true)
+        if(quantityInputRef.current.value !== '' || Number(quantityInputRef.current.value) > 0){
+            setQuantityIsValid(true)
+        }else{
+            setQuantityIsValid(false)
+        }
     }
 
-    const priceHandler = (event) => {
-
-        // TODO: add a check for a valid price
-        setPrice(Number(event.target.value))
+    const priceBlurHandler = () => {
+        setPriceInputTouched(true)
+        if(priceInputRef.current.value !== '' || Number(priceInputRef.current.value) > 0){
+            setPriceIsValid(true)
+        }else{
+            setPriceIsValid(false)
+        }
     }
 
-    const descriptionHandler = (event) => {
-
-        
-        setDescription(event.target.value)
+    const descriptionBlurHandler = () => {
+        setDescriptionInputTouched(true)
+        if(descriptionInputRef.current.value !== ''){
+            setDescriptionIsValid(true)
+        }else{
+            setDescriptionIsValid(false)
+        }
     }
+
+   
 
     const uploadImage = (event) => {
         event.preventDefault()
 
+        console.log(imageUpload);
         if (imageUpload === null) {
-            alert("Please choose a file first!")
+            swal('Please import a file!', {
+                icon: 'warning',
+                timer: 2000
+            })
         }
 
+        const enteredName = nameInputRef.current.value
+        const enteredPrice = priceInputRef.current.value
+        const enteredQuantity = quantityInputRef.current.value
+        const enteredDescription = descriptionInputRef.current.value
+    
+        const currentImageInfo = {
+            name: enteredName,
+            price:enteredPrice ,
+            quantity: enteredQuantity,
+            description: enteredDescription,
+        }
+
+        const formIsValid = imageUpload !== null &&  enteredName !== '' && enteredPrice !== '' && enteredDescription !== '' && enteredQuantity !== '' ? true:false
+        console.log(formIsValid);
         // add check for the other fields as well - they must be full
 
-        const imageRef = ref(storage, `images/${imageUpload.name}`)
+        console.log(imageUpload);
+       
 
-        if (authCtx.isAdmin) {
+        if (authCtx.isAdmin && formIsValid===true) {
+            const imageRef = ref(storage, `images/${imageUpload.name}`)
             uploadBytes(imageRef, imageUpload).then((result) => {
-                alert('Image uploaded')
-                console.log(result.ref);
+                swal("Loading...", {
+                    icon: 'info',
+                    buttons: false,
+                    timer: 1300,
+                  }) 
                 return getDownloadURL(result.ref)
             }).then((downloadUrl) => {
                 currentImageInfo.imageUrl = downloadUrl
+
                 fetch(dbUrl, {
                     method: 'POST',
                     headers: {
@@ -79,23 +134,31 @@ export const Upload = (props) => {
                     body: JSON.stringify(currentImageInfo)
                 }).then((result)=>{
                     if(result.ok){
+                        swal("The new product was successfully uploaded!", {
+                            icon: 'success',
+                            buttons: false,
+                            timer: 1300,
+                          })
                         props.onActionChange(true)
+                    }else{
+                        swal("Something went wrong! Please try again", {
+                            icon: 'error',
+                            buttons: false,
+                            timer: 1300,
+                          })
                     }
-                    console.log(result);
                 })
                 clearInputHandler()
             })
         }
-
-      
     }
 
     const clearInputHandler = () => {
         document.getElementsByName('file')[0].value = ''
-        setName("")
-        setPrice("")
-        setQuantity("")
-        setDescription("")
+        nameInputRef.current.value=''
+        priceInputRef.current.value=''
+        quantityInputRef.current.value=''
+        descriptionInputRef.current.value=''
     }
 
     const toggleUploadForm = (event) => {
@@ -106,6 +169,19 @@ export const Upload = (props) => {
             event.target.textContent = 'Hide upload form'
         }
     }
+
+    const nameHasError = nameIsValid===false && nameInputTouched===true
+    const nameInputClasses = nameHasError===true ? `${classes.check}` : `${classes["feedback-input"]}`
+
+    const quantityHasError = quantityIsValid===false && quantityInputTouched===true
+    const quantityInputClasses = quantityHasError ===true ? `${classes.check}` : `${classes["feedback-input"]}`
+    
+    const priceHasError = priceIsValid===false && priceInputTouched===true
+    const priceInputClasses = priceHasError===true ? `${classes.check}` : `${classes["feedback-input"]}`
+
+    const descriptionHasError = descriptionIsValid===false && descriptionInputTouched===true
+    const descriptionInputClasses = descriptionHasError===true ? `${classes.check}` : `${classes["feedback-input"]}`
+
 
     return (
         
@@ -123,45 +199,44 @@ export const Upload = (props) => {
                             placeholder="Select an Image"
                             title='Select an image'
                             onChange={handleChange}
-                            required></input>
+                            />
                         <input
                             name="name"
                             type="text"
-                            className={classes["feedback-input"]}
+                            className={nameInputClasses}
                             placeholder="Name"
-                            value={name}
-                            onChange={nameHandler}
-                            required />
+                            ref={nameInputRef}
+                            onBlur={nameBlurHandler.bind(nameInputRef)}
+                             />
                         <input
                             name="quantity"
                             type="number"
-                            className={classes["feedback-input"]}
+                            className={quantityInputClasses}
                             placeholder="Quantity"
-                            value={quantity}
-                            onChange={quantityHandler}
-                            required />
+                            ref={quantityInputRef}
+                            onBlur={quantityBlurHandler.bind(quantityInputRef)}
+                            />
                         <input
                             name="price"
                             type="number"
-                            className={classes["feedback-input"]}
+                            className={priceInputClasses}
                             placeholder="Price"
-                            value={price}
-                            onChange={priceHandler}
-                            required />
+                            ref={priceInputRef}
+                            onBlur={priceBlurHandler.bind(priceInputRef)}
+                            />
                         <textarea
                             name="description"
-                            className={classes["feedback-input"]}
+                            className={descriptionInputClasses}
                             placeholder="Description"
-                            value={description}
-                            onChange={descriptionHandler}
-                            required />
+                            ref={descriptionInputRef}
+                            onBlur={descriptionBlurHandler.bind(descriptionInputRef)}
+                            />
                         <div className={classes.centered}>
-                            <button className={classes['button-upload']} onClick={uploadImage}>Upload to Firebase</button>
+                            <button className={classes['button-upload']} onClick={uploadImage}>Upload</button>
                         </div>
                     </form>
                 }
             </div>
-        
         </Fragment>
         
     )

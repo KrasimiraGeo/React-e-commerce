@@ -57,7 +57,7 @@ form {
 .feedback-input,
 .feedback-input[type="file"] {
   color: black;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-weight: 500;
   font-size: 14px;
   border-radius: 10px;
@@ -72,23 +72,29 @@ form {
   outline: 0;
 }
 
-/* .feedback-input[type="file"]{
-  appearance: none;
-  background-color: initial;
-  cursor: default;
-  align-items: baseline;
-  color: inherit;
-  text-overflow: ellipsis;
-  white-space: pre;
-  text-align: start !important;
-  padding: initial;
-  border: initial;
-  overflow: hidden !important;
-} */
-
-
 .feedback-input:focus {
   border: 2px solid #1e293b;
+}
+
+.check{
+  color: black;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid rgb(223, 99, 99);
+  border-radius: 10px;
+  line-height: 22px;
+  background-color: transparent;
+  transition: all 0.3s;
+  padding: 13px;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+.check:focus{
+	border: 2px solid rgba(0, 0, 0, 0.18);
 }
 
 textarea {

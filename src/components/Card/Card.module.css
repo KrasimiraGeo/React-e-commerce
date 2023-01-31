@@ -18,18 +18,27 @@
 
 .card img:hover {
   box-shadow: 0px 4px 6px #585353;
- 
+  cursor: pointer;
 }
 
 .card img:focus{
   transform: scale(1.1);
 }
 
+.large{
+  display: flex;
+  justify-content: center;
+}
+
+.large img{
+  width: 500px;
+
+}
+
 .content{
 display: grid;
 max-width: 400px;
 margin-top: 3%;
-/* background-color: #1e293b; */
 }
 
 .content-edit{
@@ -163,4 +172,5 @@ margin-bottom: 5px;
   margin-top: 10px;
   text-align: center;
 }
+
 

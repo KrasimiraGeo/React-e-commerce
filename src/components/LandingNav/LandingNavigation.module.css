@@ -6,11 +6,8 @@
     margin-left: -50px;
     width: 100px;
     height: 100px;
-    /* left: 0px;
-    height: 40px;
-    width: 100%;
-    margin: 0 auto; */
 }
+
 
 .navbar ul {
     margin: 0;
@@ -21,18 +18,14 @@
 }
 
 .navbar ul li  {
-    /* float: left; */
     margin: 0;
     padding: 0;
     display: inline;
 }
 
 .navbar ul li a {
-    /* border: 1px solid white; */
     border-radius: 5px;
-    /* position: relative; */
     display: flex;
-    /* text-align: center; */
     font-size: small;
     color: white;
     padding: 15px 30px;
@@ -43,9 +36,6 @@
 }
 
 .navbar li a:hover {
-    /* box-shadow: 1px 2px  white; */
     transform: translateY(-2px);
-    
     box-shadow: 0 0 5px 1px rgb(253, 245, 245)
-    /* font-weight: bold; */
 }

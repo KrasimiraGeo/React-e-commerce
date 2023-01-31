@@ -5,8 +5,10 @@ export const LandingPage = () => {
 
     return(
         <div>
-        <HeroImage/>
+            <HeroImage/>
         <LandingNavigation/>
+        
+        
         </div>
     )
 }

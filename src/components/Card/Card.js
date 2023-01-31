@@ -1,19 +1,16 @@
 import classes from './Card.module.css';
-import { useContext, useRef, useState } from 'react';
-import { Fragment } from 'react';
-
+import { useContext, useRef, useState, Fragment } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import { Modal } from '../Modal/Modal'
 import { CartContext } from '../../store/cart-context';
 import { AuthContext } from '../../store/auth-context';
-
-import { Modal } from '../Modal/Modal'
-
 import { deleteProduct } from '../../pages/Admin/deleteProduct';
 import { editProduct } from '../../pages/Admin/editProduct';
 
 import swal from 'sweetalert';
 
 export const Card = (props) => {
-
+    let location = useLocation()
     const product = props.item
 
     const authCtx = useContext(AuthContext)
@@ -44,19 +41,18 @@ export const Card = (props) => {
     const enableEditHandler = (event) => {
         event.preventDefault()
         setIsEdit(true)
-        console.log('edit enabled');
     }
 
     const enableDeleteHandler = (event) => {
         event.preventDefault()
-
-        swal('You sure you want to delete this product?', {
+        swal('Are you sure you want to delete this product?', {
+            icon: 'warning',
+            dangerMode: true,
             buttons: {
-                confirm: 'Yes',
-                decline: 'No'
+                decline: 'No',
+                confirm: 'Yes'
             }
         }).then((value) => {
-
             switch (value) {
                 case 'decline':
                     declineDeleteHandler()
@@ -65,33 +61,26 @@ export const Card = (props) => {
                 case true:
                     confirmDeleteHandler()
                     break;
-
             }
-
-
         })
         setIsDelete(true)
-
-        console.log('delete enabled');
     }
-
-    
 
     const confirmDeleteHandler = () => {
         deleteProduct(product).then((result) => {
-            console.log(result);
             if (result.ok) {
                 props.onActionChange(true)
             }
         })
-
-        console.log('deleted');
+        swal("Product was successfully deleted!", {
+            icon: 'success',
+            buttons: false,
+            timer: 1000,
+        })
         setIsDelete(false)
-        // props.onActionChange(true)
     }
 
     const declineDeleteHandler = () => {
-        console.log('declined');
         setIsDelete(false)
     }
 
@@ -102,7 +91,7 @@ export const Card = (props) => {
         const editedDescription = descriptionEditRef.current.value
         const editedPrice = priceEditRef.current.value
         const editedQuantity = quantityEditRef.current.value
-        
+
         const editedProduct = {
             id: product.key,
             url: product.imageUrl,
@@ -112,34 +101,46 @@ export const Card = (props) => {
             quantity: editedQuantity
         }
 
-        console.log(editProduct);
-
         if (editedName !== '' && editedDescription !== '' && editedPrice !== '' && editedQuantity !== '') {
             setFormHasError(false)
+
             editProduct(editedProduct).then((result) => {
+                swal("Loading...", {
+                    icon: 'info',
+                    buttons: false,
+                    timer: 1300,
+                })
                 if (result.ok) {
                     props.onActionChange(true)
+                    swal("Changes were successfully submitted!", {
+                        icon: 'success',
+                        buttons: false,
+                        timer: 1300,
+                    })
                 }
-                console.log(result);
             })
             setIsEdit(false)
-           
-        }else{
+        } else {
             setFormHasError(true)
         }
-
-        
     }
 
     const discardEditHandler = () => {
         setIsEdit(false)
     }
 
+    const enlargeImageHandler = () => {
+        setIsLargeImage(true)
+    }
+
+    const getBackHandler = () => {
+        setIsLargeImage(false)
+    }
 
     return (
         <Fragment>
             <article key={product.key} className={classes.card}>
-                <img src={product.imageUrl} alt="product" ></img>
+                <Link to={`${location.pathname}/zoom`}> <img src={product.imageUrl} alt="product" onClick={enlargeImageHandler} ></img></Link>
                 {isEdit === false && <div className={classes.content}>
                     <p className={classes.title}>{product.name}</p>
                     <p className={classes.description}>{product.description}</p>
@@ -162,7 +163,7 @@ export const Card = (props) => {
                         </div>
                     </div>
                 </div>}
-                {formHasError && <p className={classes.warning}>* Input fields should not be empty!</p>}
+                {formHasError && <p className={classes.warning}>Fields should not be empty!</p>}
 
                 <div className={classes.centered}>
                     {!authCtx.isAdmin && <button className={classes['button-action']} onClick={addItemHandler}>Add to bag</button>}
@@ -172,6 +173,14 @@ export const Card = (props) => {
                     {authCtx.isAdmin && isEdit === false && <button className={classes['button-action']} onClick={enableDeleteHandler}>Delete</button>}
                 </div>
             </article>
+
+            {isLargeImage && <Link to={`${location.pathname}`} onClick={getBackHandler}>
+                <Modal onClose={props.onClose}>
+                    <div className={classes.large}>
+                        <img src={product.imageUrl}></img>
+                    </div>
+                </Modal>
+            </Link>}
         </Fragment>
     )
 };
