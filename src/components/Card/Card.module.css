@@ -129,8 +129,6 @@ margin-bottom: 5px;
 }
 
 .button-action:hover {
-  /* background-color: #1e293b;
-  color: #fff; */
   transform: translateY(-2px);
 }
 
@@ -172,5 +170,27 @@ margin-bottom: 5px;
   margin-top: 10px;
   text-align: center;
 }
+
+.swal button{
+color:white;
+background-color: #1e293b;
+}
+
+.custom-button{
+  /* color: rgb(0, 0, 0);
+  background-color:  rgba(136, 126, 126, 0.04); */
+  color:white;
+  background-color: #1d2736d2;
+  border: none;
+  outline: none;
+  /* outline-color: #5c5555; */
+}
+
+.custom-button:hover{
+  color:white;
+  background-color: #1e293b;
+}
+
+
 
 

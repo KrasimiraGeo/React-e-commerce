@@ -7,6 +7,7 @@ import { useState} from "react"
 import { CartProvider } from "../../store/CartProvider"
 import { OrderForm } from "../../components/OrderForm/OrderForm"
 import { Card } from "../../components/Card/Card"
+import { Footer } from "../../components/UI/Footer"
 
 
 export const ShopPage = (props) => {
@@ -59,7 +60,9 @@ export const ShopPage = (props) => {
             {cartModalIsVisible && <Cart onClose={hideCartModalHandler} onShowOrderForm={showOrderModalHandler}/>}
             {/* {orderModalIsVisible && <OrderForm onClose={hideOrderModalHandler}/>} */}
             <Gallery onDetectedChange={reRenderHandler} />
+            <Footer/>
         </CartProvider>
+        
     )
 }
 

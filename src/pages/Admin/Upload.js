@@ -211,6 +211,7 @@ export const Upload = (props) => {
                         <input
                             name="quantity"
                             type="number"
+                            min='0'
                             className={quantityInputClasses}
                             placeholder="Quantity"
                             ref={quantityInputRef}
@@ -219,6 +220,7 @@ export const Upload = (props) => {
                         <input
                             name="price"
                             type="number"
+                            min='0'
                             className={priceInputClasses}
                             placeholder="Price"
                             ref={priceInputRef}

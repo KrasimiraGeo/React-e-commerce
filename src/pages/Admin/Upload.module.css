@@ -1,13 +1,9 @@
-
-
 .centered {
   text-align: center;
-  /* margin-top: 3%; */
   margin-top: -1rem;
   position: relative;
 }
 
-/* CSS */
 .button-form {
   background-color: #1e293b;
   border: 0 solid #7b7f86;
@@ -17,17 +13,12 @@
   cursor: pointer;
   display: inline-block;
   font-family: 'Ubuntu', sans-serif;
-  /* font-size: 1rem; */
   font-size: 16px;
-  /* font-weight: 600; */
   line-height: 1;
-  /* padding: 0.5rem 2rem; */
   padding: 15px 20px;
-
   text-align: center;
   text-decoration: none #0d172a solid;
   transition: all .1s cubic-bezier(.4, 0, .2, 1);
-  /* box-shadow: 0px 2px 4px rgba(31, 32, 34, 0.25); */
   box-shadow: 0px 6px 5px rgb(249, 250, 255,  0.30);
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -50,7 +41,7 @@ form {
   max-width: 420px;
   margin: 50px auto;
   margin-top: 1rem;
-/* display: inline-block; */
+
 }
 
 
@@ -73,7 +64,7 @@ form {
 }
 
 .feedback-input:focus {
-  border: 2px solid #1e293b;
+  border: 2px solid rgba(0, 0, 0, 0.18);
 }
 
 .check{

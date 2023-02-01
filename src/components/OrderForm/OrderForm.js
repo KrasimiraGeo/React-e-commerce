@@ -134,8 +134,9 @@ export const OrderForm = (props) => {
             </Link>}
             {formIsValid===false && <SmallInfoIcon/>}
             {formIsValid===false && <div className={classes.message}>
-             <p>Enter your shipping details</p>
-             {!userName &&  <input placeholder="Name" className={nameInputClasses} ref = {nameInputRef} onBlur={nameBlurHanlder.bind(nameInputRef)} ></input>}
+            <p>Enter your shipping details</p>
+             
+             <input placeholder="Name" className={nameInputClasses} ref = {nameInputRef} onBlur={nameBlurHanlder.bind(nameInputRef)} ></input>
              <input placeholder="City" className = {cityInputClasses} ref ={cityInputRef} onBlur={cityBlurHandler.bind(cityInputRef)} ></input>
              <input placeholder="Address" className={addressInputClasses} ref ={addressInputRef} onBlur={addressBlurHandler.bind(addressInputRef)}  ></input>
              <input placeholder="Email"className={emailInputClasses} ref ={emailInputRef} onBlur={emailBlurHandler.bind(emailInputRef)} ></input>

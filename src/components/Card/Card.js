@@ -49,9 +49,14 @@ export const Card = (props) => {
             icon: 'warning',
             dangerMode: true,
             buttons: {
-                decline: 'No',
+                decline: {
+                    text: 'No',
+                    visible: true,
+                    closeModal: true,
+                    className: `${classes['custom-button']}`
+                },
                 confirm: 'Yes'
-            }
+            },
         }).then((value) => {
             switch (value) {
                 case 'decline':

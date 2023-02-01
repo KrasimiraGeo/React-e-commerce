@@ -23,9 +23,6 @@ export const Account = () => {
             <div className={classes.greeting}>
                 <p>Hi, {userName}!</p>
             </div>
-
-
-
             {!authCtx.isAdmin && <div className={classes.wrapper}>
                 <div className={classes.message}>
                     <p>Thank you for choosing SKY murals! </p>
@@ -40,19 +37,10 @@ export const Account = () => {
                     <div className={classes.message}>
                         <p>Can't wait for you to upload new products!</p>
                     </div>
-
                 </div>}
-
-
-{/* <SmallLogoutIcon onClick={logoutHandler}/> */}
-           
-                <button className={classes.logout} onClick={logoutHandler}>
-                    <SmallLogoutIcon/>
-                </button>
-          
-
-
+            <button className={classes.logout} onClick={logoutHandler}>
+                <SmallLogoutIcon />
+            </button>
         </div>
-
     )
 }
