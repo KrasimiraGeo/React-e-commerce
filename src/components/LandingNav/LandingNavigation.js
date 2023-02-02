@@ -10,12 +10,10 @@ export const LandingNavigation = () => {
                 <ul>
                     <li><a href='/shop'>SHOP</a></li>
                 </ul>
-                {/* <ul className={classes.about}>
-                    <li><a href='/shop'>ABOUT</a></li>
-                </ul> */}
+                
             </nav>
              </div>
-            
+             
         </Fragment>
 
     )

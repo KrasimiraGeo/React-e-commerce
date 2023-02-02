@@ -1,0 +1,56 @@
+#about-us {
+  padding: 50px;
+  text-align: center;
+}
+
+.banner{
+    border-bottom:2px solid #8d6c7d3b;
+    border-top:2px solid #8d6c7d3b ;
+}
+
+.banner h2{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    color: #1e293b;
+    font-weight: 300;
+    
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr;
+  margin-top: 2%;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.grid-container img{
+    width: 250px;
+    border-radius: 5px;
+}
+
+.text {
+    display: flex;
+    text-align: left;
+    background-color: rgb(255 241 255);
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin-right: 10%;
+    margin-left: -20%;
+    box-shadow: 0px 4px 6px #766e6e;
+    color: #1e293b;
+}
+
+@media (max-width: 500px){
+    .text{
+        width: 90%;
+    }
+    
+
+}

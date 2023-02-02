@@ -12,6 +12,7 @@ import { LoginForm } from './components/LoginForm/LoginForm';
 import { Cart } from './components/Cart/Cart';
 import { AuthContext } from '../src/store/auth-context'
 import { OrderForm } from './components/OrderForm/OrderForm';
+import { About } from './components/About/About';
 
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
         {authCtx.isAdmin && <Route path='/upload'>
           <Upload />
         </Route>}
+        <Route path='shop/about'>
+          <About/>
+        </Route>
       </Switch>
     </Fragment>
   );

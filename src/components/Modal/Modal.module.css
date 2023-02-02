@@ -23,15 +23,16 @@
   }
    
   .content {
-    max-height: 75vh;
+    max-height: 80vh;
     overflow: auto;
     padding: 1 1rem;
   }
    
-  @media (min-width: 400px) {
+  @media (min-width: 500px) {
     .modal {
       width: 40rem;
       left: calc(50% - 20rem);
+
     }
   }
    
