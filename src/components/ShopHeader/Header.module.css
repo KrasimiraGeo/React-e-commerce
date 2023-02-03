@@ -9,14 +9,22 @@
 
 .centered {
   position: absolute;
-  top: 50%;
+  top: 57%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 210px;
+  font-weight: 600;
+  color: #ffffff14;
+}
+
+.centered h1{
+  align-items: center;
+  font-size: 50px;
 }
 
 .bg-img {
   background-image: url('../../assets/sky.jpg');
-  min-height: 250px;
+  min-height: 200px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -28,12 +36,6 @@
   overflow: hidden;
   border:none;
 }
-
-/* .topnav-left {
-  float: left;
-  background-color: transparent;
-  border:none;
-} */
 
 .topnav-left a{
   float: left;
@@ -87,6 +89,42 @@
 
 .bump {
   animation: bump 300ms ease-out;
+}
+
+.animated-text{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  align-items:flex-start;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  flex-wrap: wrap;
+  align-content: left;
+  justify-content: flex-start;
+}
+
+.animated-text p {
+  font-size: 50px
+}
+
+.individual{
+  display: inline-block;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  animation:fadeIn 3s;
+  text-align: left;
+}
+
+@keyframes fadeIn{
+  from {
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
 }
 
 @keyframes bump {
