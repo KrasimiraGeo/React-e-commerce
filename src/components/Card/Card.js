@@ -10,7 +10,6 @@ import { editProduct } from '../../pages/Admin/editProduct';
 import swal from 'sweetalert';
 
 export const Card = (props) => {
-    let location = useLocation()
     const product = props.item
 
     const authCtx = useContext(AuthContext)
@@ -23,11 +22,11 @@ export const Card = (props) => {
 
     const [isEdit, setIsEdit] = useState(false)
     const [isDelete, setIsDelete] = useState(false)
-    const [isLargeImage, setIsLargeImage] = useState(false)
     const [formHasError, setFormHasError] = useState(false)
 
     const addItemHandler = (event) => {
         event.preventDefault()
+
         cartCtx.addItem({
             id: product.key,
             name: product.name,
@@ -36,6 +35,7 @@ export const Card = (props) => {
             quantity: Number(product.quantity),
             amount: 1
         })
+
     }
 
     const enableEditHandler = (event) => {
@@ -133,19 +133,12 @@ export const Card = (props) => {
     const discardEditHandler = () => {
         setIsEdit(false)
     }
-
-    const enlargeImageHandler = () => {
-        setIsLargeImage(true)
-    }
-
-    const getBackHandler = () => {
-        setIsLargeImage(false)
-    }
-
+  
+  
     return (
         <Fragment>
             <article key={product.key} className={classes.card}>
-                <Link to={`${location.pathname}/zoom`}> <img src={product.imageUrl} alt="product" onClick={enlargeImageHandler} ></img></Link>
+            <img src={product.imageUrl} alt="product" ></img>
                 {isEdit === false && <div className={classes.content}>
                     <p className={classes.title}>{product.name}</p>
                     <p className={classes.description}>{product.description}</p>
@@ -168,24 +161,17 @@ export const Card = (props) => {
                         </div>
                     </div>
                 </div>}
-                {formHasError && <p className={classes.warning}>Fields should not be empty!</p>}
+                {formHasError && <p className={classes.warning}>Please fill in all fields!</p>}
 
                 <div className={classes.centered}>
-                    {!authCtx.isAdmin && <button className={classes['button-action']} onClick={addItemHandler}>Add to bag</button>}
+                    {!authCtx.isAdmin && <button id={`${product.key}`} className={classes['button-action']} onClick={addItemHandler}>Add to bag</button>}
                     {authCtx.isAdmin && isEdit === false && <button className={classes['button-edit']} onClick={enableEditHandler}>Edit</button>}
                     {authCtx.isAdmin && isEdit === true && <button className={classes['button-edit']} onClick={submitEditHandler}>Submit</button>}
                     {authCtx.isAdmin && isEdit === true && <button className={classes['button-action']} onClick={discardEditHandler}>Discard</button>}
                     {authCtx.isAdmin && isEdit === false && <button className={classes['button-action']} onClick={enableDeleteHandler}>Delete</button>}
                 </div>
             </article>
-
-            {isLargeImage && <Link to={`${location.pathname}`} onClick={getBackHandler}>
-                <Modal onClose={props.onClose}>
-                    <div className={classes.large}>
-                        <img src={product.imageUrl}></img>
-                    </div>
-                </Modal>
-            </Link>}
         </Fragment>
     )
 };
+

@@ -41,7 +41,14 @@ form {
   max-width: 420px;
   margin: 50px auto;
   margin-top: 1rem;
+}
 
+.form-wrapper{
+  background-color: #d9d9d91a;
+  border-radius: 10px;
+  /* margin-left: 20%;
+  margin-right:20%; */
+  
 }
 
 
@@ -58,6 +65,7 @@ form {
   transition: all 0.3s;
   padding: 13px;
   margin-bottom: 15px;
+  margin-top: 15px;
   width: 100%;
   box-sizing: border-box;
   outline: 0;

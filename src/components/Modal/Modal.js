@@ -1,14 +1,10 @@
 import { Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useLocation, useRouteMatch } from 'react-router-dom';
 import classes from './Modal.module.css';
 
 const Backdrop = (props) => {
   let {path, url} = useRouteMatch()
-
-  console.log(url);
-  console.log('backdrop click');
-  
   return <Link to={`${url}`}>
   <div className={classes.backdrop} onClick={props.onClose} />
   </Link>

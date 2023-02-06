@@ -6,8 +6,6 @@
     
   }
 
-
-   
   .total {
     display: flex;
     justify-content: space-around;
@@ -18,22 +16,40 @@
   }
    
   .actions {
+    display: flex;
+    justify-content: space-around;
     text-align: center;
   }
   
-  
-  .actions button {
+  .order {
     font: inherit;
     cursor: pointer;
-    background-color: transparent;
     border: 1px solid rgba(83, 81, 81, 0.6);
-    padding: 0.5rem 2rem;
+    /* padding-left: 40px;
+    padding-right: 40px; */
+    padding-bottom: 10px;
+    padding-top: 10px;
     background-color:  #1e293b;
     color: white;
     border-radius: 10px;
-    width: 200px;
+    width: 20%;
     margin-top: 20px;
   }
+
+  /* .clear{
+    font: inherit;
+    cursor: pointer;
+    border: 1px solid rgba(83, 81, 81, 0.6);
+    /* padding-left: 40px;
+	padding-right: 40px; */
+	/* padding-bottom: 10px;
+	padding-top: 10px;
+    background-color:  white;
+    color: black;;
+    border-radius: 10px;
+    width: 20%;
+    margin-top: 20px; */
+  
 
   .actions button a{
     color:white
@@ -43,10 +59,15 @@
   .actions button:active {
     transform: translateY(-2px);
     border-color:  rgba(83, 81, 81, 0.6);
-    color: white;
+    
   }
 
  
+
+  .actions button .clear{
+    background-color: white;
+    color:black;
+  }
 
   .button-exit{
     float: right;

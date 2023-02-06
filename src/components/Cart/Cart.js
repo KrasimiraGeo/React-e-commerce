@@ -11,13 +11,10 @@ import { SmallCartIcon } from "../UI/SmallIcons"
 
 export const Cart = (props) => {
 
+    console.log(props);
     let location = useLocation()
     const history = useHistory()
-
-    const {path, url} = useRouteMatch()
-
     const [order, setOrder] = useState(false)
-
     const cartCtx = useContext(CartContext)
 
     const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
@@ -26,10 +23,15 @@ export const Cart = (props) => {
     const cartItemRemoveHandler = (id) => {
         cartCtx.removeItem(id)
     }
-    const cartItemAddHandler = (item) => {
 
+    const cartItemAddHandler = (item) => {
         cartCtx.addItem({ ...item, amount: 1 })
     }
+
+    const clearCartHandler = () => {
+        cartCtx.clearCart()
+    }
+
 
     const cartItems = <ul className={classes["cart-items"]}>
         {cartCtx.items.map((item) =>
@@ -70,9 +72,11 @@ export const Cart = (props) => {
                 
                 {fullCart === false && <EmptyCart />}
                 <div className={classes.actions}>
-                    {hasItems && <button className={classes.button} onClick={orderHandler}><Link to={`${location.pathname}/order`}>
+                {/* {hasItems && <button className={classes.clear} onClick={clearCartHandler}>Clear cart</button>} */}
+                    {hasItems && <button className={classes.order} onClick={orderHandler}><Link to={`${location.pathname}/order`}>
                     Order
                     </Link></button>}
+                   
                 </div>
             </Modal>}
             {order === true &&

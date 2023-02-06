@@ -1,8 +1,10 @@
 .card {
   display: grid;
+  
   grid-template-rows: max-content 150px 1fr;
   overflow: inherit;
-  margin-bottom: 5%;
+  margin-bottom: 3%;
+  margin-top: 3%;
   border-radius: 10px 10px;
 }
 
@@ -18,30 +20,26 @@
 
 .card img:hover {
   box-shadow: 0px 4px 6px #585353;
-  cursor: pointer;
+  
 }
 
-.card img:focus{
-  transform: scale(1.1);
-}
-
-.large{
+.large {
   display: flex;
   justify-content: center;
 }
 
-.large img{
+.large img {
   width: 600px;
 
 }
 
-.content{
-display: grid;
-max-width: 400px;
-margin-top: 3%;
+.content {
+  display: grid;
+  max-width: 400px;
+  margin-top: 3%;
 }
 
-.content-edit{
+.content-edit {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,23 +49,23 @@ margin-top: 3%;
 }
 
 .content-out {
-display: flex;
+  display: flex;
 }
 
-.content-row{
+.content-row {
   display: grid;
   justify-items: center;
 }
 
-.content-row input{
-max-width: 40%;
+.content-row input {
+  max-width: 40%;
 }
 
-.content-row label{
+.content-row label {
   max-width: 40%;
-  }
+}
 
-.content-edit label{
+.content-edit label {
   font-size: 10px
 }
 
@@ -80,25 +78,25 @@ max-width: 40%;
   margin-top: 3px;
 }
 
-.title{
-text-align: center;
-font-size: 20px;
-margin-bottom: 5px;
+.title {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
-.description{
+.description {
   text-align: center;
   font-size: 13.3px;
   margin: 10px;
 }
 
-.price{
+.price {
   text-align: center;
   font-size: 18px;
   margin-top: 5px;
 }
 
-.centered{
+.centered {
   text-align: center;
   margin-top: 3%;
   display: flex;
@@ -106,7 +104,7 @@ margin-bottom: 5px;
   margin-top: 16px;
 }
 
-.button-action{
+.button-action {
   background-color: #1e293b;
   border: 1px #dfdfe7;
   border-radius: 10px;
@@ -115,12 +113,12 @@ margin-bottom: 5px;
   display: inline-block;
   font-size: 13.3px;
   font-family: Arial, Helvetica, sans-serif;
-  font-size:smaller ;
+  font-size: smaller;
   line-height: 1;
   padding-left: 40px;
-	padding-right: 40px;
-	padding-bottom: 10px;
-	padding-top: 10px;
+  padding-right: 40px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   text-align: center;
   color: white;
   box-shadow: 0px 2px 4px rgba(55, 56, 58, 0.25);
@@ -141,12 +139,12 @@ margin-bottom: 5px;
   display: inline-block;
   font-size: 13.3px;
   font-family: Arial, Helvetica, sans-serif;
-  font-size:smaller ;
+  font-size: smaller;
   line-height: 1;
   padding-left: 40px;
-	padding-right: 40px;
-	padding-bottom: 10px;
-	padding-top: 10px;
+  padding-right: 40px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   text-align: center;
   color: black;
   box-shadow: 0px 2px 4px rgba(55, 56, 58, 0.25);
@@ -154,43 +152,33 @@ margin-bottom: 5px;
   width: 50%;
 }
 
-.button-edit:hover{
+.button-edit:hover {
   transform: translateY(-2px);
 }
 
-.button-action:active{
+.button-action:active {
   box-shadow: 0 5px rgb(223, 219, 219);
   transform: translateY(1px);
+  background-color: #34445e;
 }
 
-.warning{
-  font-size: 10px;
+.warning {
+  font-size: 14px;
   color: red;
-  margin-bottom: -25px;
+  margin-bottom: -30px;
   margin-top: 10px;
   text-align: center;
 }
 
-.swal button{
-color:white;
-background-color: #1e293b;
-}
 
-.custom-button{
-  /* color: rgb(0, 0, 0);
-  background-color:  rgba(136, 126, 126, 0.04); */
-  color:white;
+.custom-button {
+  color: white;
   background-color: #1d2736d2;
   border: none;
   outline: none;
-  /* outline-color: #5c5555; */
 }
 
-.custom-button:hover{
-  color:white;
+.custom-button:hover {
+  color: white;
   background-color: #1e293b;
 }
-
-
-
-

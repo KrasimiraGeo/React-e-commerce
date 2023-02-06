@@ -108,12 +108,7 @@ export const Upload = (props) => {
         }
 
         const formIsValid = imageUpload !== null &&  enteredName !== '' && enteredPrice !== '' && enteredDescription !== '' && enteredQuantity !== '' ? true:false
-        console.log(formIsValid);
-        // add check for the other fields as well - they must be full
-
-        console.log(imageUpload);
        
-
         if (authCtx.isAdmin && formIsValid===true) {
             const imageRef = ref(storage, `images/${imageUpload.name}`)
             uploadBytes(imageRef, imageUpload).then((result) => {
@@ -191,6 +186,7 @@ export const Upload = (props) => {
                     <button className={classes['button-form']} onClick={toggleUploadForm}>Show upload form</button>
                 </div>
                 {formIsVisible &&
+                <div className={classes['form-wrapper']}>
                     <form id='form'>
                         <input
                             name="file"
@@ -237,6 +233,7 @@ export const Upload = (props) => {
                             <button className={classes['button-upload']} onClick={uploadImage}>Upload</button>
                         </div>
                     </form>
+                    </div>
                 }
             </div>
         </Fragment>

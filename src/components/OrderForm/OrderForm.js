@@ -52,12 +52,14 @@ export const OrderForm = (props) => {
     const [emailInputTouched, setEmailInputTouched] = useState(false)
     const [emailIsValid, setEmailIsValid] = useState()
 
+    const [formHasError, setFormHasError] = useState()
 
     const submitOrderHandler = (event) => {
         event.preventDefault()
     
         if(!formIsValid){
-            console.log('please fill in all fields');
+            setFormHasError(true)
+        
         }
 
         const enteredName = nameInputRef.current.value
@@ -69,6 +71,7 @@ export const OrderForm = (props) => {
             setFormIsValid(true)
             setOrderSubmitted(true)
             cartCtx.clearCart()
+            setFormHasError(false)
         }
         
     }    
@@ -134,14 +137,16 @@ export const OrderForm = (props) => {
             </Link>}
             {formIsValid===false && <SmallInfoIcon/>}
             {formIsValid===false && <div className={classes.message}>
-            <p>Enter your shipping details</p>
+            <h4>Enter your shipping details</h4>
              
              <input placeholder="Name" className={nameInputClasses} ref = {nameInputRef} onBlur={nameBlurHanlder.bind(nameInputRef)} ></input>
              <input placeholder="City" className = {cityInputClasses} ref ={cityInputRef} onBlur={cityBlurHandler.bind(cityInputRef)} ></input>
              <input placeholder="Address" className={addressInputClasses} ref ={addressInputRef} onBlur={addressBlurHandler.bind(addressInputRef)}  ></input>
              <input placeholder="Email"className={emailInputClasses} ref ={emailInputRef} onBlur={emailBlurHandler.bind(emailInputRef)} ></input>
+             {formHasError && <p className={classes['error']}>Please fill in all fields!</p>}
              <button onClick={submitOrderHandler} >Submit order</button>
         </div>}
+        
         {formIsValid && <ShippingIcon/>}
         </Fragment>
        

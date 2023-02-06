@@ -14,12 +14,14 @@
   transform: translate(-50%, -50%);
   font-size: 210px;
   font-weight: 600;
-  color: #ffffff14;
+  color: #ffffff12;
+  animation:fadeIn 3s;
 }
 
 .centered h1{
   align-items: center;
   font-size: 50px;
+
 }
 
 .bg-img {
@@ -115,7 +117,7 @@
   padding-left: 10px;
   padding-right: 10px;
   animation:fadeIn 3s;
-  text-align: left;
+  text-align: center;
 }
 
 @keyframes fadeIn{
