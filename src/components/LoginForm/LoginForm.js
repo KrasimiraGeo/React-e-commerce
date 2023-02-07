@@ -1,48 +1,39 @@
+import classes from './LoginForm.module.css'
 import { useState, useRef, useContext, Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Modal } from '../Modal/Modal'
 import { AuthContext } from '../../store/auth-context'
-import swal from 'sweetalert'
-
 import { Account } from './Account'
-
-import classes from './LoginForm.module.css'
 import { SmallUserIcon } from '../UI/SmallIcons'
+import { errorResponse } from '../ShopHeader/errorResponse'
 
 export const LoginForm = (props) => {
     let history = useHistory()
 
     const authCtx = useContext(AuthContext)
-
+    
     const registerUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyADTl1--oNKuDKpVAw7sDYjM8geUkJ9vVg'
     const loginUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyADTl1--oNKuDKpVAw7sDYjM8geUkJ9vVg'
 
     const [isLogIn, setIsLogIn] = useState(true)
+    const [isRegister, setIsRegister] = useState()
 
-      const emailInputRef = useRef()
-      const [emailIsValid, setEmailIsValid] = useState()
+    const emailInputRef = useRef()
+    const [emailIsValid, setEmailIsValid] = useState()
     const [emailInputTouched, setEmailInputTouched] = useState(false)
+    const emailRegex = /[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const [emailDoesNotMatch, setEmailDoesNotMatch] = useState(false)
 
     const passwordInputRef = useRef()
     const [passIsValid, setPassIsValid] = useState()
     const [passInputTouched, setPassInputTouched] = useState(false)
+    const [shortPassword, setShortPassword] = useState(false)
 
     const usernameInputRef = useRef()
-     const [nameIsValid, setNameIsValid] = useState()
+    const [nameIsValid, setNameIsValid] = useState()
     const [nameInputTouched, setNameInputTouched] = useState(false)
 
-    // const [emailInput, setEmailInput] = useState('')
-    // const [passInput, setPassInput] = useState('')
-    // const [nameInput, setNameInput] = useState('')
-   
-    // const nameInputHandler = (event) => {
-    //     setNameInput(event.target.value)
-    //     if (event.target.value.trim() !== '') {
-    //         setNameIsValid(true)
-    //     } else {
-    //         setNameIsValid(false)
-    //     }
-    // }
+    const [errorMessage, setErrorMessage] = useState('')
 
     const nameInputBlurHanlder = () => {
         setNameInputTouched(true)
@@ -53,14 +44,6 @@ export const LoginForm = (props) => {
         }
     }
 
-    // const passInputHandler = (event) => {
-    //     setPassInput(event.target.value)
-    //     if (event.target.value.trim() !== '') {
-    //         setPassIsValid(true)
-    //     } else {
-    //         setPassIsValid(false)
-    //     }
-    // }
 
     const passInputBlurHandler = () => {
         setPassInputTouched(true)
@@ -71,18 +54,10 @@ export const LoginForm = (props) => {
         }
     }
 
-    // const emailInputHandler = (event) => {
-    //     setEmailInput(event.target.value)
-    //     if (event.target.value.trim() !== '') {
-    //         setEmailIsValid(true)
-    //     } else {
-    //         setEmailIsValid(false)
-    //     }
-    // }
 
     const emailInputBlurHandler = () => {
         setEmailInputTouched(true)
-        if (emailInputRef.current.value.trim() !== '') {
+        if (emailInputRef.current.value.trim().match(emailRegex)) {
             setEmailIsValid(true)
         } else {
             setEmailIsValid(false)
@@ -91,15 +66,20 @@ export const LoginForm = (props) => {
 
     const logInOptionHandler = () => {
         setIsLogIn(true)
+        setIsRegister(false)
     }
 
     const registerOptionHandler = () => {
         setIsLogIn(false)
+        setIsRegister(true)
     }
 
     const logInHandler = (event) => {
         event.preventDefault()
-        if (emailInputRef.current.value !== '' && passwordInputRef.current.value !== '') {
+        const validPass = passwordInputRef.current.value.length >= 6 ? true : false
+        const validEmail = emailInputRef.current.value.match(emailRegex) ? true : false
+
+        if (validEmail && validPass) {
             fetch(loginUrl,
                 {
                     method: "POST",
@@ -114,21 +94,19 @@ export const LoginForm = (props) => {
                 }
             ).then(res => {
                 if (res.ok) {
-                    console.log(res);
+                    setErrorMessage('')
                     return res.json()
                 } else {
                     return res.json().then(data => {
-                        let error = 'Authentication failed'
-                        alert(error)
-                        throw new Error(error)
+                        let message = errorResponse(data)
+                        setErrorMessage(message)
                     })
                 }
             }).then(data => {
-                console.log(data);
                 authCtx.login(data)
                 history.replace('/shop')
             }).catch(err => {
-                alert(err.message)
+                console.log(err.message)
             })
         }
     }
@@ -136,7 +114,21 @@ export const LoginForm = (props) => {
     const registerHandler = (event) => {
         event.preventDefault()
 
-        if (passwordInputRef.current.value !== '' && emailInputRef.current.value !== '' && usernameInputRef.current.value !== '') {
+        const validPass = passwordInputRef.current.value.length >= 6 ? true : false
+        if (!validPass) {
+            setShortPassword(true)
+        } else {
+            setShortPassword(false)
+        }
+
+        const validEmail = emailInputRef.current.value.match(emailRegex) ? true : false
+        if (!validEmail) {
+            setEmailDoesNotMatch(true)
+        } else {
+            setEmailDoesNotMatch(false)
+        }
+
+        if (validPass === true && validEmail && usernameInputRef.current.value !== '') {
             fetch(registerUrl,
                 {
                     method: "POST",
@@ -152,19 +144,20 @@ export const LoginForm = (props) => {
                 }
             ).then(res => {
                 if (res.ok) {
+                    setErrorMessage('')
                     return res.json()
                 } else {
+                    console.log(res);
                     return res.json().then(data => {
-                        let error = 'Authentication failed'
-                        alert(error)
+                        let message = errorResponse(data)
+                        setErrorMessage(message)
                     })
                 }
             }).then(data => {
-                authCtx.login(data.idToken)
-                window.localStorage.setItem('user', `${data.displayName}`)
+                authCtx.login(data)
                 history.replace('/shop')
             }).catch(err => {
-                alert(err.message)
+                console.log(err.message)
             })
         }
     }
@@ -183,13 +176,13 @@ export const LoginForm = (props) => {
     }
 
     const nameHasError = !nameIsValid && nameInputTouched
-    const nameInputClasses = nameHasError===true ? `${classes.check}` : `${classes.field}`
+    const nameInputClasses = nameHasError === true ? `${classes.check}` : `${classes.field}`
 
     const passHasError = !passIsValid && passInputTouched
-    const passInputClasses = passHasError===true ? `${classes.check}` : `${classes.field}`
+    const passInputClasses = passHasError === true ? `${classes.check}` : `${classes.field}`
 
     const emailHasError = !emailIsValid && emailInputTouched
-    const emailInputClasses = emailHasError===true ? `${classes.check}` : `${classes.field}`
+    const emailInputClasses = emailHasError === true ? `${classes.check}` : `${classes.field}`
 
     return (
         <Fragment>
@@ -206,8 +199,14 @@ export const LoginForm = (props) => {
                             <input className={nameInputClasses} type="text" placeholder="Username" ref={usernameInputRef} onBlur={nameInputBlurHanlder.bind(usernameInputRef)} />}
                         {!authCtx.isLoggedIn &&
                             <input className={emailInputClasses} type="email" placeholder="Email" ref={emailInputRef} onBlur={emailInputBlurHandler.bind(emailInputRef)} />}
+                        {emailDoesNotMatch && <p>* Please enter a valid email address</p>}
                         {!authCtx.isLoggedIn &&
-                            <input className={passInputClasses} type="password" placeholder="Password" ref={passwordInputRef} onBlur={passInputBlurHandler.bind(passwordInputRef)} />}
+                            <input className={passInputClasses} type="password" placeholder="Password" ref={passwordInputRef} onBlur={passInputBlurHandler.bind(passwordInputRef)} />
+                        }
+                        {shortPassword &&
+                            <p>* Password should be at least 6 symbols long</p>
+                        }
+                        {errorMessage !== '' && <p>{errorMessage}</p>}
                         <div className={classes.centered}>
                             {!isLogIn && !authCtx.isLoggedIn &&
                                 <button className={classes['button-submit']} onClick={registerHandler}>Register</button>}

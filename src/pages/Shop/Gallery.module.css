@@ -59,7 +59,23 @@
     color: #fff;
     transform: translateY(-2px);
   }
+
+  .wrapper-empty{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
   
+  .wrapper-empty p{
+   margin-top: 4%;
+    font-size: 20px;
+    background-color: #f3edf3a3;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #f5d3ebb5;
+  }
   @media (min-width: 768px) {
     .button-edit{
       font-size: 1.125rem;

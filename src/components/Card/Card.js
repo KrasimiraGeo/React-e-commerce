@@ -140,7 +140,7 @@ export const Card = (props) => {
             <article key={product.key} className={classes.card}>
             <img src={product.imageUrl} alt="product" ></img>
                 {isEdit === false && <div className={classes.content}>
-                    <p className={classes.title}>{product.name}</p>
+                    <p className={classes.title}>{product.name} </p>
                     <p className={classes.description}>{product.description}</p>
                     <p className={classes.price}>${product.price}</p>
                 </div>

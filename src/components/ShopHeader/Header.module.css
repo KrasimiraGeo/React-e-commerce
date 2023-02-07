@@ -20,7 +20,7 @@
 
 .centered h1{
   align-items: center;
-  font-size: 50px;
+  font-size: 210px;
 
 }
 
@@ -118,6 +118,7 @@
   padding-right: 10px;
   animation:fadeIn 3s;
   text-align: center;
+  color: #f7f4f4db;
 }
 
 @keyframes fadeIn{

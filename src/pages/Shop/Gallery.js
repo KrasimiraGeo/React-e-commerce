@@ -24,15 +24,18 @@ export const Gallery = () => {
 
     useEffect(() => {
         fetchProducts().then((result) => {
+            console.log(result);
             setItemsInfo(result)
         })
     }, [])
+
+    console.log(itemsInfo);
 
     
     return (
         <Fragment>
             {ctx.isAdmin  && <Upload onActionChange={reRenderHandler} />}
-           <div className={classes.cards}>
+           {itemsInfo !== undefined && <div className={classes.cards}>
                 {itemsInfo.map((product) => {
                     return (
                         <Fragment key={product.key}>
@@ -40,7 +43,10 @@ export const Gallery = () => {
                         </Fragment>
                     )
                 })}
-            </div> 
+            </div> }
+            {itemsInfo === undefined && <div className={classes['wrapper-empty']}>
+                <p>Sorry! The gallery seems to be empty!</p>
+                </div>}
         </Fragment>
     )
 }

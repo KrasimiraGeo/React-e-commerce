@@ -2,19 +2,17 @@ import { AuthContext } from "./auth-context"
 import { useState } from "react"
 
 export const AuthProvider = (props) => {
+    const adminUid = 'p9Yxi8AGWeXtaHBNsqnLVYMVYqr1'
+    const localStorage = window.localStorage
 
-    const user = window.localStorage.getItem('user')
-    console.log(user);
-   
     const [token, setToken] = useState(null)
-    const userIsLoggedIn = !!token // converts the value to a boolean value
     const [uid, setUid] = useState(null)
     const [userName, setUserName] = useState()
     const [userEmail, setUserEmail] = useState()
-    const adminUid = 'p9Yxi8AGWeXtaHBNsqnLVYMVYqr1'
+    const userIsLoggedIn = !!token // converts the value to a boolean value
     const [isAdmin, setIsAdmin] = useState(false)
 
-    const loginHandler =(data) => {
+    const loginHandler = (data) => {
         setToken(data.idToken)
         setUid(data.localId)
         setUserName(data.displayName)
@@ -27,12 +25,12 @@ export const AuthProvider = (props) => {
         window.localStorage.setItem('uid', `${data.localId}`)
         window.localStorage.setItem('token', `${data.idToken}`)
 
-        if(data.localId === adminUid){
+        if (data.localId === adminUid) {
             setIsAdmin(true)
         }
     }
 
-    const logoutHandler =() => {
+    const logoutHandler = () => {
         setToken(null)
         setUid(null)
         setIsAdmin(false)
@@ -42,21 +40,32 @@ export const AuthProvider = (props) => {
         window.localStorage.clear()
     }
 
-    console.log(window.localStorage);
-
-    const authContextValue ={
+    const authContextValue = {
         userName: userName,
-        email:userEmail,
+        email: userEmail,
         token: token,
         uid: uid,
         isLoggedIn: userIsLoggedIn,
         isAdmin: isAdmin,
-        login: loginHandler, 
+        login: loginHandler,
         logout: logoutHandler
     }
 
-    console.log(window.localStorage);
+    if (localStorage.length > 0) {
+        
+        authContextValue.userName = localStorage.user
+        authContextValue.email = localStorage.email
+        authContextValue.token = localStorage.token
+        authContextValue.uid = localStorage.uid
+        authContextValue.isLoggedIn = true
 
+        if (adminUid === localStorage.uid) {
+            authContextValue.isAdmin = true
+        } else {
+            authContextValue.isAdmin = false
+        }
+
+    }
 
     return <AuthContext.Provider value={authContextValue}>
         {props.children}
