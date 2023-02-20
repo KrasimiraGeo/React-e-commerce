@@ -1,24 +1,20 @@
 import './App.css';
 import { Route } from 'react-router-dom'
 import { Switch } from 'react-router-dom';
-
 import { useContext } from 'react';
 import { Fragment } from 'react';
-
 import { LandingPage } from './pages/LandingPage'
 import { ShopPage } from './pages/Shop/ShopPage'
 import { Upload } from './pages/Admin/Upload'
 import { LoginForm } from './components/LoginForm/LoginForm';
 import { Cart } from './components/Cart/Cart';
-import { AuthContext } from '../src/store/auth-context'
 import { OrderForm } from './components/OrderForm/OrderForm';
 import { About } from './components/About/About';
-
+import { AuthContext } from '../src/store/auth-context'
 
 function App() {
 
   const authCtx = useContext(AuthContext)
-//  console.log(authCtx);
 
   return (
     <Fragment>

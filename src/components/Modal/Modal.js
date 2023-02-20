@@ -1,7 +1,8 @@
+import classes from './Modal.module.css';
 import { Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import { Link, useLocation, useRouteMatch } from 'react-router-dom';
-import classes from './Modal.module.css';
+import { Link, useRouteMatch } from 'react-router-dom';
+
 
 const Backdrop = (props) => {
   let {path, url} = useRouteMatch()
@@ -10,7 +11,7 @@ const Backdrop = (props) => {
   </Link>
 };
 
-const ModalOverlay = (props) => { //props is the data that will be displayed
+const ModalOverlay = (props) => { 
 
   return (
     <div className={classes.modal}>

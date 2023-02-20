@@ -1,10 +1,3 @@
-
-// will edit product info in admin actions
-// also will have to update quantity after order 
-
-// import { Fragment, useRef } from "react";
-// import { Modal } from "../../components/Modal/Modal";
-
 export const editProduct = async (product) => {
 
     const productKey = product.id
@@ -18,8 +11,6 @@ export const editProduct = async (product) => {
         quantity: product.quantity
     }
 
-    console.log(editedProduct);
-
     const responseFromDB = await fetch(dbUrl, {
         method: 'PATCH',
         headers: {
@@ -28,11 +19,6 @@ export const editProduct = async (product) => {
         body: JSON.stringify(editedProduct)
     })
 
-    if(responseFromDB.ok){
-        console.log('Product details were successfully edited')
-       
-    }
-    
     return responseFromDB
 
 }

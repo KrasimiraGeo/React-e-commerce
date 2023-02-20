@@ -1,39 +1,20 @@
-import { Fragment, useContext, useRef, useState } from "react"
-
-import { AuthContext } from "../../store/auth-context"
-// import icon from '../../assets/check.png'
-import { CartContext } from "../../store/cart-context"
-import { editProduct } from "../../pages/Admin/editProduct"
-
-import { Link } from "react-router-dom"
-import { Cart } from "../Cart/Cart"
-import back from '../../assets/back-40.png'
 import classes from './OrderForm.module.css'
+import { Fragment, useContext, useRef, useState } from "react"
+import { Link } from "react-router-dom"
+import { AuthContext } from "../../store/auth-context"
+import { CartContext } from "../../store/cart-context"
+import back from '../../assets/back-40.png'
 import { SmallInfoIcon } from "../UI/SmallIcons"
-import { useLocation } from "react-router-dom"
-
-import { Modal } from "../Modal/Modal"
-import { useHistory } from "react-router-dom"
 import { ShippingIcon } from "../UI/ShippingIcon"
-
-// clear cart after order submission
-// update the product quantity after successfull submission
 
 export const OrderForm = (props) => {
 
-    // console.log(props);
     const authCtx = useContext(AuthContext)
-    // console.log(authCtx);
     const cartCtx = useContext(CartContext)
-
-    let history = useHistory()
 
     const [orderSubmitted, setOrderSubmitted] = useState(false)
     const [formIsValid, setFormIsValid] =  useState(false)
     
-    const userName = authCtx.userName
-
-    console.log(window.localStorage);
     const userEmail = authCtx.email
 
     const nameInputRef = useRef()
@@ -56,10 +37,8 @@ export const OrderForm = (props) => {
 
     const submitOrderHandler = (event) => {
         event.preventDefault()
-    
         if(!formIsValid){
             setFormHasError(true)
-        
         }
 
         const enteredName = nameInputRef.current.value
@@ -80,10 +59,8 @@ export const OrderForm = (props) => {
         setNameInputTouched(true)
         if(nameInputRef.current.value !== ''){
             setNameIsValid(true)
-            console.log('touched and valid');
         }else{
             setNameIsValid(false)
-            console.log('touched and invalid');
         }
     }
 
@@ -132,13 +109,12 @@ export const OrderForm = (props) => {
         <Fragment>
             {orderSubmitted===false && <Link to={'/shop/cart'}>
             <button className={classes.back} onClick={props.onBack} >
-                <img src={back}></img>
+                <img src={back} alt='back'></img>
             </button>
             </Link>}
             {formIsValid===false && <SmallInfoIcon/>}
             {formIsValid===false && <div className={classes.message}>
             <h4>Enter your shipping details</h4>
-             
              <input placeholder="Name" className={nameInputClasses} ref = {nameInputRef} onBlur={nameBlurHanlder.bind(nameInputRef)} ></input>
              <input placeholder="City" className = {cityInputClasses} ref ={cityInputRef} onBlur={cityBlurHandler.bind(cityInputRef)} ></input>
              <input placeholder="Address" className={addressInputClasses} ref ={addressInputRef} onBlur={addressBlurHandler.bind(addressInputRef)}  ></input>
@@ -146,7 +122,6 @@ export const OrderForm = (props) => {
              {formHasError && <p className={classes['error']}>Please fill in all fields!</p>}
              <button onClick={submitOrderHandler} >Submit order</button>
         </div>}
-        
         {formIsValid && <ShippingIcon/>}
         </Fragment>
        

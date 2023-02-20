@@ -1,20 +1,17 @@
 import { CartContext } from "./cart-context"
-import { useReducer } from "react" // for more complex logic - checking if item is already in the cart
+import { useReducer } from "react" 
 
 const defaultCartState = {
     items: [],
     totalAmount: 0
 }
 
-const cartReducer = (state, action) => { // action is dispatched by us; state is the last state sbapshot, returning a new state snapshot
+const cartReducer = (state, action) => {
 
     if (action.type === 'ADD') {
-        // console.log(state);
         const updatedTotalAmount = state.totalAmount + (action.item.price * action.item.amount)
-        const existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id) // returns the index of an item if it already in the state
+        const existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id) 
         const existingCartItem = state.items[existingCartItemIndex]
-
-        // console.log(existingCartItem);
 
         let updatedItems
         if (existingCartItem) {
@@ -28,9 +25,8 @@ const cartReducer = (state, action) => { // action is dispatched by us; state is
 
             updatedItems = state.items.concat(action.item)
         }
-        // returns a new array of items from the state
-
-        return { //  a new state snapshot
+        
+        return { 
             items: updatedItems,
             totalAmount: updatedTotalAmount
         }
@@ -42,7 +38,7 @@ const cartReducer = (state, action) => { // action is dispatched by us; state is
         const updatedTotalAmount = state.totalAmount - existingItem.price
         let updatedItems
         if (existingItem.amount === 1) {
-            updatedItems = state.items.filter(item => item.id !== action.id) // all items that are not with that ID are kept in the list
+            updatedItems = state.items.filter(item => item.id !== action.id) 
         } else {
             const updatedItem = { ...existingItem, amount: existingItem.amount - 1 }
             updatedItems = [...state.items]
@@ -54,30 +50,18 @@ const cartReducer = (state, action) => { // action is dispatched by us; state is
         }
     }
 
-    if(action.type === 'CLEAR'){
-        return{
-            items:[],
-            totalAmount: 0
-        }
-    }
-
+   
     return defaultCartState
 }
 
 
 export const CartProvider = (props) => {
-    //managing the cart context data and provide it to all components that want access to it
-
-
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState)
 
-    // console.log(cartState);
     const addItemToCartHandler = (item) => {
-        // console.log(item);
         dispatchCartAction({
             type: 'ADD',
             item: item,
-             // forwarding the item to the reducer
         })
     }
 
@@ -105,7 +89,7 @@ export const CartProvider = (props) => {
 
     
 
-    return (  // wrap any components that want access to the context
+    return (  
         <CartContext.Provider value={cartContext}>
             {props.children}
         </CartContext.Provider>

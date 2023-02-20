@@ -1,11 +1,7 @@
-import { useState } from "react"
-
-
 export const fetchProducts = async () => {
     const dbUrl = 'https://art-shop-37d63-default-rtdb.europe-west1.firebasedatabase.app/.json'
 
     const loadedProducts = []
-   
 
     const response = await fetch(dbUrl)
     if (!response.ok) {

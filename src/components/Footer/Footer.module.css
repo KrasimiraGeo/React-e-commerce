@@ -4,7 +4,6 @@
     font-size: 13px;
     text-align: center;
     color: white;
-    /* height: 200px; */
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -40,7 +39,6 @@
 }
 
 .footer button {
-    /* color:#1e293b; */
     color:white;
     outline-style: solid;
     outline-width: 2px;
@@ -49,7 +47,6 @@
     margin-top: -7%;
     padding: 15px 20px;
     border-radius: 10px;
-    /* outline: auto; */
     cursor: pointer;
 }
 

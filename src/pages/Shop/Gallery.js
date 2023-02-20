@@ -29,9 +29,6 @@ export const Gallery = () => {
         })
     }, [])
 
-    console.log(itemsInfo);
-
-    
     return (
         <Fragment>
             {ctx.isAdmin  && <Upload onActionChange={reRenderHandler} />}

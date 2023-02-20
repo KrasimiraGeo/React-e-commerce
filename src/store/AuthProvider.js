@@ -9,7 +9,7 @@ export const AuthProvider = (props) => {
     const [uid, setUid] = useState(null)
     const [userName, setUserName] = useState()
     const [userEmail, setUserEmail] = useState()
-    const userIsLoggedIn = !!token // converts the value to a boolean value
+    const userIsLoggedIn = !!token 
     const [isAdmin, setIsAdmin] = useState(false)
 
     const loginHandler = (data) => {
@@ -17,8 +17,6 @@ export const AuthProvider = (props) => {
         setUid(data.localId)
         setUserName(data.displayName)
         setUserEmail(data.email)
-
-        console.log(data);
 
         window.localStorage.setItem('user', `${data.displayName}`)
         window.localStorage.setItem('email', `${data.email}`)

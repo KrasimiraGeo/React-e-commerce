@@ -1,7 +1,6 @@
 export const errorResponse = (data) => {
 
     let errorMessage = ''
-    console.log(data.error.message);
 
     switch (data.error.message) {
         case 'EMAIL_EXISTS':

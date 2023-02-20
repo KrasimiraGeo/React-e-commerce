@@ -86,8 +86,6 @@ export const Upload = (props) => {
 
     const uploadImage = (event) => {
         event.preventDefault()
-
-        console.log(imageUpload);
         if (imageUpload === null) {
             swal('Please import a file!', {
                 icon: 'warning',
@@ -179,7 +177,6 @@ export const Upload = (props) => {
 
 
     return (
-        
         <Fragment>
             <div>
                 <div className={classes.centered}>

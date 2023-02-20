@@ -25,8 +25,6 @@
     font: inherit;
     cursor: pointer;
     border: 1px solid rgba(83, 81, 81, 0.6);
-    /* padding-left: 40px;
-    padding-right: 40px; */
     padding-bottom: 10px;
     padding-top: 10px;
     background-color:  #1e293b;
@@ -35,21 +33,6 @@
     width: 20%;
     margin-top: 20px;
   }
-
-  /* .clear{
-    font: inherit;
-    cursor: pointer;
-    border: 1px solid rgba(83, 81, 81, 0.6);
-    /* padding-left: 40px;
-	padding-right: 40px; */
-	/* padding-bottom: 10px;
-	padding-top: 10px;
-    background-color:  white;
-    color: black;;
-    border-radius: 10px;
-    width: 20%;
-    margin-top: 20px; */
-  
 
   .actions button a{
     color:white
@@ -62,17 +45,7 @@
     
   }
 
- 
-
   .actions button .clear{
     background-color: white;
     color:black;
-  }
-
-  .button-exit{
-    float: right;
-    margin-top: 3%;
-    background-color: none;
-    border-color: transparent;
-    cursor: pointer;
   }

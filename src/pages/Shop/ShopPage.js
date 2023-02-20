@@ -22,7 +22,6 @@ export const ShopPage = () => {
     const [aboutModalIsVisible, setAboutModalIsVisible] = useState(false)
 
     const showLoginModalHandler = () => {
-        console.log('login modal open');
         setLoginModalIsVisible(true)
         setCartModalIsVisible(false)
         setAboutModalIsVisible(false)
@@ -34,15 +33,12 @@ export const ShopPage = () => {
     }
 
     const showCartModalHandler = () => {
-        console.log('cart modal open');
         setCartModalIsVisible(true)
         setLoginModalIsVisible(false)
-
         setAboutModalIsVisible(false)
     }
 
    
-
     const hideCartModalHandler = () => {
         setCartModalIsVisible(false)
     }
@@ -52,19 +48,15 @@ export const ShopPage = () => {
     }
 
     const showAboutHandler =()=>{
-        console.log('show about modal');
         setAboutModalIsVisible(true)
         setLoginModalIsVisible(false)
         setCartModalIsVisible(false)
     }
 
     const closeAboutHandler = () => {
-    console.log('close about handler');
         setAboutModalIsVisible(false)
     }
 
-    console.log(aboutModalIsVisible);
-  
     return (
         <CartProvider>
             {loginModalIsVisible && <LoginForm onClose={hideLoginModalHandler} />}

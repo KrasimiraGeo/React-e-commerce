@@ -2,10 +2,11 @@ import classes from './LoginForm.module.css'
 import { useState, useRef, useContext, Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Modal } from '../Modal/Modal'
-import { AuthContext } from '../../store/auth-context'
 import { Account } from './Account'
 import { SmallUserIcon } from '../UI/SmallIcons'
-import { errorResponse } from '../ShopHeader/errorResponse'
+import { errorResponse } from './errorResponse'
+import { AuthContext } from '../../store/auth-context'
+
 
 export const LoginForm = (props) => {
     let history = useHistory()
@@ -106,7 +107,7 @@ export const LoginForm = (props) => {
                 authCtx.login(data)
                 history.replace('/shop')
             }).catch(err => {
-                console.log(err.message)
+                setErrorMessage(err.message)
             })
         }
     }
@@ -147,7 +148,6 @@ export const LoginForm = (props) => {
                     setErrorMessage('')
                     return res.json()
                 } else {
-                    console.log(res);
                     return res.json().then(data => {
                         let message = errorResponse(data)
                         setErrorMessage(message)
@@ -157,7 +157,7 @@ export const LoginForm = (props) => {
                 authCtx.login(data)
                 history.replace('/shop')
             }).catch(err => {
-                console.log(err.message)
+                setErrorMessage(err.message)
             })
         }
     }

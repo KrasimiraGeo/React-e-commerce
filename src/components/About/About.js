@@ -3,8 +3,7 @@ import classes from './About.module.css'
 import about from '../../assets/cut.jpg'
 
 export const About = (props) => {
-
-    console.log(props);
+    
     return (
         <Modal id='about' onClose={props.onBack}>
             <section id="about-us">

@@ -46,9 +46,6 @@ form {
 .form-wrapper{
   background-color: #d9d9d91a;
   border-radius: 10px;
-  /* margin-left: 20%;
-  margin-right:20%; */
-  
 }
 
 
@@ -64,7 +61,6 @@ form {
   border: 1px solid #dbd7d7;
   transition: all 0.3s;
   padding: 13px;
-  /* margin-bottom: 15px; */
   margin-top: 15px;
   width: 100%;
   box-sizing: border-box;
@@ -87,7 +83,6 @@ form {
   background-color: transparent;
   transition: all 0.3s;
   padding: 13px;
-  /* margin-bottom: 15px; */
   margin-top: 15px;
   width: 100%;
   box-sizing: border-box;
@@ -130,5 +125,4 @@ textarea {
 
 .button-upload :hover {
   transform: translate(-50%, -55%);
-  /* transform: translateY(2px); */
 }

@@ -1,12 +1,9 @@
 import classes from './Card.module.css';
 import { useContext, useRef, useState, Fragment } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { Modal } from '../Modal/Modal'
 import { CartContext } from '../../store/cart-context';
 import { AuthContext } from '../../store/auth-context';
 import { deleteProduct } from '../../pages/Admin/deleteProduct';
 import { editProduct } from '../../pages/Admin/editProduct';
-
 import swal from 'sweetalert';
 
 export const Card = (props) => {

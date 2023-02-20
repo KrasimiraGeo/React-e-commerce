@@ -1,17 +1,16 @@
+import classes from './Cart.module.css'
 import { Fragment, useContext, useState } from "react"
-import { Link, useLocation, useRouteMatch } from "react-router-dom"
+import { Link, useLocation} from "react-router-dom"
 import { useHistory } from "react-router-dom"
 import { Modal } from "../Modal/Modal"
-import classes from './Cart.module.css'
-import { CartContext } from "../../store/cart-context"
 import { CartItem } from "./CartItem"
 import { OrderForm } from "../OrderForm/OrderForm"
 import { EmptyCart } from "./EmptyCart"
 import { SmallCartIcon } from "../UI/SmallIcons"
+import { CartContext } from "../../store/cart-context"
 
 export const Cart = (props) => {
 
-    console.log(props);
     let location = useLocation()
     const history = useHistory()
     const [order, setOrder] = useState(false)
@@ -27,11 +26,6 @@ export const Cart = (props) => {
     const cartItemAddHandler = (item) => {
         cartCtx.addItem({ ...item, amount: 1 })
     }
-
-    const clearCartHandler = () => {
-        cartCtx.clearCart()
-    }
-
 
     const cartItems = <ul className={classes["cart-items"]}>
         {cartCtx.items.map((item) =>
@@ -55,7 +49,6 @@ export const Cart = (props) => {
     }
 
     const getBackHandler = () => {
-        console.log(history);
         setOrder(false)
     }
 
@@ -72,7 +65,6 @@ export const Cart = (props) => {
                 
                 {fullCart === false && <EmptyCart />}
                 <div className={classes.actions}>
-                {/* {hasItems && <button className={classes.clear} onClick={clearCartHandler}>Clear cart</button>} */}
                     {hasItems && <button className={classes.order} onClick={orderHandler}><Link to={`${location.pathname}/order`}>
                     Order
                     </Link></button>}

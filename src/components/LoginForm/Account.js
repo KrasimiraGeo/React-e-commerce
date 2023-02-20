@@ -1,17 +1,13 @@
+import classes from './Account.module.css'
 import { useContext } from "react"
 import { AuthContext } from "../../store/auth-context"
 import { AccountIcon } from "../UI/AccountIcon"
 import { SmallLogoutIcon } from "../UI/SmallIcons"
 
-import classes from './Account.module.css'
-
 export const Account = () => {
 
     const authCtx = useContext(AuthContext)
     const userName = authCtx.userName
-    const userEmail = authCtx.email
-
-    console.log(authCtx);
 
     const logoutHandler = () => {
         authCtx.logout()

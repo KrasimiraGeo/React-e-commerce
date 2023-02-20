@@ -6,23 +6,18 @@ import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { About } from '../About/About'
-import { Modal } from '../Modal/Modal'
 
-export const Footer = (props) => {
-
-  console.log(props);
+export const Footer = () => {
 
   let location = useLocation()
   const [aboutIsVisible, setAboutIsVisible] = useState(false)
 
   const aboutHandler = () => {
     setAboutIsVisible(true)
-
   }
 
   const getBackHandler = () => {
     setAboutIsVisible(false)
-  
   }
 
   return (<Fragment>

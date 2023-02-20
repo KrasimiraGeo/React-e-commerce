@@ -1,5 +1,5 @@
-import { Fragment } from 'react'
 import classes from './LandingNavigation.module.css'
+import { Fragment } from 'react'
 
 export const LandingNavigation = () => {
 
@@ -10,10 +10,8 @@ export const LandingNavigation = () => {
                 <ul>
                     <li><a href='/shop'>SHOP</a></li>
                 </ul>
-                
             </nav>
              </div>
-             
         </Fragment>
 
     )

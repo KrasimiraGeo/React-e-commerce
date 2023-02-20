@@ -3,13 +3,10 @@ import { LandingNavigation } from "../components/LandingNav/LandingNavigation"
 
 export const LandingPage = () => {
 
-    return(
+    return (
         <div>
-            <HeroImage/>
-        <LandingNavigation/>
-        
-        
-        
+            <HeroImage />
+            <LandingNavigation />
         </div>
     )
 }
