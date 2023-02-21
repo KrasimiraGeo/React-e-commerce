@@ -5,23 +5,10 @@
 .container-text {
   text-align: center;
   color: white;
-}
-
-.centered {
-  position: absolute;
-  top: 57%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 210px;
-  font-weight: 600;
-  color: #ffffff12;
-  animation:fadeIn 3s;
-}
-
-.centered h1{
-  align-items: center;
-  font-size: 210px;
-
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .bg-img {

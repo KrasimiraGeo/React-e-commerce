@@ -100,12 +100,16 @@ export const LoginForm = (props) => {
                 } else {
                     return res.json().then(data => {
                         let message = errorResponse(data)
+                        console.log(message);
                         setErrorMessage(message)
                     })
                 }
             }).then(data => {
-                authCtx.login(data)
-                history.replace('/shop')
+                if(data !== undefined){
+                    authCtx.login(data)
+                    history.replace('/shop')
+                }
+                
             }).catch(err => {
                 setErrorMessage(err.message)
             })

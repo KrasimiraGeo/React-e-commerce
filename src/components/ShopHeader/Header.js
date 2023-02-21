@@ -1,6 +1,6 @@
 import classes from './Header.module.css'
 
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment} from 'react'
 import { HeaderAccountButton } from './HeaderAccountButton'
 import { HeaderCartButton } from './HeaderCartButton'
 import { HeaderHomeButton } from './HeaderHomeButton'
@@ -25,9 +25,6 @@ export const Header = (props) => {
                     </div>
                 </div>
                 <div className={classes['container-text']}>
-                    <div className={classes.centered}>
-                        SKY
-                    </div>
                     <div className={classes['animated-text']}>
                         <div className={classes.individual}>
                             {texts}
