@@ -11,7 +11,8 @@ The main functionalities of the online store include:
 The main technicalities of the online store include:
 
 - React.js library
-- React Hooks such as - useState, useContext, useEffect, useReducer
+- React Hooks such as - useState, useContext, useEffect
+- Redux for handling the more complex shopping cart logic
 - CRUD operations with Firebase APIs
 - Cloud-hosted Firebase Realtime Database for storing product data
 - Cloud Storage for Firebase API for storing product image files
